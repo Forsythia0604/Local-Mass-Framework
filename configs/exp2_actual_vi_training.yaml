@@ -1,0 +1,58 @@
+experiment_name: exp2_actual_vi_training
+device:
+  prefer_gpu: true
+  allow_cpu_fallback: true
+seeds:
+- 0
+- 1
+- 2
+- 3
+- 4
+target:
+  dimensions:
+  - 2
+  - 10
+  dimension_50_stress_test: false
+  epsilons:
+  - 0.01
+  - 0.05
+  - 0.1
+  spike_scales:
+  - 0.05
+  - 0.1
+  main_mean_c: 1.5
+  main_scale: 1.0
+r_grid:
+  relative_to_spike_radius: true
+  factors:
+  - 0.5
+  - 0.75
+  - 1.0
+  - 1.5
+  - 2.0
+  formula: r = factor * tau * sqrt(d)
+objectives:
+- exclusive_kl
+- inclusive_kl
+families:
+- diagonal_gaussian
+- diagonal_gaussian_mixture_2
+training:
+  steps: 5000
+  batch_size: 2048
+  lr: 0.005
+  optimiser: adam
+  gradient_clip_norm: 10.0
+  early_stopping: false
+evaluation:
+  qmc_samples: 262144
+  mc_samples: 262144
+  batch_size_eval: 65536
+  use_sobol: true
+  report_inside_counts: true
+initialisation:
+  mixture_initial_weights:
+  - 0.9
+  - 0.1
+plotting:
+  plotting_floor: 1.0e-12

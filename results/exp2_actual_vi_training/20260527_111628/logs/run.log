@@ -1,0 +1,849 @@
+2026-05-27 11:16:28,749 INFO start time: 2026-05-27T11:16:28.749193
+2026-05-27 11:16:28,781 INFO git commit: not_available
+2026-05-27 11:16:28,781 INFO config path: configs/exp2_actual_vi_training.yaml
+2026-05-27 11:16:28,782 INFO resolved config:
+experiment_name: exp2_actual_vi_training
+device:
+  prefer_gpu: true
+  allow_cpu_fallback: true
+seeds:
+- 0
+- 1
+- 2
+- 3
+- 4
+target:
+  dimensions:
+  - 2
+  - 10
+  dimension_50_stress_test: false
+  epsilons:
+  - 0.01
+  - 0.05
+  - 0.1
+  spike_scales:
+  - 0.05
+  - 0.1
+  main_mean_c: 1.5
+  main_scale: 1.0
+r_grid:
+  relative_to_spike_radius: true
+  factors:
+  - 0.5
+  - 0.75
+  - 1.0
+  - 1.5
+  - 2.0
+  formula: r = factor * tau * sqrt(d)
+objectives:
+- exclusive_kl
+- inclusive_kl
+families:
+- diagonal_gaussian
+- diagonal_gaussian_mixture_2
+training:
+  steps: 5000
+  batch_size: 2048
+  lr: 0.005
+  optimiser: adam
+  gradient_clip_norm: 10.0
+  early_stopping: false
+evaluation:
+  qmc_samples: 262144
+  mc_samples: 262144
+  batch_size_eval: 65536
+  use_sobol: true
+  report_inside_counts: true
+initialisation:
+  mixture_initial_weights:
+  - 0.9
+  - 0.1
+plotting:
+  plotting_floor: 1.0e-12
+
+2026-05-27 11:16:28,782 INFO torch version: 2.12.0+cpu
+2026-05-27 11:16:28,783 INFO cuda available: False
+2026-05-27 11:16:28,783 INFO device used: cpu
+2026-05-27 11:16:28,783 INFO GPU name if available: 
+2026-05-27 11:16:28,783 INFO current run index: 1 seed=0 d=2 epsilon=0.01 tau=0.05 objective=exclusive_kl family=diagonal_gaussian
+2026-05-27 11:16:39,542 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:16:39,542 INFO current run index: 2 seed=0 d=2 epsilon=0.01 tau=0.05 objective=exclusive_kl family=diagonal_gaussian_mixture_2
+2026-05-27 11:17:05,210 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:17:05,211 INFO current run index: 3 seed=0 d=2 epsilon=0.01 tau=0.05 objective=inclusive_kl family=diagonal_gaussian
+2026-05-27 11:17:11,332 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:17:11,332 INFO current run index: 4 seed=0 d=2 epsilon=0.01 tau=0.05 objective=inclusive_kl family=diagonal_gaussian_mixture_2
+2026-05-27 11:17:22,107 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:17:22,107 INFO current run index: 5 seed=0 d=2 epsilon=0.01 tau=0.1 objective=exclusive_kl family=diagonal_gaussian
+2026-05-27 11:17:32,066 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:17:32,066 INFO current run index: 6 seed=0 d=2 epsilon=0.01 tau=0.1 objective=exclusive_kl family=diagonal_gaussian_mixture_2
+2026-05-27 11:17:59,570 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:17:59,570 INFO current run index: 7 seed=0 d=2 epsilon=0.01 tau=0.1 objective=inclusive_kl family=diagonal_gaussian
+2026-05-27 11:18:06,410 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:18:06,410 INFO current run index: 8 seed=0 d=2 epsilon=0.01 tau=0.1 objective=inclusive_kl family=diagonal_gaussian_mixture_2
+2026-05-27 11:18:18,328 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:18:18,328 INFO current run index: 9 seed=0 d=2 epsilon=0.05 tau=0.05 objective=exclusive_kl family=diagonal_gaussian
+2026-05-27 11:18:29,741 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:18:29,741 INFO current run index: 10 seed=0 d=2 epsilon=0.05 tau=0.05 objective=exclusive_kl family=diagonal_gaussian_mixture_2
+2026-05-27 11:19:00,708 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:19:00,708 INFO current run index: 11 seed=0 d=2 epsilon=0.05 tau=0.05 objective=inclusive_kl family=diagonal_gaussian
+2026-05-27 11:19:08,460 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:19:08,460 INFO current run index: 12 seed=0 d=2 epsilon=0.05 tau=0.05 objective=inclusive_kl family=diagonal_gaussian_mixture_2
+2026-05-27 11:19:21,284 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:19:21,285 INFO current run index: 13 seed=0 d=2 epsilon=0.05 tau=0.1 objective=exclusive_kl family=diagonal_gaussian
+2026-05-27 11:19:33,563 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:19:33,563 INFO current run index: 14 seed=0 d=2 epsilon=0.05 tau=0.1 objective=exclusive_kl family=diagonal_gaussian_mixture_2
+2026-05-27 11:20:06,796 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:20:06,796 INFO current run index: 15 seed=0 d=2 epsilon=0.05 tau=0.1 objective=inclusive_kl family=diagonal_gaussian
+2026-05-27 11:20:14,117 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:20:14,117 INFO current run index: 16 seed=0 d=2 epsilon=0.05 tau=0.1 objective=inclusive_kl family=diagonal_gaussian_mixture_2
+2026-05-27 11:20:26,829 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:20:26,830 INFO current run index: 17 seed=0 d=2 epsilon=0.1 tau=0.05 objective=exclusive_kl family=diagonal_gaussian
+2026-05-27 11:20:39,080 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:20:39,080 INFO current run index: 18 seed=0 d=2 epsilon=0.1 tau=0.05 objective=exclusive_kl family=diagonal_gaussian_mixture_2
+2026-05-27 11:21:10,954 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:21:10,954 INFO current run index: 19 seed=0 d=2 epsilon=0.1 tau=0.05 objective=inclusive_kl family=diagonal_gaussian
+2026-05-27 11:21:18,555 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:21:18,555 INFO current run index: 20 seed=0 d=2 epsilon=0.1 tau=0.05 objective=inclusive_kl family=diagonal_gaussian_mixture_2
+2026-05-27 11:21:32,149 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:21:32,149 INFO current run index: 21 seed=0 d=2 epsilon=0.1 tau=0.1 objective=exclusive_kl family=diagonal_gaussian
+2026-05-27 11:21:44,631 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:21:44,631 INFO current run index: 22 seed=0 d=2 epsilon=0.1 tau=0.1 objective=exclusive_kl family=diagonal_gaussian_mixture_2
+2026-05-27 11:22:15,334 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:22:15,334 INFO current run index: 23 seed=0 d=2 epsilon=0.1 tau=0.1 objective=inclusive_kl family=diagonal_gaussian
+2026-05-27 11:22:22,872 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:22:22,873 INFO current run index: 24 seed=0 d=2 epsilon=0.1 tau=0.1 objective=inclusive_kl family=diagonal_gaussian_mixture_2
+2026-05-27 11:22:35,860 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:22:35,861 INFO current run index: 25 seed=0 d=10 epsilon=0.01 tau=0.05 objective=exclusive_kl family=diagonal_gaussian
+2026-05-27 11:22:52,640 WARNING zero-count local mass estimate seed=0 d=10 epsilon=0.01 tau=0.05 objective=exclusive_kl family=diagonal_gaussian radius=0.0790569415042095
+2026-05-27 11:22:52,641 WARNING zero-count local mass estimate seed=0 d=10 epsilon=0.01 tau=0.05 objective=exclusive_kl family=diagonal_gaussian radius=0.11858541225631425
+2026-05-27 11:22:52,641 WARNING zero-count local mass estimate seed=0 d=10 epsilon=0.01 tau=0.05 objective=exclusive_kl family=diagonal_gaussian radius=0.158113883008419
+2026-05-27 11:22:52,642 WARNING zero-count local mass estimate seed=0 d=10 epsilon=0.01 tau=0.05 objective=exclusive_kl family=diagonal_gaussian radius=0.2371708245126285
+2026-05-27 11:22:52,642 WARNING zero-count local mass estimate seed=0 d=10 epsilon=0.01 tau=0.05 objective=exclusive_kl family=diagonal_gaussian radius=0.316227766016838
+2026-05-27 11:22:52,642 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:22:52,643 INFO current run index: 26 seed=0 d=10 epsilon=0.01 tau=0.05 objective=exclusive_kl family=diagonal_gaussian_mixture_2
+2026-05-27 11:23:33,841 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:23:33,841 INFO current run index: 27 seed=0 d=10 epsilon=0.01 tau=0.05 objective=inclusive_kl family=diagonal_gaussian
+2026-05-27 11:23:43,959 WARNING zero-count local mass estimate seed=0 d=10 epsilon=0.01 tau=0.05 objective=inclusive_kl family=diagonal_gaussian radius=0.0790569415042095
+2026-05-27 11:23:43,960 WARNING zero-count local mass estimate seed=0 d=10 epsilon=0.01 tau=0.05 objective=inclusive_kl family=diagonal_gaussian radius=0.11858541225631425
+2026-05-27 11:23:43,960 WARNING zero-count local mass estimate seed=0 d=10 epsilon=0.01 tau=0.05 objective=inclusive_kl family=diagonal_gaussian radius=0.158113883008419
+2026-05-27 11:23:43,961 WARNING zero-count local mass estimate seed=0 d=10 epsilon=0.01 tau=0.05 objective=inclusive_kl family=diagonal_gaussian radius=0.2371708245126285
+2026-05-27 11:23:43,961 WARNING zero-count local mass estimate seed=0 d=10 epsilon=0.01 tau=0.05 objective=inclusive_kl family=diagonal_gaussian radius=0.316227766016838
+2026-05-27 11:23:43,961 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:23:43,962 INFO current run index: 28 seed=0 d=10 epsilon=0.01 tau=0.05 objective=inclusive_kl family=diagonal_gaussian_mixture_2
+2026-05-27 11:24:00,955 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:24:00,955 INFO current run index: 29 seed=0 d=10 epsilon=0.01 tau=0.1 objective=exclusive_kl family=diagonal_gaussian
+2026-05-27 11:24:18,517 WARNING zero-count local mass estimate seed=0 d=10 epsilon=0.01 tau=0.1 objective=exclusive_kl family=diagonal_gaussian radius=0.158113883008419
+2026-05-27 11:24:18,518 WARNING zero-count local mass estimate seed=0 d=10 epsilon=0.01 tau=0.1 objective=exclusive_kl family=diagonal_gaussian radius=0.2371708245126285
+2026-05-27 11:24:18,519 WARNING zero-count local mass estimate seed=0 d=10 epsilon=0.01 tau=0.1 objective=exclusive_kl family=diagonal_gaussian radius=0.316227766016838
+2026-05-27 11:24:18,519 WARNING zero-count local mass estimate seed=0 d=10 epsilon=0.01 tau=0.1 objective=exclusive_kl family=diagonal_gaussian radius=0.474341649025257
+2026-05-27 11:24:18,520 WARNING zero-count local mass estimate seed=0 d=10 epsilon=0.01 tau=0.1 objective=exclusive_kl family=diagonal_gaussian radius=0.632455532033676
+2026-05-27 11:24:18,520 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:24:18,520 INFO current run index: 30 seed=0 d=10 epsilon=0.01 tau=0.1 objective=exclusive_kl family=diagonal_gaussian_mixture_2
+2026-05-27 11:25:01,726 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:25:01,726 INFO current run index: 31 seed=0 d=10 epsilon=0.01 tau=0.1 objective=inclusive_kl family=diagonal_gaussian
+2026-05-27 11:25:12,095 WARNING zero-count local mass estimate seed=0 d=10 epsilon=0.01 tau=0.1 objective=inclusive_kl family=diagonal_gaussian radius=0.158113883008419
+2026-05-27 11:25:12,096 WARNING zero-count local mass estimate seed=0 d=10 epsilon=0.01 tau=0.1 objective=inclusive_kl family=diagonal_gaussian radius=0.2371708245126285
+2026-05-27 11:25:12,097 WARNING zero-count local mass estimate seed=0 d=10 epsilon=0.01 tau=0.1 objective=inclusive_kl family=diagonal_gaussian radius=0.316227766016838
+2026-05-27 11:25:12,098 WARNING zero-count local mass estimate seed=0 d=10 epsilon=0.01 tau=0.1 objective=inclusive_kl family=diagonal_gaussian radius=0.474341649025257
+2026-05-27 11:25:12,098 WARNING zero-count local mass estimate seed=0 d=10 epsilon=0.01 tau=0.1 objective=inclusive_kl family=diagonal_gaussian radius=0.632455532033676
+2026-05-27 11:25:12,098 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:25:12,098 INFO current run index: 32 seed=0 d=10 epsilon=0.01 tau=0.1 objective=inclusive_kl family=diagonal_gaussian_mixture_2
+2026-05-27 11:25:28,651 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:25:28,651 INFO current run index: 33 seed=0 d=10 epsilon=0.05 tau=0.05 objective=exclusive_kl family=diagonal_gaussian
+2026-05-27 11:25:43,957 WARNING zero-count local mass estimate seed=0 d=10 epsilon=0.05 tau=0.05 objective=exclusive_kl family=diagonal_gaussian radius=0.0790569415042095
+2026-05-27 11:25:43,957 WARNING zero-count local mass estimate seed=0 d=10 epsilon=0.05 tau=0.05 objective=exclusive_kl family=diagonal_gaussian radius=0.11858541225631425
+2026-05-27 11:25:43,958 WARNING zero-count local mass estimate seed=0 d=10 epsilon=0.05 tau=0.05 objective=exclusive_kl family=diagonal_gaussian radius=0.158113883008419
+2026-05-27 11:25:43,958 WARNING zero-count local mass estimate seed=0 d=10 epsilon=0.05 tau=0.05 objective=exclusive_kl family=diagonal_gaussian radius=0.2371708245126285
+2026-05-27 11:25:43,959 WARNING zero-count local mass estimate seed=0 d=10 epsilon=0.05 tau=0.05 objective=exclusive_kl family=diagonal_gaussian radius=0.316227766016838
+2026-05-27 11:25:43,959 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:25:43,959 INFO current run index: 34 seed=0 d=10 epsilon=0.05 tau=0.05 objective=exclusive_kl family=diagonal_gaussian_mixture_2
+2026-05-27 11:26:23,004 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:26:23,004 INFO current run index: 35 seed=0 d=10 epsilon=0.05 tau=0.05 objective=inclusive_kl family=diagonal_gaussian
+2026-05-27 11:26:33,279 WARNING zero-count local mass estimate seed=0 d=10 epsilon=0.05 tau=0.05 objective=inclusive_kl family=diagonal_gaussian radius=0.0790569415042095
+2026-05-27 11:26:33,280 WARNING zero-count local mass estimate seed=0 d=10 epsilon=0.05 tau=0.05 objective=inclusive_kl family=diagonal_gaussian radius=0.11858541225631425
+2026-05-27 11:26:33,280 WARNING zero-count local mass estimate seed=0 d=10 epsilon=0.05 tau=0.05 objective=inclusive_kl family=diagonal_gaussian radius=0.158113883008419
+2026-05-27 11:26:33,281 WARNING zero-count local mass estimate seed=0 d=10 epsilon=0.05 tau=0.05 objective=inclusive_kl family=diagonal_gaussian radius=0.2371708245126285
+2026-05-27 11:26:33,281 WARNING zero-count local mass estimate seed=0 d=10 epsilon=0.05 tau=0.05 objective=inclusive_kl family=diagonal_gaussian radius=0.316227766016838
+2026-05-27 11:26:33,281 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:26:33,282 INFO current run index: 36 seed=0 d=10 epsilon=0.05 tau=0.05 objective=inclusive_kl family=diagonal_gaussian_mixture_2
+2026-05-27 11:26:48,307 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:26:48,308 INFO current run index: 37 seed=0 d=10 epsilon=0.05 tau=0.1 objective=exclusive_kl family=diagonal_gaussian
+2026-05-27 11:27:03,346 WARNING zero-count local mass estimate seed=0 d=10 epsilon=0.05 tau=0.1 objective=exclusive_kl family=diagonal_gaussian radius=0.158113883008419
+2026-05-27 11:27:03,347 WARNING zero-count local mass estimate seed=0 d=10 epsilon=0.05 tau=0.1 objective=exclusive_kl family=diagonal_gaussian radius=0.2371708245126285
+2026-05-27 11:27:03,347 WARNING zero-count local mass estimate seed=0 d=10 epsilon=0.05 tau=0.1 objective=exclusive_kl family=diagonal_gaussian radius=0.316227766016838
+2026-05-27 11:27:03,348 WARNING zero-count local mass estimate seed=0 d=10 epsilon=0.05 tau=0.1 objective=exclusive_kl family=diagonal_gaussian radius=0.474341649025257
+2026-05-27 11:27:03,349 WARNING zero-count local mass estimate seed=0 d=10 epsilon=0.05 tau=0.1 objective=exclusive_kl family=diagonal_gaussian radius=0.632455532033676
+2026-05-27 11:27:03,350 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:27:03,350 INFO current run index: 38 seed=0 d=10 epsilon=0.05 tau=0.1 objective=exclusive_kl family=diagonal_gaussian_mixture_2
+2026-05-27 11:27:48,536 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:27:48,536 INFO current run index: 39 seed=0 d=10 epsilon=0.05 tau=0.1 objective=inclusive_kl family=diagonal_gaussian
+2026-05-27 11:27:58,532 WARNING zero-count local mass estimate seed=0 d=10 epsilon=0.05 tau=0.1 objective=inclusive_kl family=diagonal_gaussian radius=0.158113883008419
+2026-05-27 11:27:58,532 WARNING zero-count local mass estimate seed=0 d=10 epsilon=0.05 tau=0.1 objective=inclusive_kl family=diagonal_gaussian radius=0.2371708245126285
+2026-05-27 11:27:58,532 WARNING zero-count local mass estimate seed=0 d=10 epsilon=0.05 tau=0.1 objective=inclusive_kl family=diagonal_gaussian radius=0.316227766016838
+2026-05-27 11:27:58,533 WARNING zero-count local mass estimate seed=0 d=10 epsilon=0.05 tau=0.1 objective=inclusive_kl family=diagonal_gaussian radius=0.474341649025257
+2026-05-27 11:27:58,533 WARNING zero-count local mass estimate seed=0 d=10 epsilon=0.05 tau=0.1 objective=inclusive_kl family=diagonal_gaussian radius=0.632455532033676
+2026-05-27 11:27:58,534 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:27:58,534 INFO current run index: 40 seed=0 d=10 epsilon=0.05 tau=0.1 objective=inclusive_kl family=diagonal_gaussian_mixture_2
+2026-05-27 11:28:12,566 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:28:12,566 INFO current run index: 41 seed=0 d=10 epsilon=0.1 tau=0.05 objective=exclusive_kl family=diagonal_gaussian
+2026-05-27 11:28:25,667 WARNING zero-count local mass estimate seed=0 d=10 epsilon=0.1 tau=0.05 objective=exclusive_kl family=diagonal_gaussian radius=0.0790569415042095
+2026-05-27 11:28:25,667 WARNING zero-count local mass estimate seed=0 d=10 epsilon=0.1 tau=0.05 objective=exclusive_kl family=diagonal_gaussian radius=0.11858541225631425
+2026-05-27 11:28:25,668 WARNING zero-count local mass estimate seed=0 d=10 epsilon=0.1 tau=0.05 objective=exclusive_kl family=diagonal_gaussian radius=0.158113883008419
+2026-05-27 11:28:25,669 WARNING zero-count local mass estimate seed=0 d=10 epsilon=0.1 tau=0.05 objective=exclusive_kl family=diagonal_gaussian radius=0.2371708245126285
+2026-05-27 11:28:25,669 WARNING zero-count local mass estimate seed=0 d=10 epsilon=0.1 tau=0.05 objective=exclusive_kl family=diagonal_gaussian radius=0.316227766016838
+2026-05-27 11:28:25,670 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:28:25,670 INFO current run index: 42 seed=0 d=10 epsilon=0.1 tau=0.05 objective=exclusive_kl family=diagonal_gaussian_mixture_2
+2026-05-27 11:29:03,760 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:29:03,760 INFO current run index: 43 seed=0 d=10 epsilon=0.1 tau=0.05 objective=inclusive_kl family=diagonal_gaussian
+2026-05-27 11:29:15,032 WARNING zero-count local mass estimate seed=0 d=10 epsilon=0.1 tau=0.05 objective=inclusive_kl family=diagonal_gaussian radius=0.0790569415042095
+2026-05-27 11:29:15,033 WARNING zero-count local mass estimate seed=0 d=10 epsilon=0.1 tau=0.05 objective=inclusive_kl family=diagonal_gaussian radius=0.11858541225631425
+2026-05-27 11:29:15,034 WARNING zero-count local mass estimate seed=0 d=10 epsilon=0.1 tau=0.05 objective=inclusive_kl family=diagonal_gaussian radius=0.158113883008419
+2026-05-27 11:29:15,035 WARNING zero-count local mass estimate seed=0 d=10 epsilon=0.1 tau=0.05 objective=inclusive_kl family=diagonal_gaussian radius=0.2371708245126285
+2026-05-27 11:29:15,035 WARNING zero-count local mass estimate seed=0 d=10 epsilon=0.1 tau=0.05 objective=inclusive_kl family=diagonal_gaussian radius=0.316227766016838
+2026-05-27 11:29:15,036 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:29:15,036 INFO current run index: 44 seed=0 d=10 epsilon=0.1 tau=0.05 objective=inclusive_kl family=diagonal_gaussian_mixture_2
+2026-05-27 11:29:32,026 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:29:32,026 INFO current run index: 45 seed=0 d=10 epsilon=0.1 tau=0.1 objective=exclusive_kl family=diagonal_gaussian
+2026-05-27 11:29:44,409 WARNING zero-count local mass estimate seed=0 d=10 epsilon=0.1 tau=0.1 objective=exclusive_kl family=diagonal_gaussian radius=0.158113883008419
+2026-05-27 11:29:44,410 WARNING zero-count local mass estimate seed=0 d=10 epsilon=0.1 tau=0.1 objective=exclusive_kl family=diagonal_gaussian radius=0.2371708245126285
+2026-05-27 11:29:44,411 WARNING zero-count local mass estimate seed=0 d=10 epsilon=0.1 tau=0.1 objective=exclusive_kl family=diagonal_gaussian radius=0.316227766016838
+2026-05-27 11:29:44,411 WARNING zero-count local mass estimate seed=0 d=10 epsilon=0.1 tau=0.1 objective=exclusive_kl family=diagonal_gaussian radius=0.474341649025257
+2026-05-27 11:29:44,412 WARNING zero-count local mass estimate seed=0 d=10 epsilon=0.1 tau=0.1 objective=exclusive_kl family=diagonal_gaussian radius=0.632455532033676
+2026-05-27 11:29:44,413 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:29:44,413 INFO current run index: 46 seed=0 d=10 epsilon=0.1 tau=0.1 objective=exclusive_kl family=diagonal_gaussian_mixture_2
+2026-05-27 11:30:16,628 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:30:16,628 INFO current run index: 47 seed=0 d=10 epsilon=0.1 tau=0.1 objective=inclusive_kl family=diagonal_gaussian
+2026-05-27 11:30:25,159 WARNING zero-count local mass estimate seed=0 d=10 epsilon=0.1 tau=0.1 objective=inclusive_kl family=diagonal_gaussian radius=0.158113883008419
+2026-05-27 11:30:25,159 WARNING zero-count local mass estimate seed=0 d=10 epsilon=0.1 tau=0.1 objective=inclusive_kl family=diagonal_gaussian radius=0.2371708245126285
+2026-05-27 11:30:25,160 WARNING zero-count local mass estimate seed=0 d=10 epsilon=0.1 tau=0.1 objective=inclusive_kl family=diagonal_gaussian radius=0.316227766016838
+2026-05-27 11:30:25,160 WARNING zero-count local mass estimate seed=0 d=10 epsilon=0.1 tau=0.1 objective=inclusive_kl family=diagonal_gaussian radius=0.474341649025257
+2026-05-27 11:30:25,161 WARNING zero-count local mass estimate seed=0 d=10 epsilon=0.1 tau=0.1 objective=inclusive_kl family=diagonal_gaussian radius=0.632455532033676
+2026-05-27 11:30:25,161 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:30:25,161 INFO current run index: 48 seed=0 d=10 epsilon=0.1 tau=0.1 objective=inclusive_kl family=diagonal_gaussian_mixture_2
+2026-05-27 11:30:37,861 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:30:37,861 INFO current run index: 49 seed=1 d=2 epsilon=0.01 tau=0.05 objective=exclusive_kl family=diagonal_gaussian
+2026-05-27 11:30:47,325 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:30:47,325 INFO current run index: 50 seed=1 d=2 epsilon=0.01 tau=0.05 objective=exclusive_kl family=diagonal_gaussian_mixture_2
+2026-05-27 11:31:12,712 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:31:12,712 INFO current run index: 51 seed=1 d=2 epsilon=0.01 tau=0.05 objective=inclusive_kl family=diagonal_gaussian
+2026-05-27 11:31:18,645 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:31:18,645 INFO current run index: 52 seed=1 d=2 epsilon=0.01 tau=0.05 objective=inclusive_kl family=diagonal_gaussian_mixture_2
+2026-05-27 11:31:28,531 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:31:28,531 INFO current run index: 53 seed=1 d=2 epsilon=0.01 tau=0.1 objective=exclusive_kl family=diagonal_gaussian
+2026-05-27 11:31:37,549 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:31:37,550 INFO current run index: 54 seed=1 d=2 epsilon=0.01 tau=0.1 objective=exclusive_kl family=diagonal_gaussian_mixture_2
+2026-05-27 11:32:01,195 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:32:01,195 INFO current run index: 55 seed=1 d=2 epsilon=0.01 tau=0.1 objective=inclusive_kl family=diagonal_gaussian
+2026-05-27 11:32:06,775 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:32:06,776 INFO current run index: 56 seed=1 d=2 epsilon=0.01 tau=0.1 objective=inclusive_kl family=diagonal_gaussian_mixture_2
+2026-05-27 11:32:16,292 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:32:16,292 INFO current run index: 57 seed=1 d=2 epsilon=0.05 tau=0.05 objective=exclusive_kl family=diagonal_gaussian
+2026-05-27 11:32:25,756 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:32:25,756 INFO current run index: 58 seed=1 d=2 epsilon=0.05 tau=0.05 objective=exclusive_kl family=diagonal_gaussian_mixture_2
+2026-05-27 11:32:50,423 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:32:50,424 INFO current run index: 59 seed=1 d=2 epsilon=0.05 tau=0.05 objective=inclusive_kl family=diagonal_gaussian
+2026-05-27 11:32:56,111 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:32:56,111 INFO current run index: 60 seed=1 d=2 epsilon=0.05 tau=0.05 objective=inclusive_kl family=diagonal_gaussian_mixture_2
+2026-05-27 11:33:06,209 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:33:06,209 INFO current run index: 61 seed=1 d=2 epsilon=0.05 tau=0.1 objective=exclusive_kl family=diagonal_gaussian
+2026-05-27 11:33:15,467 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:33:15,467 INFO current run index: 62 seed=1 d=2 epsilon=0.05 tau=0.1 objective=exclusive_kl family=diagonal_gaussian_mixture_2
+2026-05-27 11:33:39,980 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:33:39,980 INFO current run index: 63 seed=1 d=2 epsilon=0.05 tau=0.1 objective=inclusive_kl family=diagonal_gaussian
+2026-05-27 11:33:45,553 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:33:45,553 INFO current run index: 64 seed=1 d=2 epsilon=0.05 tau=0.1 objective=inclusive_kl family=diagonal_gaussian_mixture_2
+2026-05-27 11:33:55,188 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:33:55,188 INFO current run index: 65 seed=1 d=2 epsilon=0.1 tau=0.05 objective=exclusive_kl family=diagonal_gaussian
+2026-05-27 11:34:04,723 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:34:04,723 INFO current run index: 66 seed=1 d=2 epsilon=0.1 tau=0.05 objective=exclusive_kl family=diagonal_gaussian_mixture_2
+2026-05-27 11:34:29,375 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:34:29,376 INFO current run index: 67 seed=1 d=2 epsilon=0.1 tau=0.05 objective=inclusive_kl family=diagonal_gaussian
+2026-05-27 11:34:35,009 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:34:35,010 INFO current run index: 68 seed=1 d=2 epsilon=0.1 tau=0.05 objective=inclusive_kl family=diagonal_gaussian_mixture_2
+2026-05-27 11:34:44,827 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:34:44,827 INFO current run index: 69 seed=1 d=2 epsilon=0.1 tau=0.1 objective=exclusive_kl family=diagonal_gaussian
+2026-05-27 11:34:54,127 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:34:54,127 INFO current run index: 70 seed=1 d=2 epsilon=0.1 tau=0.1 objective=exclusive_kl family=diagonal_gaussian_mixture_2
+2026-05-27 11:35:17,714 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:35:17,714 INFO current run index: 71 seed=1 d=2 epsilon=0.1 tau=0.1 objective=inclusive_kl family=diagonal_gaussian
+2026-05-27 11:35:23,487 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:35:23,487 INFO current run index: 72 seed=1 d=2 epsilon=0.1 tau=0.1 objective=inclusive_kl family=diagonal_gaussian_mixture_2
+2026-05-27 11:35:33,252 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:35:33,253 INFO current run index: 73 seed=1 d=10 epsilon=0.01 tau=0.05 objective=exclusive_kl family=diagonal_gaussian
+2026-05-27 11:35:45,814 WARNING zero-count local mass estimate seed=1 d=10 epsilon=0.01 tau=0.05 objective=exclusive_kl family=diagonal_gaussian radius=0.0790569415042095
+2026-05-27 11:35:45,814 WARNING zero-count local mass estimate seed=1 d=10 epsilon=0.01 tau=0.05 objective=exclusive_kl family=diagonal_gaussian radius=0.11858541225631425
+2026-05-27 11:35:45,815 WARNING zero-count local mass estimate seed=1 d=10 epsilon=0.01 tau=0.05 objective=exclusive_kl family=diagonal_gaussian radius=0.158113883008419
+2026-05-27 11:35:45,816 WARNING zero-count local mass estimate seed=1 d=10 epsilon=0.01 tau=0.05 objective=exclusive_kl family=diagonal_gaussian radius=0.2371708245126285
+2026-05-27 11:35:45,816 WARNING zero-count local mass estimate seed=1 d=10 epsilon=0.01 tau=0.05 objective=exclusive_kl family=diagonal_gaussian radius=0.316227766016838
+2026-05-27 11:35:45,817 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:35:45,817 INFO current run index: 74 seed=1 d=10 epsilon=0.01 tau=0.05 objective=exclusive_kl family=diagonal_gaussian_mixture_2
+2026-05-27 11:36:17,556 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:36:17,557 INFO current run index: 75 seed=1 d=10 epsilon=0.01 tau=0.05 objective=inclusive_kl family=diagonal_gaussian
+2026-05-27 11:36:25,780 WARNING zero-count local mass estimate seed=1 d=10 epsilon=0.01 tau=0.05 objective=inclusive_kl family=diagonal_gaussian radius=0.0790569415042095
+2026-05-27 11:36:25,781 WARNING zero-count local mass estimate seed=1 d=10 epsilon=0.01 tau=0.05 objective=inclusive_kl family=diagonal_gaussian radius=0.11858541225631425
+2026-05-27 11:36:25,782 WARNING zero-count local mass estimate seed=1 d=10 epsilon=0.01 tau=0.05 objective=inclusive_kl family=diagonal_gaussian radius=0.158113883008419
+2026-05-27 11:36:25,782 WARNING zero-count local mass estimate seed=1 d=10 epsilon=0.01 tau=0.05 objective=inclusive_kl family=diagonal_gaussian radius=0.2371708245126285
+2026-05-27 11:36:25,782 WARNING zero-count local mass estimate seed=1 d=10 epsilon=0.01 tau=0.05 objective=inclusive_kl family=diagonal_gaussian radius=0.316227766016838
+2026-05-27 11:36:25,782 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:36:25,783 INFO current run index: 76 seed=1 d=10 epsilon=0.01 tau=0.05 objective=inclusive_kl family=diagonal_gaussian_mixture_2
+2026-05-27 11:36:38,873 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:36:38,873 INFO current run index: 77 seed=1 d=10 epsilon=0.01 tau=0.1 objective=exclusive_kl family=diagonal_gaussian
+2026-05-27 11:36:51,095 WARNING zero-count local mass estimate seed=1 d=10 epsilon=0.01 tau=0.1 objective=exclusive_kl family=diagonal_gaussian radius=0.158113883008419
+2026-05-27 11:36:51,096 WARNING zero-count local mass estimate seed=1 d=10 epsilon=0.01 tau=0.1 objective=exclusive_kl family=diagonal_gaussian radius=0.2371708245126285
+2026-05-27 11:36:51,096 WARNING zero-count local mass estimate seed=1 d=10 epsilon=0.01 tau=0.1 objective=exclusive_kl family=diagonal_gaussian radius=0.316227766016838
+2026-05-27 11:36:51,097 WARNING zero-count local mass estimate seed=1 d=10 epsilon=0.01 tau=0.1 objective=exclusive_kl family=diagonal_gaussian radius=0.474341649025257
+2026-05-27 11:36:51,097 WARNING zero-count local mass estimate seed=1 d=10 epsilon=0.01 tau=0.1 objective=exclusive_kl family=diagonal_gaussian radius=0.632455532033676
+2026-05-27 11:36:51,098 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:36:51,098 INFO current run index: 78 seed=1 d=10 epsilon=0.01 tau=0.1 objective=exclusive_kl family=diagonal_gaussian_mixture_2
+2026-05-27 11:37:22,572 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:37:22,572 INFO current run index: 79 seed=1 d=10 epsilon=0.01 tau=0.1 objective=inclusive_kl family=diagonal_gaussian
+2026-05-27 11:37:30,702 WARNING zero-count local mass estimate seed=1 d=10 epsilon=0.01 tau=0.1 objective=inclusive_kl family=diagonal_gaussian radius=0.158113883008419
+2026-05-27 11:37:30,703 WARNING zero-count local mass estimate seed=1 d=10 epsilon=0.01 tau=0.1 objective=inclusive_kl family=diagonal_gaussian radius=0.2371708245126285
+2026-05-27 11:37:30,703 WARNING zero-count local mass estimate seed=1 d=10 epsilon=0.01 tau=0.1 objective=inclusive_kl family=diagonal_gaussian radius=0.316227766016838
+2026-05-27 11:37:30,704 WARNING zero-count local mass estimate seed=1 d=10 epsilon=0.01 tau=0.1 objective=inclusive_kl family=diagonal_gaussian radius=0.474341649025257
+2026-05-27 11:37:30,704 WARNING zero-count local mass estimate seed=1 d=10 epsilon=0.01 tau=0.1 objective=inclusive_kl family=diagonal_gaussian radius=0.632455532033676
+2026-05-27 11:37:30,704 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:37:30,705 INFO current run index: 80 seed=1 d=10 epsilon=0.01 tau=0.1 objective=inclusive_kl family=diagonal_gaussian_mixture_2
+2026-05-27 11:37:43,679 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:37:43,679 INFO current run index: 81 seed=1 d=10 epsilon=0.05 tau=0.05 objective=exclusive_kl family=diagonal_gaussian
+2026-05-27 11:37:56,273 WARNING zero-count local mass estimate seed=1 d=10 epsilon=0.05 tau=0.05 objective=exclusive_kl family=diagonal_gaussian radius=0.0790569415042095
+2026-05-27 11:37:56,273 WARNING zero-count local mass estimate seed=1 d=10 epsilon=0.05 tau=0.05 objective=exclusive_kl family=diagonal_gaussian radius=0.11858541225631425
+2026-05-27 11:37:56,274 WARNING zero-count local mass estimate seed=1 d=10 epsilon=0.05 tau=0.05 objective=exclusive_kl family=diagonal_gaussian radius=0.158113883008419
+2026-05-27 11:37:56,274 WARNING zero-count local mass estimate seed=1 d=10 epsilon=0.05 tau=0.05 objective=exclusive_kl family=diagonal_gaussian radius=0.2371708245126285
+2026-05-27 11:37:56,275 WARNING zero-count local mass estimate seed=1 d=10 epsilon=0.05 tau=0.05 objective=exclusive_kl family=diagonal_gaussian radius=0.316227766016838
+2026-05-27 11:37:56,275 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:37:56,275 INFO current run index: 82 seed=1 d=10 epsilon=0.05 tau=0.05 objective=exclusive_kl family=diagonal_gaussian_mixture_2
+2026-05-27 11:38:28,597 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:38:28,598 INFO current run index: 83 seed=1 d=10 epsilon=0.05 tau=0.05 objective=inclusive_kl family=diagonal_gaussian
+2026-05-27 11:38:36,982 WARNING zero-count local mass estimate seed=1 d=10 epsilon=0.05 tau=0.05 objective=inclusive_kl family=diagonal_gaussian radius=0.0790569415042095
+2026-05-27 11:38:36,983 WARNING zero-count local mass estimate seed=1 d=10 epsilon=0.05 tau=0.05 objective=inclusive_kl family=diagonal_gaussian radius=0.11858541225631425
+2026-05-27 11:38:36,983 WARNING zero-count local mass estimate seed=1 d=10 epsilon=0.05 tau=0.05 objective=inclusive_kl family=diagonal_gaussian radius=0.158113883008419
+2026-05-27 11:38:36,984 WARNING zero-count local mass estimate seed=1 d=10 epsilon=0.05 tau=0.05 objective=inclusive_kl family=diagonal_gaussian radius=0.2371708245126285
+2026-05-27 11:38:36,984 WARNING zero-count local mass estimate seed=1 d=10 epsilon=0.05 tau=0.05 objective=inclusive_kl family=diagonal_gaussian radius=0.316227766016838
+2026-05-27 11:38:36,984 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:38:36,984 INFO current run index: 84 seed=1 d=10 epsilon=0.05 tau=0.05 objective=inclusive_kl family=diagonal_gaussian_mixture_2
+2026-05-27 11:38:49,423 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:38:49,424 INFO current run index: 85 seed=1 d=10 epsilon=0.05 tau=0.1 objective=exclusive_kl family=diagonal_gaussian
+2026-05-27 11:39:02,590 WARNING zero-count local mass estimate seed=1 d=10 epsilon=0.05 tau=0.1 objective=exclusive_kl family=diagonal_gaussian radius=0.158113883008419
+2026-05-27 11:39:02,591 WARNING zero-count local mass estimate seed=1 d=10 epsilon=0.05 tau=0.1 objective=exclusive_kl family=diagonal_gaussian radius=0.2371708245126285
+2026-05-27 11:39:02,591 WARNING zero-count local mass estimate seed=1 d=10 epsilon=0.05 tau=0.1 objective=exclusive_kl family=diagonal_gaussian radius=0.316227766016838
+2026-05-27 11:39:02,592 WARNING zero-count local mass estimate seed=1 d=10 epsilon=0.05 tau=0.1 objective=exclusive_kl family=diagonal_gaussian radius=0.474341649025257
+2026-05-27 11:39:02,592 WARNING zero-count local mass estimate seed=1 d=10 epsilon=0.05 tau=0.1 objective=exclusive_kl family=diagonal_gaussian radius=0.632455532033676
+2026-05-27 11:39:02,593 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:39:02,593 INFO current run index: 86 seed=1 d=10 epsilon=0.05 tau=0.1 objective=exclusive_kl family=diagonal_gaussian_mixture_2
+2026-05-27 11:39:34,560 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:39:34,560 INFO current run index: 87 seed=1 d=10 epsilon=0.05 tau=0.1 objective=inclusive_kl family=diagonal_gaussian
+2026-05-27 11:39:43,033 WARNING zero-count local mass estimate seed=1 d=10 epsilon=0.05 tau=0.1 objective=inclusive_kl family=diagonal_gaussian radius=0.158113883008419
+2026-05-27 11:39:43,034 WARNING zero-count local mass estimate seed=1 d=10 epsilon=0.05 tau=0.1 objective=inclusive_kl family=diagonal_gaussian radius=0.2371708245126285
+2026-05-27 11:39:43,034 WARNING zero-count local mass estimate seed=1 d=10 epsilon=0.05 tau=0.1 objective=inclusive_kl family=diagonal_gaussian radius=0.316227766016838
+2026-05-27 11:39:43,035 WARNING zero-count local mass estimate seed=1 d=10 epsilon=0.05 tau=0.1 objective=inclusive_kl family=diagonal_gaussian radius=0.474341649025257
+2026-05-27 11:39:43,035 WARNING zero-count local mass estimate seed=1 d=10 epsilon=0.05 tau=0.1 objective=inclusive_kl family=diagonal_gaussian radius=0.632455532033676
+2026-05-27 11:39:43,036 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:39:43,036 INFO current run index: 88 seed=1 d=10 epsilon=0.05 tau=0.1 objective=inclusive_kl family=diagonal_gaussian_mixture_2
+2026-05-27 11:39:56,172 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:39:56,172 INFO current run index: 89 seed=1 d=10 epsilon=0.1 tau=0.05 objective=exclusive_kl family=diagonal_gaussian
+2026-05-27 11:40:08,849 WARNING zero-count local mass estimate seed=1 d=10 epsilon=0.1 tau=0.05 objective=exclusive_kl family=diagonal_gaussian radius=0.0790569415042095
+2026-05-27 11:40:08,850 WARNING zero-count local mass estimate seed=1 d=10 epsilon=0.1 tau=0.05 objective=exclusive_kl family=diagonal_gaussian radius=0.11858541225631425
+2026-05-27 11:40:08,850 WARNING zero-count local mass estimate seed=1 d=10 epsilon=0.1 tau=0.05 objective=exclusive_kl family=diagonal_gaussian radius=0.158113883008419
+2026-05-27 11:40:08,850 WARNING zero-count local mass estimate seed=1 d=10 epsilon=0.1 tau=0.05 objective=exclusive_kl family=diagonal_gaussian radius=0.2371708245126285
+2026-05-27 11:40:08,851 WARNING zero-count local mass estimate seed=1 d=10 epsilon=0.1 tau=0.05 objective=exclusive_kl family=diagonal_gaussian radius=0.316227766016838
+2026-05-27 11:40:08,851 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:40:08,851 INFO current run index: 90 seed=1 d=10 epsilon=0.1 tau=0.05 objective=exclusive_kl family=diagonal_gaussian_mixture_2
+2026-05-27 11:40:40,421 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:40:40,421 INFO current run index: 91 seed=1 d=10 epsilon=0.1 tau=0.05 objective=inclusive_kl family=diagonal_gaussian
+2026-05-27 11:40:48,567 WARNING zero-count local mass estimate seed=1 d=10 epsilon=0.1 tau=0.05 objective=inclusive_kl family=diagonal_gaussian radius=0.0790569415042095
+2026-05-27 11:40:48,568 WARNING zero-count local mass estimate seed=1 d=10 epsilon=0.1 tau=0.05 objective=inclusive_kl family=diagonal_gaussian radius=0.11858541225631425
+2026-05-27 11:40:48,568 WARNING zero-count local mass estimate seed=1 d=10 epsilon=0.1 tau=0.05 objective=inclusive_kl family=diagonal_gaussian radius=0.158113883008419
+2026-05-27 11:40:48,569 WARNING zero-count local mass estimate seed=1 d=10 epsilon=0.1 tau=0.05 objective=inclusive_kl family=diagonal_gaussian radius=0.2371708245126285
+2026-05-27 11:40:48,569 WARNING zero-count local mass estimate seed=1 d=10 epsilon=0.1 tau=0.05 objective=inclusive_kl family=diagonal_gaussian radius=0.316227766016838
+2026-05-27 11:40:48,569 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:40:48,569 INFO current run index: 92 seed=1 d=10 epsilon=0.1 tau=0.05 objective=inclusive_kl family=diagonal_gaussian_mixture_2
+2026-05-27 11:41:01,658 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:41:01,659 INFO current run index: 93 seed=1 d=10 epsilon=0.1 tau=0.1 objective=exclusive_kl family=diagonal_gaussian
+2026-05-27 11:41:14,168 WARNING zero-count local mass estimate seed=1 d=10 epsilon=0.1 tau=0.1 objective=exclusive_kl family=diagonal_gaussian radius=0.158113883008419
+2026-05-27 11:41:14,169 WARNING zero-count local mass estimate seed=1 d=10 epsilon=0.1 tau=0.1 objective=exclusive_kl family=diagonal_gaussian radius=0.2371708245126285
+2026-05-27 11:41:14,169 WARNING zero-count local mass estimate seed=1 d=10 epsilon=0.1 tau=0.1 objective=exclusive_kl family=diagonal_gaussian radius=0.316227766016838
+2026-05-27 11:41:14,170 WARNING zero-count local mass estimate seed=1 d=10 epsilon=0.1 tau=0.1 objective=exclusive_kl family=diagonal_gaussian radius=0.474341649025257
+2026-05-27 11:41:14,170 WARNING zero-count local mass estimate seed=1 d=10 epsilon=0.1 tau=0.1 objective=exclusive_kl family=diagonal_gaussian radius=0.632455532033676
+2026-05-27 11:41:14,170 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:41:14,170 INFO current run index: 94 seed=1 d=10 epsilon=0.1 tau=0.1 objective=exclusive_kl family=diagonal_gaussian_mixture_2
+2026-05-27 11:41:46,372 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:41:46,372 INFO current run index: 95 seed=1 d=10 epsilon=0.1 tau=0.1 objective=inclusive_kl family=diagonal_gaussian
+2026-05-27 11:41:54,562 WARNING zero-count local mass estimate seed=1 d=10 epsilon=0.1 tau=0.1 objective=inclusive_kl family=diagonal_gaussian radius=0.158113883008419
+2026-05-27 11:41:54,563 WARNING zero-count local mass estimate seed=1 d=10 epsilon=0.1 tau=0.1 objective=inclusive_kl family=diagonal_gaussian radius=0.2371708245126285
+2026-05-27 11:41:54,564 WARNING zero-count local mass estimate seed=1 d=10 epsilon=0.1 tau=0.1 objective=inclusive_kl family=diagonal_gaussian radius=0.316227766016838
+2026-05-27 11:41:54,564 WARNING zero-count local mass estimate seed=1 d=10 epsilon=0.1 tau=0.1 objective=inclusive_kl family=diagonal_gaussian radius=0.474341649025257
+2026-05-27 11:41:54,565 WARNING zero-count local mass estimate seed=1 d=10 epsilon=0.1 tau=0.1 objective=inclusive_kl family=diagonal_gaussian radius=0.632455532033676
+2026-05-27 11:41:54,565 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:41:54,565 INFO current run index: 96 seed=1 d=10 epsilon=0.1 tau=0.1 objective=inclusive_kl family=diagonal_gaussian_mixture_2
+2026-05-27 11:42:07,221 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:42:07,221 INFO current run index: 97 seed=2 d=2 epsilon=0.01 tau=0.05 objective=exclusive_kl family=diagonal_gaussian
+2026-05-27 11:42:16,888 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:42:16,889 INFO current run index: 98 seed=2 d=2 epsilon=0.01 tau=0.05 objective=exclusive_kl family=diagonal_gaussian_mixture_2
+2026-05-27 11:42:41,704 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:42:41,705 INFO current run index: 99 seed=2 d=2 epsilon=0.01 tau=0.05 objective=inclusive_kl family=diagonal_gaussian
+2026-05-27 11:42:47,254 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:42:47,254 INFO current run index: 100 seed=2 d=2 epsilon=0.01 tau=0.05 objective=inclusive_kl family=diagonal_gaussian_mixture_2
+2026-05-27 11:42:57,151 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:42:57,152 INFO current run index: 101 seed=2 d=2 epsilon=0.01 tau=0.1 objective=exclusive_kl family=diagonal_gaussian
+2026-05-27 11:43:06,547 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:43:06,548 INFO current run index: 102 seed=2 d=2 epsilon=0.01 tau=0.1 objective=exclusive_kl family=diagonal_gaussian_mixture_2
+2026-05-27 11:43:31,071 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:43:31,071 INFO current run index: 103 seed=2 d=2 epsilon=0.01 tau=0.1 objective=inclusive_kl family=diagonal_gaussian
+2026-05-27 11:43:36,805 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:43:36,805 INFO current run index: 104 seed=2 d=2 epsilon=0.01 tau=0.1 objective=inclusive_kl family=diagonal_gaussian_mixture_2
+2026-05-27 11:43:46,711 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:43:46,711 INFO current run index: 105 seed=2 d=2 epsilon=0.05 tau=0.05 objective=exclusive_kl family=diagonal_gaussian
+2026-05-27 11:43:56,429 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:43:56,429 INFO current run index: 106 seed=2 d=2 epsilon=0.05 tau=0.05 objective=exclusive_kl family=diagonal_gaussian_mixture_2
+2026-05-27 11:44:21,552 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:44:21,552 INFO current run index: 107 seed=2 d=2 epsilon=0.05 tau=0.05 objective=inclusive_kl family=diagonal_gaussian
+2026-05-27 11:44:27,099 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:44:27,100 INFO current run index: 108 seed=2 d=2 epsilon=0.05 tau=0.05 objective=inclusive_kl family=diagonal_gaussian_mixture_2
+2026-05-27 11:44:37,038 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:44:37,038 INFO current run index: 109 seed=2 d=2 epsilon=0.05 tau=0.1 objective=exclusive_kl family=diagonal_gaussian
+2026-05-27 11:44:46,354 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:44:46,354 INFO current run index: 110 seed=2 d=2 epsilon=0.05 tau=0.1 objective=exclusive_kl family=diagonal_gaussian_mixture_2
+2026-05-27 11:45:10,472 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:45:10,472 INFO current run index: 111 seed=2 d=2 epsilon=0.05 tau=0.1 objective=inclusive_kl family=diagonal_gaussian
+2026-05-27 11:45:16,160 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:45:16,160 INFO current run index: 112 seed=2 d=2 epsilon=0.05 tau=0.1 objective=inclusive_kl family=diagonal_gaussian_mixture_2
+2026-05-27 11:45:26,013 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:45:26,013 INFO current run index: 113 seed=2 d=2 epsilon=0.1 tau=0.05 objective=exclusive_kl family=diagonal_gaussian
+2026-05-27 11:45:35,567 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:45:35,567 INFO current run index: 114 seed=2 d=2 epsilon=0.1 tau=0.05 objective=exclusive_kl family=diagonal_gaussian_mixture_2
+2026-05-27 11:46:00,773 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:46:00,774 INFO current run index: 115 seed=2 d=2 epsilon=0.1 tau=0.05 objective=inclusive_kl family=diagonal_gaussian
+2026-05-27 11:46:06,397 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:46:06,398 INFO current run index: 116 seed=2 d=2 epsilon=0.1 tau=0.05 objective=inclusive_kl family=diagonal_gaussian_mixture_2
+2026-05-27 11:46:16,352 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:46:16,352 INFO current run index: 117 seed=2 d=2 epsilon=0.1 tau=0.1 objective=exclusive_kl family=diagonal_gaussian
+2026-05-27 11:46:25,504 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:46:25,504 INFO current run index: 118 seed=2 d=2 epsilon=0.1 tau=0.1 objective=exclusive_kl family=diagonal_gaussian_mixture_2
+2026-05-27 11:46:48,927 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:46:48,928 INFO current run index: 119 seed=2 d=2 epsilon=0.1 tau=0.1 objective=inclusive_kl family=diagonal_gaussian
+2026-05-27 11:46:54,511 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:46:54,511 INFO current run index: 120 seed=2 d=2 epsilon=0.1 tau=0.1 objective=inclusive_kl family=diagonal_gaussian_mixture_2
+2026-05-27 11:47:04,277 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:47:04,277 INFO current run index: 121 seed=2 d=10 epsilon=0.01 tau=0.05 objective=exclusive_kl family=diagonal_gaussian
+2026-05-27 11:47:16,630 WARNING zero-count local mass estimate seed=2 d=10 epsilon=0.01 tau=0.05 objective=exclusive_kl family=diagonal_gaussian radius=0.0790569415042095
+2026-05-27 11:47:16,631 WARNING zero-count local mass estimate seed=2 d=10 epsilon=0.01 tau=0.05 objective=exclusive_kl family=diagonal_gaussian radius=0.11858541225631425
+2026-05-27 11:47:16,631 WARNING zero-count local mass estimate seed=2 d=10 epsilon=0.01 tau=0.05 objective=exclusive_kl family=diagonal_gaussian radius=0.158113883008419
+2026-05-27 11:47:16,632 WARNING zero-count local mass estimate seed=2 d=10 epsilon=0.01 tau=0.05 objective=exclusive_kl family=diagonal_gaussian radius=0.2371708245126285
+2026-05-27 11:47:16,632 WARNING zero-count local mass estimate seed=2 d=10 epsilon=0.01 tau=0.05 objective=exclusive_kl family=diagonal_gaussian radius=0.316227766016838
+2026-05-27 11:47:16,633 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:47:16,633 INFO current run index: 122 seed=2 d=10 epsilon=0.01 tau=0.05 objective=exclusive_kl family=diagonal_gaussian_mixture_2
+2026-05-27 11:47:47,696 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:47:47,697 INFO current run index: 123 seed=2 d=10 epsilon=0.01 tau=0.05 objective=inclusive_kl family=diagonal_gaussian
+2026-05-27 11:47:55,854 WARNING zero-count local mass estimate seed=2 d=10 epsilon=0.01 tau=0.05 objective=inclusive_kl family=diagonal_gaussian radius=0.0790569415042095
+2026-05-27 11:47:55,854 WARNING zero-count local mass estimate seed=2 d=10 epsilon=0.01 tau=0.05 objective=inclusive_kl family=diagonal_gaussian radius=0.11858541225631425
+2026-05-27 11:47:55,855 WARNING zero-count local mass estimate seed=2 d=10 epsilon=0.01 tau=0.05 objective=inclusive_kl family=diagonal_gaussian radius=0.158113883008419
+2026-05-27 11:47:55,855 WARNING zero-count local mass estimate seed=2 d=10 epsilon=0.01 tau=0.05 objective=inclusive_kl family=diagonal_gaussian radius=0.2371708245126285
+2026-05-27 11:47:55,856 WARNING zero-count local mass estimate seed=2 d=10 epsilon=0.01 tau=0.05 objective=inclusive_kl family=diagonal_gaussian radius=0.316227766016838
+2026-05-27 11:47:55,856 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:47:55,856 INFO current run index: 124 seed=2 d=10 epsilon=0.01 tau=0.05 objective=inclusive_kl family=diagonal_gaussian_mixture_2
+2026-05-27 11:48:08,835 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:48:08,836 INFO current run index: 125 seed=2 d=10 epsilon=0.01 tau=0.1 objective=exclusive_kl family=diagonal_gaussian
+2026-05-27 11:48:21,483 WARNING zero-count local mass estimate seed=2 d=10 epsilon=0.01 tau=0.1 objective=exclusive_kl family=diagonal_gaussian radius=0.158113883008419
+2026-05-27 11:48:21,484 WARNING zero-count local mass estimate seed=2 d=10 epsilon=0.01 tau=0.1 objective=exclusive_kl family=diagonal_gaussian radius=0.2371708245126285
+2026-05-27 11:48:21,484 WARNING zero-count local mass estimate seed=2 d=10 epsilon=0.01 tau=0.1 objective=exclusive_kl family=diagonal_gaussian radius=0.316227766016838
+2026-05-27 11:48:21,485 WARNING zero-count local mass estimate seed=2 d=10 epsilon=0.01 tau=0.1 objective=exclusive_kl family=diagonal_gaussian radius=0.474341649025257
+2026-05-27 11:48:21,486 WARNING zero-count local mass estimate seed=2 d=10 epsilon=0.01 tau=0.1 objective=exclusive_kl family=diagonal_gaussian radius=0.632455532033676
+2026-05-27 11:48:21,486 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:48:21,486 INFO current run index: 126 seed=2 d=10 epsilon=0.01 tau=0.1 objective=exclusive_kl family=diagonal_gaussian_mixture_2
+2026-05-27 11:48:53,002 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:48:53,002 INFO current run index: 127 seed=2 d=10 epsilon=0.01 tau=0.1 objective=inclusive_kl family=diagonal_gaussian
+2026-05-27 11:49:00,885 WARNING zero-count local mass estimate seed=2 d=10 epsilon=0.01 tau=0.1 objective=inclusive_kl family=diagonal_gaussian radius=0.158113883008419
+2026-05-27 11:49:00,886 WARNING zero-count local mass estimate seed=2 d=10 epsilon=0.01 tau=0.1 objective=inclusive_kl family=diagonal_gaussian radius=0.2371708245126285
+2026-05-27 11:49:00,887 WARNING zero-count local mass estimate seed=2 d=10 epsilon=0.01 tau=0.1 objective=inclusive_kl family=diagonal_gaussian radius=0.316227766016838
+2026-05-27 11:49:00,887 WARNING zero-count local mass estimate seed=2 d=10 epsilon=0.01 tau=0.1 objective=inclusive_kl family=diagonal_gaussian radius=0.474341649025257
+2026-05-27 11:49:00,888 WARNING zero-count local mass estimate seed=2 d=10 epsilon=0.01 tau=0.1 objective=inclusive_kl family=diagonal_gaussian radius=0.632455532033676
+2026-05-27 11:49:00,888 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:49:00,888 INFO current run index: 128 seed=2 d=10 epsilon=0.01 tau=0.1 objective=inclusive_kl family=diagonal_gaussian_mixture_2
+2026-05-27 11:49:13,781 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:49:13,781 INFO current run index: 129 seed=2 d=10 epsilon=0.05 tau=0.05 objective=exclusive_kl family=diagonal_gaussian
+2026-05-27 11:49:26,493 WARNING zero-count local mass estimate seed=2 d=10 epsilon=0.05 tau=0.05 objective=exclusive_kl family=diagonal_gaussian radius=0.0790569415042095
+2026-05-27 11:49:26,493 WARNING zero-count local mass estimate seed=2 d=10 epsilon=0.05 tau=0.05 objective=exclusive_kl family=diagonal_gaussian radius=0.11858541225631425
+2026-05-27 11:49:26,494 WARNING zero-count local mass estimate seed=2 d=10 epsilon=0.05 tau=0.05 objective=exclusive_kl family=diagonal_gaussian radius=0.158113883008419
+2026-05-27 11:49:26,495 WARNING zero-count local mass estimate seed=2 d=10 epsilon=0.05 tau=0.05 objective=exclusive_kl family=diagonal_gaussian radius=0.2371708245126285
+2026-05-27 11:49:26,495 WARNING zero-count local mass estimate seed=2 d=10 epsilon=0.05 tau=0.05 objective=exclusive_kl family=diagonal_gaussian radius=0.316227766016838
+2026-05-27 11:49:26,495 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:49:26,496 INFO current run index: 130 seed=2 d=10 epsilon=0.05 tau=0.05 objective=exclusive_kl family=diagonal_gaussian_mixture_2
+2026-05-27 11:49:57,839 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:49:57,839 INFO current run index: 131 seed=2 d=10 epsilon=0.05 tau=0.05 objective=inclusive_kl family=diagonal_gaussian
+2026-05-27 11:50:06,038 WARNING zero-count local mass estimate seed=2 d=10 epsilon=0.05 tau=0.05 objective=inclusive_kl family=diagonal_gaussian radius=0.0790569415042095
+2026-05-27 11:50:06,038 WARNING zero-count local mass estimate seed=2 d=10 epsilon=0.05 tau=0.05 objective=inclusive_kl family=diagonal_gaussian radius=0.11858541225631425
+2026-05-27 11:50:06,039 WARNING zero-count local mass estimate seed=2 d=10 epsilon=0.05 tau=0.05 objective=inclusive_kl family=diagonal_gaussian radius=0.158113883008419
+2026-05-27 11:50:06,039 WARNING zero-count local mass estimate seed=2 d=10 epsilon=0.05 tau=0.05 objective=inclusive_kl family=diagonal_gaussian radius=0.2371708245126285
+2026-05-27 11:50:06,039 WARNING zero-count local mass estimate seed=2 d=10 epsilon=0.05 tau=0.05 objective=inclusive_kl family=diagonal_gaussian radius=0.316227766016838
+2026-05-27 11:50:06,040 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:50:06,040 INFO current run index: 132 seed=2 d=10 epsilon=0.05 tau=0.05 objective=inclusive_kl family=diagonal_gaussian_mixture_2
+2026-05-27 11:50:18,510 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:50:18,510 INFO current run index: 133 seed=2 d=10 epsilon=0.05 tau=0.1 objective=exclusive_kl family=diagonal_gaussian
+2026-05-27 11:50:31,332 WARNING zero-count local mass estimate seed=2 d=10 epsilon=0.05 tau=0.1 objective=exclusive_kl family=diagonal_gaussian radius=0.158113883008419
+2026-05-27 11:50:31,333 WARNING zero-count local mass estimate seed=2 d=10 epsilon=0.05 tau=0.1 objective=exclusive_kl family=diagonal_gaussian radius=0.2371708245126285
+2026-05-27 11:50:31,334 WARNING zero-count local mass estimate seed=2 d=10 epsilon=0.05 tau=0.1 objective=exclusive_kl family=diagonal_gaussian radius=0.316227766016838
+2026-05-27 11:50:31,334 WARNING zero-count local mass estimate seed=2 d=10 epsilon=0.05 tau=0.1 objective=exclusive_kl family=diagonal_gaussian radius=0.474341649025257
+2026-05-27 11:50:31,335 WARNING zero-count local mass estimate seed=2 d=10 epsilon=0.05 tau=0.1 objective=exclusive_kl family=diagonal_gaussian radius=0.632455532033676
+2026-05-27 11:50:31,335 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:50:31,335 INFO current run index: 134 seed=2 d=10 epsilon=0.05 tau=0.1 objective=exclusive_kl family=diagonal_gaussian_mixture_2
+2026-05-27 11:51:02,726 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:51:02,727 INFO current run index: 135 seed=2 d=10 epsilon=0.05 tau=0.1 objective=inclusive_kl family=diagonal_gaussian
+2026-05-27 11:51:11,004 WARNING zero-count local mass estimate seed=2 d=10 epsilon=0.05 tau=0.1 objective=inclusive_kl family=diagonal_gaussian radius=0.158113883008419
+2026-05-27 11:51:11,005 WARNING zero-count local mass estimate seed=2 d=10 epsilon=0.05 tau=0.1 objective=inclusive_kl family=diagonal_gaussian radius=0.2371708245126285
+2026-05-27 11:51:11,005 WARNING zero-count local mass estimate seed=2 d=10 epsilon=0.05 tau=0.1 objective=inclusive_kl family=diagonal_gaussian radius=0.316227766016838
+2026-05-27 11:51:11,006 WARNING zero-count local mass estimate seed=2 d=10 epsilon=0.05 tau=0.1 objective=inclusive_kl family=diagonal_gaussian radius=0.474341649025257
+2026-05-27 11:51:11,006 WARNING zero-count local mass estimate seed=2 d=10 epsilon=0.05 tau=0.1 objective=inclusive_kl family=diagonal_gaussian radius=0.632455532033676
+2026-05-27 11:51:11,007 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:51:11,007 INFO current run index: 136 seed=2 d=10 epsilon=0.05 tau=0.1 objective=inclusive_kl family=diagonal_gaussian_mixture_2
+2026-05-27 11:51:23,893 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:51:23,894 INFO current run index: 137 seed=2 d=10 epsilon=0.1 tau=0.05 objective=exclusive_kl family=diagonal_gaussian
+2026-05-27 11:51:36,339 WARNING zero-count local mass estimate seed=2 d=10 epsilon=0.1 tau=0.05 objective=exclusive_kl family=diagonal_gaussian radius=0.0790569415042095
+2026-05-27 11:51:36,340 WARNING zero-count local mass estimate seed=2 d=10 epsilon=0.1 tau=0.05 objective=exclusive_kl family=diagonal_gaussian radius=0.11858541225631425
+2026-05-27 11:51:36,340 WARNING zero-count local mass estimate seed=2 d=10 epsilon=0.1 tau=0.05 objective=exclusive_kl family=diagonal_gaussian radius=0.158113883008419
+2026-05-27 11:51:36,340 WARNING zero-count local mass estimate seed=2 d=10 epsilon=0.1 tau=0.05 objective=exclusive_kl family=diagonal_gaussian radius=0.2371708245126285
+2026-05-27 11:51:36,341 WARNING zero-count local mass estimate seed=2 d=10 epsilon=0.1 tau=0.05 objective=exclusive_kl family=diagonal_gaussian radius=0.316227766016838
+2026-05-27 11:51:36,341 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:51:36,341 INFO current run index: 138 seed=2 d=10 epsilon=0.1 tau=0.05 objective=exclusive_kl family=diagonal_gaussian_mixture_2
+2026-05-27 11:52:08,204 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:52:08,204 INFO current run index: 139 seed=2 d=10 epsilon=0.1 tau=0.05 objective=inclusive_kl family=diagonal_gaussian
+2026-05-27 11:52:16,600 WARNING zero-count local mass estimate seed=2 d=10 epsilon=0.1 tau=0.05 objective=inclusive_kl family=diagonal_gaussian radius=0.0790569415042095
+2026-05-27 11:52:16,601 WARNING zero-count local mass estimate seed=2 d=10 epsilon=0.1 tau=0.05 objective=inclusive_kl family=diagonal_gaussian radius=0.11858541225631425
+2026-05-27 11:52:16,601 WARNING zero-count local mass estimate seed=2 d=10 epsilon=0.1 tau=0.05 objective=inclusive_kl family=diagonal_gaussian radius=0.158113883008419
+2026-05-27 11:52:16,602 WARNING zero-count local mass estimate seed=2 d=10 epsilon=0.1 tau=0.05 objective=inclusive_kl family=diagonal_gaussian radius=0.2371708245126285
+2026-05-27 11:52:16,602 WARNING zero-count local mass estimate seed=2 d=10 epsilon=0.1 tau=0.05 objective=inclusive_kl family=diagonal_gaussian radius=0.316227766016838
+2026-05-27 11:52:16,603 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:52:16,603 INFO current run index: 140 seed=2 d=10 epsilon=0.1 tau=0.05 objective=inclusive_kl family=diagonal_gaussian_mixture_2
+2026-05-27 11:52:29,619 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:52:29,619 INFO current run index: 141 seed=2 d=10 epsilon=0.1 tau=0.1 objective=exclusive_kl family=diagonal_gaussian
+2026-05-27 11:52:42,770 WARNING zero-count local mass estimate seed=2 d=10 epsilon=0.1 tau=0.1 objective=exclusive_kl family=diagonal_gaussian radius=0.158113883008419
+2026-05-27 11:52:42,770 WARNING zero-count local mass estimate seed=2 d=10 epsilon=0.1 tau=0.1 objective=exclusive_kl family=diagonal_gaussian radius=0.2371708245126285
+2026-05-27 11:52:42,771 WARNING zero-count local mass estimate seed=2 d=10 epsilon=0.1 tau=0.1 objective=exclusive_kl family=diagonal_gaussian radius=0.316227766016838
+2026-05-27 11:52:42,772 WARNING zero-count local mass estimate seed=2 d=10 epsilon=0.1 tau=0.1 objective=exclusive_kl family=diagonal_gaussian radius=0.474341649025257
+2026-05-27 11:52:42,772 WARNING zero-count local mass estimate seed=2 d=10 epsilon=0.1 tau=0.1 objective=exclusive_kl family=diagonal_gaussian radius=0.632455532033676
+2026-05-27 11:52:42,772 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:52:42,772 INFO current run index: 142 seed=2 d=10 epsilon=0.1 tau=0.1 objective=exclusive_kl family=diagonal_gaussian_mixture_2
+2026-05-27 11:53:14,432 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:53:14,432 INFO current run index: 143 seed=2 d=10 epsilon=0.1 tau=0.1 objective=inclusive_kl family=diagonal_gaussian
+2026-05-27 11:53:22,709 WARNING zero-count local mass estimate seed=2 d=10 epsilon=0.1 tau=0.1 objective=inclusive_kl family=diagonal_gaussian radius=0.158113883008419
+2026-05-27 11:53:22,710 WARNING zero-count local mass estimate seed=2 d=10 epsilon=0.1 tau=0.1 objective=inclusive_kl family=diagonal_gaussian radius=0.2371708245126285
+2026-05-27 11:53:22,710 WARNING zero-count local mass estimate seed=2 d=10 epsilon=0.1 tau=0.1 objective=inclusive_kl family=diagonal_gaussian radius=0.316227766016838
+2026-05-27 11:53:22,711 WARNING zero-count local mass estimate seed=2 d=10 epsilon=0.1 tau=0.1 objective=inclusive_kl family=diagonal_gaussian radius=0.474341649025257
+2026-05-27 11:53:22,711 WARNING zero-count local mass estimate seed=2 d=10 epsilon=0.1 tau=0.1 objective=inclusive_kl family=diagonal_gaussian radius=0.632455532033676
+2026-05-27 11:53:22,712 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:53:22,712 INFO current run index: 144 seed=2 d=10 epsilon=0.1 tau=0.1 objective=inclusive_kl family=diagonal_gaussian_mixture_2
+2026-05-27 11:53:36,064 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:53:36,065 INFO current run index: 145 seed=3 d=2 epsilon=0.01 tau=0.05 objective=exclusive_kl family=diagonal_gaussian
+2026-05-27 11:53:45,109 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:53:45,109 INFO current run index: 146 seed=3 d=2 epsilon=0.01 tau=0.05 objective=exclusive_kl family=diagonal_gaussian_mixture_2
+2026-05-27 11:54:09,186 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:54:09,187 INFO current run index: 147 seed=3 d=2 epsilon=0.01 tau=0.05 objective=inclusive_kl family=diagonal_gaussian
+2026-05-27 11:54:13,728 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:54:13,729 INFO current run index: 148 seed=3 d=2 epsilon=0.01 tau=0.05 objective=inclusive_kl family=diagonal_gaussian_mixture_2
+2026-05-27 11:54:21,732 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:54:21,732 INFO current run index: 149 seed=3 d=2 epsilon=0.01 tau=0.1 objective=exclusive_kl family=diagonal_gaussian
+2026-05-27 11:54:29,175 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:54:29,175 INFO current run index: 150 seed=3 d=2 epsilon=0.01 tau=0.1 objective=exclusive_kl family=diagonal_gaussian_mixture_2
+2026-05-27 11:54:48,344 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:54:48,344 INFO current run index: 151 seed=3 d=2 epsilon=0.01 tau=0.1 objective=inclusive_kl family=diagonal_gaussian
+2026-05-27 11:54:52,887 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:54:52,887 INFO current run index: 152 seed=3 d=2 epsilon=0.01 tau=0.1 objective=inclusive_kl family=diagonal_gaussian_mixture_2
+2026-05-27 11:55:00,524 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:55:00,524 INFO current run index: 153 seed=3 d=2 epsilon=0.05 tau=0.05 objective=exclusive_kl family=diagonal_gaussian
+2026-05-27 11:55:08,242 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:55:08,243 INFO current run index: 154 seed=3 d=2 epsilon=0.05 tau=0.05 objective=exclusive_kl family=diagonal_gaussian_mixture_2
+2026-05-27 11:55:28,126 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:55:28,126 INFO current run index: 155 seed=3 d=2 epsilon=0.05 tau=0.05 objective=inclusive_kl family=diagonal_gaussian
+2026-05-27 11:55:32,737 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:55:32,737 INFO current run index: 156 seed=3 d=2 epsilon=0.05 tau=0.05 objective=inclusive_kl family=diagonal_gaussian_mixture_2
+2026-05-27 11:55:40,644 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:55:40,644 INFO current run index: 157 seed=3 d=2 epsilon=0.05 tau=0.1 objective=exclusive_kl family=diagonal_gaussian
+2026-05-27 11:55:48,064 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:55:48,064 INFO current run index: 158 seed=3 d=2 epsilon=0.05 tau=0.1 objective=exclusive_kl family=diagonal_gaussian_mixture_2
+2026-05-27 11:56:07,358 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:56:07,359 INFO current run index: 159 seed=3 d=2 epsilon=0.05 tau=0.1 objective=inclusive_kl family=diagonal_gaussian
+2026-05-27 11:56:11,921 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:56:11,921 INFO current run index: 160 seed=3 d=2 epsilon=0.05 tau=0.1 objective=inclusive_kl family=diagonal_gaussian_mixture_2
+2026-05-27 11:56:19,576 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:56:19,576 INFO current run index: 161 seed=3 d=2 epsilon=0.1 tau=0.05 objective=exclusive_kl family=diagonal_gaussian
+2026-05-27 11:56:27,380 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:56:27,381 INFO current run index: 162 seed=3 d=2 epsilon=0.1 tau=0.05 objective=exclusive_kl family=diagonal_gaussian_mixture_2
+2026-05-27 11:56:47,120 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:56:47,120 INFO current run index: 163 seed=3 d=2 epsilon=0.1 tau=0.05 objective=inclusive_kl family=diagonal_gaussian
+2026-05-27 11:56:51,704 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:56:51,704 INFO current run index: 164 seed=3 d=2 epsilon=0.1 tau=0.05 objective=inclusive_kl family=diagonal_gaussian_mixture_2
+2026-05-27 11:56:59,663 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:56:59,663 INFO current run index: 165 seed=3 d=2 epsilon=0.1 tau=0.1 objective=exclusive_kl family=diagonal_gaussian
+2026-05-27 11:57:07,102 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:57:07,102 INFO current run index: 166 seed=3 d=2 epsilon=0.1 tau=0.1 objective=exclusive_kl family=diagonal_gaussian_mixture_2
+2026-05-27 11:57:26,344 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:57:26,344 INFO current run index: 167 seed=3 d=2 epsilon=0.1 tau=0.1 objective=inclusive_kl family=diagonal_gaussian
+2026-05-27 11:57:30,946 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:57:30,946 INFO current run index: 168 seed=3 d=2 epsilon=0.1 tau=0.1 objective=inclusive_kl family=diagonal_gaussian_mixture_2
+2026-05-27 11:57:38,639 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:57:38,640 INFO current run index: 169 seed=3 d=10 epsilon=0.01 tau=0.05 objective=exclusive_kl family=diagonal_gaussian
+2026-05-27 11:57:48,517 WARNING zero-count local mass estimate seed=3 d=10 epsilon=0.01 tau=0.05 objective=exclusive_kl family=diagonal_gaussian radius=0.0790569415042095
+2026-05-27 11:57:48,518 WARNING zero-count local mass estimate seed=3 d=10 epsilon=0.01 tau=0.05 objective=exclusive_kl family=diagonal_gaussian radius=0.11858541225631425
+2026-05-27 11:57:48,518 WARNING zero-count local mass estimate seed=3 d=10 epsilon=0.01 tau=0.05 objective=exclusive_kl family=diagonal_gaussian radius=0.158113883008419
+2026-05-27 11:57:48,519 WARNING zero-count local mass estimate seed=3 d=10 epsilon=0.01 tau=0.05 objective=exclusive_kl family=diagonal_gaussian radius=0.2371708245126285
+2026-05-27 11:57:48,519 WARNING zero-count local mass estimate seed=3 d=10 epsilon=0.01 tau=0.05 objective=exclusive_kl family=diagonal_gaussian radius=0.316227766016838
+2026-05-27 11:57:48,519 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:57:48,519 INFO current run index: 170 seed=3 d=10 epsilon=0.01 tau=0.05 objective=exclusive_kl family=diagonal_gaussian_mixture_2
+2026-05-27 11:58:13,386 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:58:13,387 INFO current run index: 171 seed=3 d=10 epsilon=0.01 tau=0.05 objective=inclusive_kl family=diagonal_gaussian
+2026-05-27 11:58:19,936 WARNING zero-count local mass estimate seed=3 d=10 epsilon=0.01 tau=0.05 objective=inclusive_kl family=diagonal_gaussian radius=0.0790569415042095
+2026-05-27 11:58:19,937 WARNING zero-count local mass estimate seed=3 d=10 epsilon=0.01 tau=0.05 objective=inclusive_kl family=diagonal_gaussian radius=0.11858541225631425
+2026-05-27 11:58:19,938 WARNING zero-count local mass estimate seed=3 d=10 epsilon=0.01 tau=0.05 objective=inclusive_kl family=diagonal_gaussian radius=0.158113883008419
+2026-05-27 11:58:19,938 WARNING zero-count local mass estimate seed=3 d=10 epsilon=0.01 tau=0.05 objective=inclusive_kl family=diagonal_gaussian radius=0.2371708245126285
+2026-05-27 11:58:19,939 WARNING zero-count local mass estimate seed=3 d=10 epsilon=0.01 tau=0.05 objective=inclusive_kl family=diagonal_gaussian radius=0.316227766016838
+2026-05-27 11:58:19,939 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:58:19,939 INFO current run index: 172 seed=3 d=10 epsilon=0.01 tau=0.05 objective=inclusive_kl family=diagonal_gaussian_mixture_2
+2026-05-27 11:58:30,069 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:58:30,070 INFO current run index: 173 seed=3 d=10 epsilon=0.01 tau=0.1 objective=exclusive_kl family=diagonal_gaussian
+2026-05-27 11:58:40,439 WARNING zero-count local mass estimate seed=3 d=10 epsilon=0.01 tau=0.1 objective=exclusive_kl family=diagonal_gaussian radius=0.158113883008419
+2026-05-27 11:58:40,440 WARNING zero-count local mass estimate seed=3 d=10 epsilon=0.01 tau=0.1 objective=exclusive_kl family=diagonal_gaussian radius=0.2371708245126285
+2026-05-27 11:58:40,440 WARNING zero-count local mass estimate seed=3 d=10 epsilon=0.01 tau=0.1 objective=exclusive_kl family=diagonal_gaussian radius=0.316227766016838
+2026-05-27 11:58:40,441 WARNING zero-count local mass estimate seed=3 d=10 epsilon=0.01 tau=0.1 objective=exclusive_kl family=diagonal_gaussian radius=0.474341649025257
+2026-05-27 11:58:40,441 WARNING zero-count local mass estimate seed=3 d=10 epsilon=0.01 tau=0.1 objective=exclusive_kl family=diagonal_gaussian radius=0.632455532033676
+2026-05-27 11:58:40,442 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:58:40,442 INFO current run index: 174 seed=3 d=10 epsilon=0.01 tau=0.1 objective=exclusive_kl family=diagonal_gaussian_mixture_2
+2026-05-27 11:59:07,385 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:59:07,385 INFO current run index: 175 seed=3 d=10 epsilon=0.01 tau=0.1 objective=inclusive_kl family=diagonal_gaussian
+2026-05-27 11:59:14,383 WARNING zero-count local mass estimate seed=3 d=10 epsilon=0.01 tau=0.1 objective=inclusive_kl family=diagonal_gaussian radius=0.158113883008419
+2026-05-27 11:59:14,384 WARNING zero-count local mass estimate seed=3 d=10 epsilon=0.01 tau=0.1 objective=inclusive_kl family=diagonal_gaussian radius=0.2371708245126285
+2026-05-27 11:59:14,385 WARNING zero-count local mass estimate seed=3 d=10 epsilon=0.01 tau=0.1 objective=inclusive_kl family=diagonal_gaussian radius=0.316227766016838
+2026-05-27 11:59:14,385 WARNING zero-count local mass estimate seed=3 d=10 epsilon=0.01 tau=0.1 objective=inclusive_kl family=diagonal_gaussian radius=0.474341649025257
+2026-05-27 11:59:14,386 WARNING zero-count local mass estimate seed=3 d=10 epsilon=0.01 tau=0.1 objective=inclusive_kl family=diagonal_gaussian radius=0.632455532033676
+2026-05-27 11:59:14,386 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:59:14,386 INFO current run index: 176 seed=3 d=10 epsilon=0.01 tau=0.1 objective=inclusive_kl family=diagonal_gaussian_mixture_2
+2026-05-27 11:59:25,258 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:59:25,258 INFO current run index: 177 seed=3 d=10 epsilon=0.05 tau=0.05 objective=exclusive_kl family=diagonal_gaussian
+2026-05-27 11:59:35,930 WARNING zero-count local mass estimate seed=3 d=10 epsilon=0.05 tau=0.05 objective=exclusive_kl family=diagonal_gaussian radius=0.0790569415042095
+2026-05-27 11:59:35,932 WARNING zero-count local mass estimate seed=3 d=10 epsilon=0.05 tau=0.05 objective=exclusive_kl family=diagonal_gaussian radius=0.11858541225631425
+2026-05-27 11:59:35,933 WARNING zero-count local mass estimate seed=3 d=10 epsilon=0.05 tau=0.05 objective=exclusive_kl family=diagonal_gaussian radius=0.158113883008419
+2026-05-27 11:59:35,933 WARNING zero-count local mass estimate seed=3 d=10 epsilon=0.05 tau=0.05 objective=exclusive_kl family=diagonal_gaussian radius=0.2371708245126285
+2026-05-27 11:59:35,934 WARNING zero-count local mass estimate seed=3 d=10 epsilon=0.05 tau=0.05 objective=exclusive_kl family=diagonal_gaussian radius=0.316227766016838
+2026-05-27 11:59:35,934 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 11:59:35,934 INFO current run index: 178 seed=3 d=10 epsilon=0.05 tau=0.05 objective=exclusive_kl family=diagonal_gaussian_mixture_2
+2026-05-27 12:00:02,316 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 12:00:02,316 INFO current run index: 179 seed=3 d=10 epsilon=0.05 tau=0.05 objective=inclusive_kl family=diagonal_gaussian
+2026-05-27 12:00:09,274 WARNING zero-count local mass estimate seed=3 d=10 epsilon=0.05 tau=0.05 objective=inclusive_kl family=diagonal_gaussian radius=0.0790569415042095
+2026-05-27 12:00:09,275 WARNING zero-count local mass estimate seed=3 d=10 epsilon=0.05 tau=0.05 objective=inclusive_kl family=diagonal_gaussian radius=0.11858541225631425
+2026-05-27 12:00:09,276 WARNING zero-count local mass estimate seed=3 d=10 epsilon=0.05 tau=0.05 objective=inclusive_kl family=diagonal_gaussian radius=0.158113883008419
+2026-05-27 12:00:09,276 WARNING zero-count local mass estimate seed=3 d=10 epsilon=0.05 tau=0.05 objective=inclusive_kl family=diagonal_gaussian radius=0.2371708245126285
+2026-05-27 12:00:09,277 WARNING zero-count local mass estimate seed=3 d=10 epsilon=0.05 tau=0.05 objective=inclusive_kl family=diagonal_gaussian radius=0.316227766016838
+2026-05-27 12:00:09,277 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 12:00:09,277 INFO current run index: 180 seed=3 d=10 epsilon=0.05 tau=0.05 objective=inclusive_kl family=diagonal_gaussian_mixture_2
+2026-05-27 12:00:20,092 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 12:00:20,093 INFO current run index: 181 seed=3 d=10 epsilon=0.05 tau=0.1 objective=exclusive_kl family=diagonal_gaussian
+2026-05-27 12:00:30,849 WARNING zero-count local mass estimate seed=3 d=10 epsilon=0.05 tau=0.1 objective=exclusive_kl family=diagonal_gaussian radius=0.158113883008419
+2026-05-27 12:00:30,850 WARNING zero-count local mass estimate seed=3 d=10 epsilon=0.05 tau=0.1 objective=exclusive_kl family=diagonal_gaussian radius=0.2371708245126285
+2026-05-27 12:00:30,850 WARNING zero-count local mass estimate seed=3 d=10 epsilon=0.05 tau=0.1 objective=exclusive_kl family=diagonal_gaussian radius=0.316227766016838
+2026-05-27 12:00:30,851 WARNING zero-count local mass estimate seed=3 d=10 epsilon=0.05 tau=0.1 objective=exclusive_kl family=diagonal_gaussian radius=0.474341649025257
+2026-05-27 12:00:30,851 WARNING zero-count local mass estimate seed=3 d=10 epsilon=0.05 tau=0.1 objective=exclusive_kl family=diagonal_gaussian radius=0.632455532033676
+2026-05-27 12:00:30,851 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 12:00:30,851 INFO current run index: 182 seed=3 d=10 epsilon=0.05 tau=0.1 objective=exclusive_kl family=diagonal_gaussian_mixture_2
+2026-05-27 12:00:57,448 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 12:00:57,449 INFO current run index: 183 seed=3 d=10 epsilon=0.05 tau=0.1 objective=inclusive_kl family=diagonal_gaussian
+2026-05-27 12:01:04,347 WARNING zero-count local mass estimate seed=3 d=10 epsilon=0.05 tau=0.1 objective=inclusive_kl family=diagonal_gaussian radius=0.158113883008419
+2026-05-27 12:01:04,348 WARNING zero-count local mass estimate seed=3 d=10 epsilon=0.05 tau=0.1 objective=inclusive_kl family=diagonal_gaussian radius=0.2371708245126285
+2026-05-27 12:01:04,349 WARNING zero-count local mass estimate seed=3 d=10 epsilon=0.05 tau=0.1 objective=inclusive_kl family=diagonal_gaussian radius=0.316227766016838
+2026-05-27 12:01:04,349 WARNING zero-count local mass estimate seed=3 d=10 epsilon=0.05 tau=0.1 objective=inclusive_kl family=diagonal_gaussian radius=0.474341649025257
+2026-05-27 12:01:04,350 WARNING zero-count local mass estimate seed=3 d=10 epsilon=0.05 tau=0.1 objective=inclusive_kl family=diagonal_gaussian radius=0.632455532033676
+2026-05-27 12:01:04,350 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 12:01:04,351 INFO current run index: 184 seed=3 d=10 epsilon=0.05 tau=0.1 objective=inclusive_kl family=diagonal_gaussian_mixture_2
+2026-05-27 12:01:15,186 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 12:01:15,186 INFO current run index: 185 seed=3 d=10 epsilon=0.1 tau=0.05 objective=exclusive_kl family=diagonal_gaussian
+2026-05-27 12:01:25,749 WARNING zero-count local mass estimate seed=3 d=10 epsilon=0.1 tau=0.05 objective=exclusive_kl family=diagonal_gaussian radius=0.0790569415042095
+2026-05-27 12:01:25,750 WARNING zero-count local mass estimate seed=3 d=10 epsilon=0.1 tau=0.05 objective=exclusive_kl family=diagonal_gaussian radius=0.11858541225631425
+2026-05-27 12:01:25,751 WARNING zero-count local mass estimate seed=3 d=10 epsilon=0.1 tau=0.05 objective=exclusive_kl family=diagonal_gaussian radius=0.158113883008419
+2026-05-27 12:01:25,752 WARNING zero-count local mass estimate seed=3 d=10 epsilon=0.1 tau=0.05 objective=exclusive_kl family=diagonal_gaussian radius=0.2371708245126285
+2026-05-27 12:01:25,752 WARNING zero-count local mass estimate seed=3 d=10 epsilon=0.1 tau=0.05 objective=exclusive_kl family=diagonal_gaussian radius=0.316227766016838
+2026-05-27 12:01:25,752 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 12:01:25,753 INFO current run index: 186 seed=3 d=10 epsilon=0.1 tau=0.05 objective=exclusive_kl family=diagonal_gaussian_mixture_2
+2026-05-27 12:01:52,078 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 12:01:52,078 INFO current run index: 187 seed=3 d=10 epsilon=0.1 tau=0.05 objective=inclusive_kl family=diagonal_gaussian
+2026-05-27 12:01:59,028 WARNING zero-count local mass estimate seed=3 d=10 epsilon=0.1 tau=0.05 objective=inclusive_kl family=diagonal_gaussian radius=0.0790569415042095
+2026-05-27 12:01:59,028 WARNING zero-count local mass estimate seed=3 d=10 epsilon=0.1 tau=0.05 objective=inclusive_kl family=diagonal_gaussian radius=0.11858541225631425
+2026-05-27 12:01:59,029 WARNING zero-count local mass estimate seed=3 d=10 epsilon=0.1 tau=0.05 objective=inclusive_kl family=diagonal_gaussian radius=0.158113883008419
+2026-05-27 12:01:59,030 WARNING zero-count local mass estimate seed=3 d=10 epsilon=0.1 tau=0.05 objective=inclusive_kl family=diagonal_gaussian radius=0.2371708245126285
+2026-05-27 12:01:59,031 WARNING zero-count local mass estimate seed=3 d=10 epsilon=0.1 tau=0.05 objective=inclusive_kl family=diagonal_gaussian radius=0.316227766016838
+2026-05-27 12:01:59,031 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 12:01:59,031 INFO current run index: 188 seed=3 d=10 epsilon=0.1 tau=0.05 objective=inclusive_kl family=diagonal_gaussian_mixture_2
+2026-05-27 12:02:09,637 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 12:02:09,637 INFO current run index: 189 seed=3 d=10 epsilon=0.1 tau=0.1 objective=exclusive_kl family=diagonal_gaussian
+2026-05-27 12:02:20,276 WARNING zero-count local mass estimate seed=3 d=10 epsilon=0.1 tau=0.1 objective=exclusive_kl family=diagonal_gaussian radius=0.158113883008419
+2026-05-27 12:02:20,277 WARNING zero-count local mass estimate seed=3 d=10 epsilon=0.1 tau=0.1 objective=exclusive_kl family=diagonal_gaussian radius=0.2371708245126285
+2026-05-27 12:02:20,277 WARNING zero-count local mass estimate seed=3 d=10 epsilon=0.1 tau=0.1 objective=exclusive_kl family=diagonal_gaussian radius=0.316227766016838
+2026-05-27 12:02:20,278 WARNING zero-count local mass estimate seed=3 d=10 epsilon=0.1 tau=0.1 objective=exclusive_kl family=diagonal_gaussian radius=0.474341649025257
+2026-05-27 12:02:20,279 WARNING zero-count local mass estimate seed=3 d=10 epsilon=0.1 tau=0.1 objective=exclusive_kl family=diagonal_gaussian radius=0.632455532033676
+2026-05-27 12:02:20,279 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 12:02:20,279 INFO current run index: 190 seed=3 d=10 epsilon=0.1 tau=0.1 objective=exclusive_kl family=diagonal_gaussian_mixture_2
+2026-05-27 12:02:46,556 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 12:02:46,556 INFO current run index: 191 seed=3 d=10 epsilon=0.1 tau=0.1 objective=inclusive_kl family=diagonal_gaussian
+2026-05-27 12:02:53,369 WARNING zero-count local mass estimate seed=3 d=10 epsilon=0.1 tau=0.1 objective=inclusive_kl family=diagonal_gaussian radius=0.158113883008419
+2026-05-27 12:02:53,370 WARNING zero-count local mass estimate seed=3 d=10 epsilon=0.1 tau=0.1 objective=inclusive_kl family=diagonal_gaussian radius=0.2371708245126285
+2026-05-27 12:02:53,370 WARNING zero-count local mass estimate seed=3 d=10 epsilon=0.1 tau=0.1 objective=inclusive_kl family=diagonal_gaussian radius=0.316227766016838
+2026-05-27 12:02:53,371 WARNING zero-count local mass estimate seed=3 d=10 epsilon=0.1 tau=0.1 objective=inclusive_kl family=diagonal_gaussian radius=0.474341649025257
+2026-05-27 12:02:53,371 WARNING zero-count local mass estimate seed=3 d=10 epsilon=0.1 tau=0.1 objective=inclusive_kl family=diagonal_gaussian radius=0.632455532033676
+2026-05-27 12:02:53,371 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 12:02:53,372 INFO current run index: 192 seed=3 d=10 epsilon=0.1 tau=0.1 objective=inclusive_kl family=diagonal_gaussian_mixture_2
+2026-05-27 12:03:04,107 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 12:03:04,107 INFO current run index: 193 seed=4 d=2 epsilon=0.01 tau=0.05 objective=exclusive_kl family=diagonal_gaussian
+2026-05-27 12:03:12,282 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 12:03:12,282 INFO current run index: 194 seed=4 d=2 epsilon=0.01 tau=0.05 objective=exclusive_kl family=diagonal_gaussian_mixture_2
+2026-05-27 12:03:33,059 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 12:03:33,060 INFO current run index: 195 seed=4 d=2 epsilon=0.01 tau=0.05 objective=inclusive_kl family=diagonal_gaussian
+2026-05-27 12:03:37,898 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 12:03:37,898 INFO current run index: 196 seed=4 d=2 epsilon=0.01 tau=0.05 objective=inclusive_kl family=diagonal_gaussian_mixture_2
+2026-05-27 12:03:46,066 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 12:03:46,066 INFO current run index: 197 seed=4 d=2 epsilon=0.01 tau=0.1 objective=exclusive_kl family=diagonal_gaussian
+2026-05-27 12:03:53,783 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 12:03:53,783 INFO current run index: 198 seed=4 d=2 epsilon=0.01 tau=0.1 objective=exclusive_kl family=diagonal_gaussian_mixture_2
+2026-05-27 12:04:13,519 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 12:04:13,519 INFO current run index: 199 seed=4 d=2 epsilon=0.01 tau=0.1 objective=inclusive_kl family=diagonal_gaussian
+2026-05-27 12:04:18,212 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 12:04:18,212 INFO current run index: 200 seed=4 d=2 epsilon=0.01 tau=0.1 objective=inclusive_kl family=diagonal_gaussian_mixture_2
+2026-05-27 12:04:26,094 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 12:04:26,095 INFO current run index: 201 seed=4 d=2 epsilon=0.05 tau=0.05 objective=exclusive_kl family=diagonal_gaussian
+2026-05-27 12:04:34,190 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 12:04:34,191 INFO current run index: 202 seed=4 d=2 epsilon=0.05 tau=0.05 objective=exclusive_kl family=diagonal_gaussian_mixture_2
+2026-05-27 12:04:54,639 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 12:04:54,640 INFO current run index: 203 seed=4 d=2 epsilon=0.05 tau=0.05 objective=inclusive_kl family=diagonal_gaussian
+2026-05-27 12:04:59,373 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 12:04:59,374 INFO current run index: 204 seed=4 d=2 epsilon=0.05 tau=0.05 objective=inclusive_kl family=diagonal_gaussian_mixture_2
+2026-05-27 12:05:07,496 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 12:05:07,496 INFO current run index: 205 seed=4 d=2 epsilon=0.05 tau=0.1 objective=exclusive_kl family=diagonal_gaussian
+2026-05-27 12:05:15,233 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 12:05:15,234 INFO current run index: 206 seed=4 d=2 epsilon=0.05 tau=0.1 objective=exclusive_kl family=diagonal_gaussian_mixture_2
+2026-05-27 12:05:34,992 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 12:05:34,993 INFO current run index: 207 seed=4 d=2 epsilon=0.05 tau=0.1 objective=inclusive_kl family=diagonal_gaussian
+2026-05-27 12:05:39,725 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 12:05:39,725 INFO current run index: 208 seed=4 d=2 epsilon=0.05 tau=0.1 objective=inclusive_kl family=diagonal_gaussian_mixture_2
+2026-05-27 12:05:47,586 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 12:05:47,587 INFO current run index: 209 seed=4 d=2 epsilon=0.1 tau=0.05 objective=exclusive_kl family=diagonal_gaussian
+2026-05-27 12:05:55,629 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 12:05:55,629 INFO current run index: 210 seed=4 d=2 epsilon=0.1 tau=0.05 objective=exclusive_kl family=diagonal_gaussian_mixture_2
+2026-05-27 12:06:15,777 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 12:06:15,777 INFO current run index: 211 seed=4 d=2 epsilon=0.1 tau=0.05 objective=inclusive_kl family=diagonal_gaussian
+2026-05-27 12:06:20,534 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 12:06:20,535 INFO current run index: 212 seed=4 d=2 epsilon=0.1 tau=0.05 objective=inclusive_kl family=diagonal_gaussian_mixture_2
+2026-05-27 12:06:28,680 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 12:06:28,680 INFO current run index: 213 seed=4 d=2 epsilon=0.1 tau=0.1 objective=exclusive_kl family=diagonal_gaussian
+2026-05-27 12:06:36,519 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 12:06:36,519 INFO current run index: 214 seed=4 d=2 epsilon=0.1 tau=0.1 objective=exclusive_kl family=diagonal_gaussian_mixture_2
+2026-05-27 12:06:56,356 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 12:06:56,356 INFO current run index: 215 seed=4 d=2 epsilon=0.1 tau=0.1 objective=inclusive_kl family=diagonal_gaussian
+2026-05-27 12:07:01,110 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 12:07:01,110 INFO current run index: 216 seed=4 d=2 epsilon=0.1 tau=0.1 objective=inclusive_kl family=diagonal_gaussian_mixture_2
+2026-05-27 12:07:08,947 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 12:07:08,947 INFO current run index: 217 seed=4 d=10 epsilon=0.01 tau=0.05 objective=exclusive_kl family=diagonal_gaussian
+2026-05-27 12:07:19,182 WARNING zero-count local mass estimate seed=4 d=10 epsilon=0.01 tau=0.05 objective=exclusive_kl family=diagonal_gaussian radius=0.0790569415042095
+2026-05-27 12:07:19,183 WARNING zero-count local mass estimate seed=4 d=10 epsilon=0.01 tau=0.05 objective=exclusive_kl family=diagonal_gaussian radius=0.11858541225631425
+2026-05-27 12:07:19,183 WARNING zero-count local mass estimate seed=4 d=10 epsilon=0.01 tau=0.05 objective=exclusive_kl family=diagonal_gaussian radius=0.158113883008419
+2026-05-27 12:07:19,184 WARNING zero-count local mass estimate seed=4 d=10 epsilon=0.01 tau=0.05 objective=exclusive_kl family=diagonal_gaussian radius=0.2371708245126285
+2026-05-27 12:07:19,185 WARNING zero-count local mass estimate seed=4 d=10 epsilon=0.01 tau=0.05 objective=exclusive_kl family=diagonal_gaussian radius=0.316227766016838
+2026-05-27 12:07:19,185 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 12:07:19,185 INFO current run index: 218 seed=4 d=10 epsilon=0.01 tau=0.05 objective=exclusive_kl family=diagonal_gaussian_mixture_2
+2026-05-27 12:07:44,508 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 12:07:44,508 INFO current run index: 219 seed=4 d=10 epsilon=0.01 tau=0.05 objective=inclusive_kl family=diagonal_gaussian
+2026-05-27 12:07:51,187 WARNING zero-count local mass estimate seed=4 d=10 epsilon=0.01 tau=0.05 objective=inclusive_kl family=diagonal_gaussian radius=0.0790569415042095
+2026-05-27 12:07:51,188 WARNING zero-count local mass estimate seed=4 d=10 epsilon=0.01 tau=0.05 objective=inclusive_kl family=diagonal_gaussian radius=0.11858541225631425
+2026-05-27 12:07:51,188 WARNING zero-count local mass estimate seed=4 d=10 epsilon=0.01 tau=0.05 objective=inclusive_kl family=diagonal_gaussian radius=0.158113883008419
+2026-05-27 12:07:51,189 WARNING zero-count local mass estimate seed=4 d=10 epsilon=0.01 tau=0.05 objective=inclusive_kl family=diagonal_gaussian radius=0.2371708245126285
+2026-05-27 12:07:51,190 WARNING zero-count local mass estimate seed=4 d=10 epsilon=0.01 tau=0.05 objective=inclusive_kl family=diagonal_gaussian radius=0.316227766016838
+2026-05-27 12:07:51,190 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 12:07:51,190 INFO current run index: 220 seed=4 d=10 epsilon=0.01 tau=0.05 objective=inclusive_kl family=diagonal_gaussian_mixture_2
+2026-05-27 12:08:01,491 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 12:08:01,492 INFO current run index: 221 seed=4 d=10 epsilon=0.01 tau=0.1 objective=exclusive_kl family=diagonal_gaussian
+2026-05-27 12:08:11,679 WARNING zero-count local mass estimate seed=4 d=10 epsilon=0.01 tau=0.1 objective=exclusive_kl family=diagonal_gaussian radius=0.158113883008419
+2026-05-27 12:08:11,680 WARNING zero-count local mass estimate seed=4 d=10 epsilon=0.01 tau=0.1 objective=exclusive_kl family=diagonal_gaussian radius=0.2371708245126285
+2026-05-27 12:08:11,680 WARNING zero-count local mass estimate seed=4 d=10 epsilon=0.01 tau=0.1 objective=exclusive_kl family=diagonal_gaussian radius=0.316227766016838
+2026-05-27 12:08:11,681 WARNING zero-count local mass estimate seed=4 d=10 epsilon=0.01 tau=0.1 objective=exclusive_kl family=diagonal_gaussian radius=0.474341649025257
+2026-05-27 12:08:11,682 WARNING zero-count local mass estimate seed=4 d=10 epsilon=0.01 tau=0.1 objective=exclusive_kl family=diagonal_gaussian radius=0.632455532033676
+2026-05-27 12:08:11,682 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 12:08:11,682 INFO current run index: 222 seed=4 d=10 epsilon=0.01 tau=0.1 objective=exclusive_kl family=diagonal_gaussian_mixture_2
+2026-05-27 12:08:37,237 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 12:08:37,238 INFO current run index: 223 seed=4 d=10 epsilon=0.01 tau=0.1 objective=inclusive_kl family=diagonal_gaussian
+2026-05-27 12:08:43,920 WARNING zero-count local mass estimate seed=4 d=10 epsilon=0.01 tau=0.1 objective=inclusive_kl family=diagonal_gaussian radius=0.158113883008419
+2026-05-27 12:08:43,921 WARNING zero-count local mass estimate seed=4 d=10 epsilon=0.01 tau=0.1 objective=inclusive_kl family=diagonal_gaussian radius=0.2371708245126285
+2026-05-27 12:08:43,922 WARNING zero-count local mass estimate seed=4 d=10 epsilon=0.01 tau=0.1 objective=inclusive_kl family=diagonal_gaussian radius=0.316227766016838
+2026-05-27 12:08:43,922 WARNING zero-count local mass estimate seed=4 d=10 epsilon=0.01 tau=0.1 objective=inclusive_kl family=diagonal_gaussian radius=0.474341649025257
+2026-05-27 12:08:43,922 WARNING zero-count local mass estimate seed=4 d=10 epsilon=0.01 tau=0.1 objective=inclusive_kl family=diagonal_gaussian radius=0.632455532033676
+2026-05-27 12:08:43,922 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 12:08:43,923 INFO current run index: 224 seed=4 d=10 epsilon=0.01 tau=0.1 objective=inclusive_kl family=diagonal_gaussian_mixture_2
+2026-05-27 12:08:54,316 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 12:08:54,316 INFO current run index: 225 seed=4 d=10 epsilon=0.05 tau=0.05 objective=exclusive_kl family=diagonal_gaussian
+2026-05-27 12:09:04,633 WARNING zero-count local mass estimate seed=4 d=10 epsilon=0.05 tau=0.05 objective=exclusive_kl family=diagonal_gaussian radius=0.0790569415042095
+2026-05-27 12:09:04,634 WARNING zero-count local mass estimate seed=4 d=10 epsilon=0.05 tau=0.05 objective=exclusive_kl family=diagonal_gaussian radius=0.11858541225631425
+2026-05-27 12:09:04,635 WARNING zero-count local mass estimate seed=4 d=10 epsilon=0.05 tau=0.05 objective=exclusive_kl family=diagonal_gaussian radius=0.158113883008419
+2026-05-27 12:09:04,635 WARNING zero-count local mass estimate seed=4 d=10 epsilon=0.05 tau=0.05 objective=exclusive_kl family=diagonal_gaussian radius=0.2371708245126285
+2026-05-27 12:09:04,636 WARNING zero-count local mass estimate seed=4 d=10 epsilon=0.05 tau=0.05 objective=exclusive_kl family=diagonal_gaussian radius=0.316227766016838
+2026-05-27 12:09:04,636 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 12:09:04,636 INFO current run index: 226 seed=4 d=10 epsilon=0.05 tau=0.05 objective=exclusive_kl family=diagonal_gaussian_mixture_2
+2026-05-27 12:09:30,034 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 12:09:30,035 INFO current run index: 227 seed=4 d=10 epsilon=0.05 tau=0.05 objective=inclusive_kl family=diagonal_gaussian
+2026-05-27 12:09:36,784 WARNING zero-count local mass estimate seed=4 d=10 epsilon=0.05 tau=0.05 objective=inclusive_kl family=diagonal_gaussian radius=0.0790569415042095
+2026-05-27 12:09:36,785 WARNING zero-count local mass estimate seed=4 d=10 epsilon=0.05 tau=0.05 objective=inclusive_kl family=diagonal_gaussian radius=0.11858541225631425
+2026-05-27 12:09:36,785 WARNING zero-count local mass estimate seed=4 d=10 epsilon=0.05 tau=0.05 objective=inclusive_kl family=diagonal_gaussian radius=0.158113883008419
+2026-05-27 12:09:36,786 WARNING zero-count local mass estimate seed=4 d=10 epsilon=0.05 tau=0.05 objective=inclusive_kl family=diagonal_gaussian radius=0.2371708245126285
+2026-05-27 12:09:36,786 WARNING zero-count local mass estimate seed=4 d=10 epsilon=0.05 tau=0.05 objective=inclusive_kl family=diagonal_gaussian radius=0.316227766016838
+2026-05-27 12:09:36,786 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 12:09:36,786 INFO current run index: 228 seed=4 d=10 epsilon=0.05 tau=0.05 objective=inclusive_kl family=diagonal_gaussian_mixture_2
+2026-05-27 12:09:47,110 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 12:09:47,110 INFO current run index: 229 seed=4 d=10 epsilon=0.05 tau=0.1 objective=exclusive_kl family=diagonal_gaussian
+2026-05-27 12:09:57,351 WARNING zero-count local mass estimate seed=4 d=10 epsilon=0.05 tau=0.1 objective=exclusive_kl family=diagonal_gaussian radius=0.158113883008419
+2026-05-27 12:09:57,352 WARNING zero-count local mass estimate seed=4 d=10 epsilon=0.05 tau=0.1 objective=exclusive_kl family=diagonal_gaussian radius=0.2371708245126285
+2026-05-27 12:09:57,353 WARNING zero-count local mass estimate seed=4 d=10 epsilon=0.05 tau=0.1 objective=exclusive_kl family=diagonal_gaussian radius=0.316227766016838
+2026-05-27 12:09:57,354 WARNING zero-count local mass estimate seed=4 d=10 epsilon=0.05 tau=0.1 objective=exclusive_kl family=diagonal_gaussian radius=0.474341649025257
+2026-05-27 12:09:57,354 WARNING zero-count local mass estimate seed=4 d=10 epsilon=0.05 tau=0.1 objective=exclusive_kl family=diagonal_gaussian radius=0.632455532033676
+2026-05-27 12:09:57,354 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 12:09:57,355 INFO current run index: 230 seed=4 d=10 epsilon=0.05 tau=0.1 objective=exclusive_kl family=diagonal_gaussian_mixture_2
+2026-05-27 12:10:22,720 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 12:10:22,721 INFO current run index: 231 seed=4 d=10 epsilon=0.05 tau=0.1 objective=inclusive_kl family=diagonal_gaussian
+2026-05-27 12:10:29,463 WARNING zero-count local mass estimate seed=4 d=10 epsilon=0.05 tau=0.1 objective=inclusive_kl family=diagonal_gaussian radius=0.158113883008419
+2026-05-27 12:10:29,463 WARNING zero-count local mass estimate seed=4 d=10 epsilon=0.05 tau=0.1 objective=inclusive_kl family=diagonal_gaussian radius=0.2371708245126285
+2026-05-27 12:10:29,464 WARNING zero-count local mass estimate seed=4 d=10 epsilon=0.05 tau=0.1 objective=inclusive_kl family=diagonal_gaussian radius=0.316227766016838
+2026-05-27 12:10:29,465 WARNING zero-count local mass estimate seed=4 d=10 epsilon=0.05 tau=0.1 objective=inclusive_kl family=diagonal_gaussian radius=0.474341649025257
+2026-05-27 12:10:29,465 WARNING zero-count local mass estimate seed=4 d=10 epsilon=0.05 tau=0.1 objective=inclusive_kl family=diagonal_gaussian radius=0.632455532033676
+2026-05-27 12:10:29,466 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 12:10:29,466 INFO current run index: 232 seed=4 d=10 epsilon=0.05 tau=0.1 objective=inclusive_kl family=diagonal_gaussian_mixture_2
+2026-05-27 12:10:39,892 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 12:10:39,893 INFO current run index: 233 seed=4 d=10 epsilon=0.1 tau=0.05 objective=exclusive_kl family=diagonal_gaussian
+2026-05-27 12:10:50,346 WARNING zero-count local mass estimate seed=4 d=10 epsilon=0.1 tau=0.05 objective=exclusive_kl family=diagonal_gaussian radius=0.0790569415042095
+2026-05-27 12:10:50,347 WARNING zero-count local mass estimate seed=4 d=10 epsilon=0.1 tau=0.05 objective=exclusive_kl family=diagonal_gaussian radius=0.11858541225631425
+2026-05-27 12:10:50,347 WARNING zero-count local mass estimate seed=4 d=10 epsilon=0.1 tau=0.05 objective=exclusive_kl family=diagonal_gaussian radius=0.158113883008419
+2026-05-27 12:10:50,348 WARNING zero-count local mass estimate seed=4 d=10 epsilon=0.1 tau=0.05 objective=exclusive_kl family=diagonal_gaussian radius=0.2371708245126285
+2026-05-27 12:10:50,349 WARNING zero-count local mass estimate seed=4 d=10 epsilon=0.1 tau=0.05 objective=exclusive_kl family=diagonal_gaussian radius=0.316227766016838
+2026-05-27 12:10:50,349 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 12:10:50,349 INFO current run index: 234 seed=4 d=10 epsilon=0.1 tau=0.05 objective=exclusive_kl family=diagonal_gaussian_mixture_2
+2026-05-27 12:11:15,805 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 12:11:15,805 INFO current run index: 235 seed=4 d=10 epsilon=0.1 tau=0.05 objective=inclusive_kl family=diagonal_gaussian
+2026-05-27 12:11:22,585 WARNING zero-count local mass estimate seed=4 d=10 epsilon=0.1 tau=0.05 objective=inclusive_kl family=diagonal_gaussian radius=0.0790569415042095
+2026-05-27 12:11:22,586 WARNING zero-count local mass estimate seed=4 d=10 epsilon=0.1 tau=0.05 objective=inclusive_kl family=diagonal_gaussian radius=0.11858541225631425
+2026-05-27 12:11:22,586 WARNING zero-count local mass estimate seed=4 d=10 epsilon=0.1 tau=0.05 objective=inclusive_kl family=diagonal_gaussian radius=0.158113883008419
+2026-05-27 12:11:22,587 WARNING zero-count local mass estimate seed=4 d=10 epsilon=0.1 tau=0.05 objective=inclusive_kl family=diagonal_gaussian radius=0.2371708245126285
+2026-05-27 12:11:22,587 WARNING zero-count local mass estimate seed=4 d=10 epsilon=0.1 tau=0.05 objective=inclusive_kl family=diagonal_gaussian radius=0.316227766016838
+2026-05-27 12:11:22,587 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 12:11:22,587 INFO current run index: 236 seed=4 d=10 epsilon=0.1 tau=0.05 objective=inclusive_kl family=diagonal_gaussian_mixture_2
+2026-05-27 12:11:32,890 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 12:11:32,890 INFO current run index: 237 seed=4 d=10 epsilon=0.1 tau=0.1 objective=exclusive_kl family=diagonal_gaussian
+2026-05-27 12:11:43,222 WARNING zero-count local mass estimate seed=4 d=10 epsilon=0.1 tau=0.1 objective=exclusive_kl family=diagonal_gaussian radius=0.158113883008419
+2026-05-27 12:11:43,223 WARNING zero-count local mass estimate seed=4 d=10 epsilon=0.1 tau=0.1 objective=exclusive_kl family=diagonal_gaussian radius=0.2371708245126285
+2026-05-27 12:11:43,223 WARNING zero-count local mass estimate seed=4 d=10 epsilon=0.1 tau=0.1 objective=exclusive_kl family=diagonal_gaussian radius=0.316227766016838
+2026-05-27 12:11:43,224 WARNING zero-count local mass estimate seed=4 d=10 epsilon=0.1 tau=0.1 objective=exclusive_kl family=diagonal_gaussian radius=0.474341649025257
+2026-05-27 12:11:43,225 WARNING zero-count local mass estimate seed=4 d=10 epsilon=0.1 tau=0.1 objective=exclusive_kl family=diagonal_gaussian radius=0.632455532033676
+2026-05-27 12:11:43,225 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 12:11:43,225 INFO current run index: 238 seed=4 d=10 epsilon=0.1 tau=0.1 objective=exclusive_kl family=diagonal_gaussian_mixture_2
+2026-05-27 12:12:08,571 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 12:12:08,571 INFO current run index: 239 seed=4 d=10 epsilon=0.1 tau=0.1 objective=inclusive_kl family=diagonal_gaussian
+2026-05-27 12:12:15,282 WARNING zero-count local mass estimate seed=4 d=10 epsilon=0.1 tau=0.1 objective=inclusive_kl family=diagonal_gaussian radius=0.158113883008419
+2026-05-27 12:12:15,283 WARNING zero-count local mass estimate seed=4 d=10 epsilon=0.1 tau=0.1 objective=inclusive_kl family=diagonal_gaussian radius=0.2371708245126285
+2026-05-27 12:12:15,284 WARNING zero-count local mass estimate seed=4 d=10 epsilon=0.1 tau=0.1 objective=inclusive_kl family=diagonal_gaussian radius=0.316227766016838
+2026-05-27 12:12:15,284 WARNING zero-count local mass estimate seed=4 d=10 epsilon=0.1 tau=0.1 objective=inclusive_kl family=diagonal_gaussian radius=0.474341649025257
+2026-05-27 12:12:15,285 WARNING zero-count local mass estimate seed=4 d=10 epsilon=0.1 tau=0.1 objective=inclusive_kl family=diagonal_gaussian radius=0.632455532033676
+2026-05-27 12:12:15,285 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 12:12:15,285 INFO current run index: 240 seed=4 d=10 epsilon=0.1 tau=0.1 objective=inclusive_kl family=diagonal_gaussian_mixture_2
+2026-05-27 12:12:25,676 INFO memory after run allocated_mb=0.0 reserved_mb=0.0
+2026-05-27 12:12:26,664 INFO end time: run completed
+2026-05-27 12:12:26,665 INFO output directory: results\exp2_actual_vi_training\20260527_111628

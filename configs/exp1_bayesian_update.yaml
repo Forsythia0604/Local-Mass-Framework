@@ -1,0 +1,29 @@
+experiment_name: exp1_bayesian_update
+seeds: [0, 1, 2, 3, 4]
+dims: [10, 50]
+n_samples: [200, 1000]
+sigma_noise: 0.5
+sparsity: 0.1
+r_grid:
+  start_exp: -3
+  stop_exp: -0.5
+  num: 30
+priors:
+  laplace:
+    lambda: 1.0
+  student_t:
+    nu: 3.0
+  horseshoe_like:
+    epsilon: 1.0e-12
+map_optimisation:
+  max_iter: 1000
+  tolerance: 1.0e-7
+posterior_approximation:
+  method: laplace_around_map
+  fallback_used: true
+  fallback_reason: "Instruction permits Laplace approximation around MAP; this script records the approximation explicitly."
+selection:
+  max_active: 3
+  max_inactive: 3
+  max_random: 3
+output_root: results/exp1_bayesian_update

@@ -1,0 +1,23 @@
+{
+  "experiment_name": "exp3_directional_normalisation",
+  "start_time": "2026-05-28T09:49:00.332476",
+  "command_line_args": {
+    "config": "C:\\Users\\JoKannritsu\\Desktop\\\u5b9e\u9a8c\u8bbe\u8ba1\\experiments\\experiments\\configs\\exp3_directional_normalisation.yaml"
+  },
+  "config_path": "C:\\Users\\JoKannritsu\\Desktop\\\u5b9e\u9a8c\u8bbe\u8ba1\\experiments\\experiments\\configs\\exp3_directional_normalisation.yaml",
+  "package_versions": {
+    "python": "3.14.3 (tags/v3.14.3:323c59a, Feb  3 2026, 16:04:56) [MSC v.1944 64 bit (AMD64)]",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "numpy": "2.4.4",
+    "scipy": "1.17.1",
+    "pandas": "3.0.3",
+    "matplotlib": "3.10.8",
+    "pyyaml": "6.0.3"
+  },
+  "end_time": "2026-05-28T09:49:08.080200",
+  "runtime_seconds": 7.722449541091919,
+  "num_raw_rows": 1800,
+  "num_summary_rows": 45,
+  "num_failures": 0,
+  "num_monte_carlo_rows": 600
+}

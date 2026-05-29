@@ -1,0 +1,70 @@
+2026-05-27 11:15:37,285 INFO start time: 2026-05-27T11:15:37.285289
+2026-05-27 11:15:38,005 INFO git commit: not_available
+2026-05-27 11:15:38,005 INFO config path: configs/exp1_small_bayes_regression.yaml
+2026-05-27 11:15:38,006 INFO resolved config:
+experiment_name: exp1_small_bayes_regression
+device:
+  prefer_gpu: true
+  allow_cpu_fallback: true
+seeds:
+- 0
+- 1
+- 2
+- 3
+- 4
+n: 100
+d: 20
+active_count: 4
+noise_sigma: 0.5
+priors:
+- name: laplace
+  scale: 0.5
+  smooth_delta: 1.0e-05
+- name: student_t
+  df: 3.0
+  scale: 0.5
+- name: gaussian
+  scale: 0.5
+- name: horseshoe_like
+  global_scale: 0.5
+  enabled: false
+  role: stress_test_only
+map_optimisation:
+  max_steps: 5000
+  lr: 0.01
+  tolerance: 1.0e-08
+  use_lbfgs: true
+laplace:
+  hessian_jitter: 1.0e-06
+  max_condition_number_warning: 1.0e10
+  allow_pseudo_inverse: true
+r_grid:
+  type: logspace
+  min_exp: -6
+  max_exp: -0.5
+  num: 40
+primary_radius_window:
+  use_smallest_k: 8
+
+2026-05-27 11:15:38,006 INFO torch version: 2.12.0+cpu
+2026-05-27 11:15:38,006 INFO cuda available: False
+2026-05-27 11:15:38,006 INFO device used: cpu
+2026-05-27 11:15:38,006 INFO GPU name if available: 
+2026-05-27 11:15:38,007 INFO Skipping disabled prior: horseshoe_like
+2026-05-27 11:15:38,007 INFO current run index: 1 seed=0 prior=laplace
+2026-05-27 11:15:40,779 INFO current run index: 2 seed=0 prior=student_t
+2026-05-27 11:15:42,740 INFO current run index: 3 seed=0 prior=gaussian
+2026-05-27 11:15:45,563 INFO current run index: 4 seed=1 prior=laplace
+2026-05-27 11:15:47,289 INFO current run index: 5 seed=1 prior=student_t
+2026-05-27 11:15:49,835 INFO current run index: 6 seed=1 prior=gaussian
+2026-05-27 11:15:52,521 INFO current run index: 7 seed=2 prior=laplace
+2026-05-27 11:15:54,472 INFO current run index: 8 seed=2 prior=student_t
+2026-05-27 11:15:56,650 INFO current run index: 9 seed=2 prior=gaussian
+2026-05-27 11:15:59,221 INFO current run index: 10 seed=3 prior=laplace
+2026-05-27 11:16:01,401 INFO current run index: 11 seed=3 prior=student_t
+2026-05-27 11:16:03,594 INFO current run index: 12 seed=3 prior=gaussian
+2026-05-27 11:16:05,699 INFO current run index: 13 seed=4 prior=laplace
+2026-05-27 11:16:07,716 INFO current run index: 14 seed=4 prior=student_t
+2026-05-27 11:16:10,091 INFO current run index: 15 seed=4 prior=gaussian
+2026-05-27 11:16:15,659 INFO end time: run completed
+2026-05-27 11:16:15,659 INFO output directory: results\exp1_small_bayes_regression\20260527_111537
