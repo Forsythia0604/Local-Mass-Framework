@@ -80,7 +80,7 @@ python -m venv .venv
 pip install -r requirements.txt
 ```
 
-The experiment runners use NumPy, SciPy, pandas, PyYAML, tqdm, and PyTorch. The standalone plotting script also uses matplotlib. EXP2 can use CUDA if available, but CPU execution is supported.
+The experiment runners use NumPy, SciPy, pandas, PyYAML, tqdm, and PyTorch. The standalone plotting script uses matplotlib. EXP2 can use CUDA if available, but CPU execution is supported.
 
 ## Running Experiments
 
@@ -92,9 +92,9 @@ python scripts/run_exp2_global_vs_local.py --config configs/exp2_global_vs_local
 python scripts/run_exp3_directional_normalisation.py --config configs/exp3_directional_normalisation.yaml
 ```
 
-Each experiment run creates a timestamped directory under `results/<experiment_name>/` and saves data, logs, config snapshots, and metadata only.
+Each experiment run creates a timestamped directory under `results/<experiment_name>/` and only saves data, logs, config snapshots, and metadata.
 
-## Regenerating Figures
+## Making Figures
 
 All plotting is centralised in one script:
 
@@ -102,7 +102,7 @@ All plotting is centralised in one script:
 python scripts/make_two_column_plots.py
 ```
 
-The plotting script reads saved CSV files from the latest packaged result directories and writes compact two-column PNG figures under each run's `figures/` directory. It does not generate PDF files.
+The plotting script reads saved CSV files from the latest result runs and writes compact two-column PNG figures under each run's `figures/` directory. It does not generate PDF files.
 
 ## Notes on Configurations
 

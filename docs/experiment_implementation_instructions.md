@@ -97,7 +97,6 @@ experiments/
     divergence.py
     vi_training.py
     logging_utils.py
-    plotting.py
     utils.py
 
   scripts/
@@ -126,7 +125,7 @@ results/<experiment_name>/<YYYYMMDD_HHMMSS>/
   logs/
 ```
 
-Experiment runners save numerical data only. The standalone plotting script creates or refreshes `figures/` directories from saved CSV files.
+Experiment runners should save numerical data only. The `figures/` directory is created by `scripts/make_two_column_plots.py` when plots are regenerated from saved CSV files.
 
 ---
 
@@ -760,30 +759,31 @@ All figures should:
 - include axis labels;
 - include legends;
 - include experiment parameters in title or caption;
-- save as PNG only;
+- save as both PNG and PDF;
 - be reproducible from raw CSV files.
 
-Do not manually edit figures outside `scripts/make_two_column_plots.py`.
+Do not manually edit figures outside the script.
 
 ---
 
-## 8. Figure Generation
+## 8. Summary Report
 
-After running experiments, regenerate compact two-column figures with:
+After running all experiments, generate:
 
-```bash
-python scripts/make_two_column_plots.py
+```text
+results/summary_report.md
 ```
 
-The plotting script should:
+The report should include:
 
-1. read only saved CSV/config/metadata files;
-2. write only PNG files under `results/**/figures/`;
-3. keep layouts suitable for two-column papers;
-4. avoid recalculating experiment metrics;
-5. remove stale PDF figure outputs.
-
-Any written report should be prepared from saved metrics and generated PNG figures. There is no separate report-generation Python script in the cleaned package.
+1. environment information;
+2. experiment configurations;
+3. tables of main metrics;
+4. links to raw data files;
+5. links to figures;
+6. unexpected results;
+7. failed runs;
+8. whether each experiment supports, partially supports, or does not support the intended diagnostic claim.
 
 Do not write exaggerated conclusions.
 
@@ -871,4 +871,4 @@ The implementation is acceptable only if:
 4. all seeds and hyperparameters are logged;
 5. failed runs are recorded rather than deleted;
 6. Exp3 computes both \(A_r^{q||p}\) and \(A_r^{p||q}\);
-7. saved metrics and generated PNG figures are sufficient to assess whether results support or do not support the intended diagnostic claim.
+7. the summary report explicitly states whether results support or do not support the intended diagnostic claim.

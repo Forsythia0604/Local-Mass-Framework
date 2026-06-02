@@ -32,6 +32,7 @@ COLORS = {
     "gaussian": "#4C78A8",
     "laplace": "#F58518",
     "student_t": "#54A24B",
+    "mean_field_gaussian": "#E45756",
     "diagonal_gaussian": "#E45756",
     "diagonal_gaussian_mixture_2": "#4C78A8",
     "exclusive_kl": "#B279A2",
@@ -70,11 +71,14 @@ def configure_style() -> None:
     )
 
 
-def latest_run(experiment: str) -> Path | None:
-    root = PROJECT_ROOT / "results" / experiment
-    if not root.exists():
-        return None
-    runs = sorted(path for path in root.iterdir() if path.is_dir())
+def latest_run(experiments: str | list[str]) -> Path | None:
+    names = [experiments] if isinstance(experiments, str) else experiments
+    runs = []
+    for experiment in names:
+        root = PROJECT_ROOT / "results" / experiment
+        if root.exists():
+            runs.extend(path for path in root.iterdir() if path.is_dir())
+    runs = sorted(runs, key=lambda path: path.name)
     return runs[-1] if runs else None
 
 
@@ -104,13 +108,14 @@ def short_prior(name: str) -> str:
 
 def short_family(name: str) -> str:
     return {
+        "mean_field_gaussian": "Mean-field Gaussian",
         "diagonal_gaussian": "Diag. Gaussian",
         "diagonal_gaussian_mixture_2": "2-comp. mixture",
     }.get(str(name), str(name))
 
 
 def short_objective(name: str) -> str:
-    return {"exclusive_kl": "Excl. KL", "inclusive_kl": "Incl. KL"}.get(str(name), str(name))
+    return {"exclusive_kl": "Excl. KL", "inclusive_kl": "Incl. KL", "kl_q_p": "KL(q||p)"}.get(str(name), str(name))
 
 
 def log_safe(values: pd.Series | np.ndarray, floor: float = 1.0e-300) -> np.ndarray:
@@ -127,7 +132,7 @@ def grouped_quantiles(df: pd.DataFrame, keys: list[str], value: str) -> pd.DataF
 
 
 def plot_exp1() -> None:
-    run_dir = latest_run("exp1_small_bayes_regression")
+    run_dir = latest_run(["exp1_small_bayes_regression", "exp1_bayesian_update"])
     if run_dir is None:
         return
     figures = ensure_figures(run_dir)
@@ -137,6 +142,44 @@ def plot_exp1() -> None:
     hessian = read_csv(metrics / "exp1_hessian_diagnostics.csv")
     inactive = read_csv(metrics / "exp1_inactive_summary.csv")
     active = read_csv(metrics / "exp1_active_diagnostic_summary.csv")
+
+    if radius.empty:
+        raw = read_csv(run_dir / "raw_metrics.csv")
+        summary = read_csv(run_dir / "summary_metrics.csv")
+        if raw.empty:
+            return
+        radius = raw.rename(
+            columns={
+                "r": "radius",
+                "coordinate_index": "coordinate",
+                "ratio_posterior_to_prior": "mass_ratio",
+                "m_prior": "prior_mass",
+                "m_posterior": "post_mass",
+            }
+        )
+        radius["is_active"] = radius["coordinate_type"].eq("active")
+        if not summary.empty:
+            slope_parts = []
+            for source, target in [("estimated_prior_slope", "prior"), ("estimated_posterior_slope", "posterior")]:
+                if source in summary:
+                    slope_parts.append(
+                        summary.rename(columns={source: "slope"})
+                        .assign(mass_kind=target, mid_radius=radius["radius"].median())
+                    )
+            slopes = pd.concat(slope_parts, ignore_index=True) if slope_parts else pd.DataFrame()
+            if not slopes.empty and "coordinate_type" in slopes:
+                slopes["is_active"] = slopes["coordinate_type"].eq("active")
+        log_ratios = radius.assign(log_mass_ratio=log_safe(radius["mass_ratio"]))
+        compact = (
+            log_ratios.groupby(["prior_name", "is_active"], as_index=False)
+            .agg(
+                mean_log_mass_ratio=("log_mass_ratio", "mean"),
+                median_mass_ratio=("mass_ratio", "median"),
+                row_count=("mass_ratio", "size"),
+            )
+        )
+        inactive = compact[~compact["is_active"]].drop(columns=["is_active"])
+        active = compact[compact["is_active"]].drop(columns=["is_active"])
 
     if not radius.empty:
         inactive_rows = radius[~radius["is_active"].astype(bool)].copy()
@@ -244,7 +287,7 @@ def plot_exp1() -> None:
 
 
 def plot_exp2() -> None:
-    run_dir = latest_run("exp2_actual_vi_training")
+    run_dir = latest_run(["exp2_actual_vi_training", "exp2_global_vs_local"])
     if run_dir is None:
         return
     figures = ensure_figures(run_dir)
@@ -254,6 +297,46 @@ def plot_exp2() -> None:
     training = read_csv(metrics / "exp2_training_curves.csv")
     params = read_csv(metrics / "exp2_learned_parameters.csv")
     reliability = read_csv(metrics / "exp2_q_mass_reliability.csv")
+
+    if final.empty and local.empty:
+        raw = read_csv(run_dir / "raw_metrics.csv")
+        summary = read_csv(run_dir / "summary_metrics.csv")
+        training_log = read_csv(run_dir / "training_log.csv")
+        if raw.empty:
+            return
+        local = raw.rename(
+            columns={
+                "dim": "dimension",
+                "eps": "epsilon",
+                "variational_family": "family",
+                "r": "radius",
+                "local_mass_ratio": "plot_local_mass_ratio",
+            }
+        )
+        final = summary.rename(
+            columns={
+                "dim": "dimension",
+                "eps": "epsilon",
+                "variational_family": "family",
+                "final_global_kl_estimate": "estimated_DKL_q_p",
+                "min_local_mass_ratio": "local_mass_ratio_q_over_p",
+            }
+        )
+        training = training_log.rename(
+            columns={
+                "dim": "dimension",
+                "eps": "epsilon",
+                "variational_family": "family",
+                "training_step": "step",
+                "training_loss": "loss",
+            }
+        )
+        if "objective" not in local:
+            local["objective"] = "kl_q_p"
+        if "objective" not in final:
+            final["objective"] = "kl_q_p"
+        if "objective" not in training:
+            training["objective"] = "kl_q_p"
 
     if not training.empty:
         fig, ax = plt.subplots(figsize=SINGLE)
@@ -282,7 +365,6 @@ def plot_exp2() -> None:
             final.groupby(["dimension", "family", "objective", "epsilon", "tau"], as_index=False)
             .agg(
                 kl_qp=("estimated_DKL_q_p", "median"),
-                kl_pq=("estimated_DKL_p_q", "median"),
                 local_ratio=("local_mass_ratio_q_over_p", "median"),
             )
             .sort_values(["dimension", "family", "objective"])
@@ -315,8 +397,9 @@ def plot_exp2() -> None:
         ax.legend(handles=handles, loc="lower right", ncol=2, columnspacing=0.7, handletextpad=0.4)
         save_png(fig, figures, "exp2_global_kl_vs_local_mass_ratio")
 
-        fig, axes = plt.subplots(1, 2, figsize=DOUBLE_SHORT, sharey=True)
         dims = sorted(summary["dimension"].unique())
+        fig, axes = plt.subplots(1, len(dims), figsize=DOUBLE_SHORT, sharey=True)
+        axes = np.atleast_1d(axes)
         for ax, dim in zip(axes, dims):
             part_dim = summary[summary["dimension"] == dim]
             heat = (
