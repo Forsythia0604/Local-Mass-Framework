@@ -8,7 +8,6 @@ import time
 from datetime import datetime
 from pathlib import Path
 
-import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import scipy
@@ -36,7 +35,6 @@ def make_run_dir(config):
         root = PROJECT_ROOT / root
     run_dir = root / datetime.now().strftime("%Y%m%d_%H%M%S")
     run_dir.mkdir(parents=True, exist_ok=False)
-    (run_dir / "figures").mkdir()
     (run_dir / "logs").mkdir()
     return run_dir
 
@@ -49,7 +47,6 @@ def package_versions():
         "numpy": np.__version__,
         "scipy": scipy.__version__,
         "pandas": pd.__version__,
-        "matplotlib": plt.matplotlib.__version__,
         "pyyaml": yaml.__version__,
         "torch": torch.__version__,
         "cuda_available": cuda_available,
@@ -385,82 +382,7 @@ def run_experiment(config, run_dir):
     training_log.to_csv(run_dir / "training_log.csv", index=False)
     summary.to_csv(run_dir / "summary_metrics.csv", index=False)
     failure_df.to_csv(run_dir / "logs" / "failures.csv", index=False)
-    make_figures(raw, summary, run_dir)
     return raw, training_log, summary, failures
-
-
-def make_figures(raw, summary, run_dir):
-    if raw.empty:
-        return
-    figures = run_dir / "figures"
-
-    fig, ax = plt.subplots(figsize=(7, 5))
-    scatter_df = raw.groupby(["seed", "dim", "eps", "tau", "variational_family"], as_index=False).agg(
-        final_global_kl_estimate=("final_global_kl_estimate", "first"),
-        min_local_mass_ratio=("local_mass_ratio", "min"),
-    )
-    for family, part in scatter_df.groupby("variational_family"):
-        ax.scatter(part["final_global_kl_estimate"], part["min_local_mass_ratio"], label=family, alpha=0.75)
-    ax.set_xlabel("estimated global KL(q||p)")
-    ax.set_ylabel("minimum local mass ratio over r")
-    ax.set_yscale("log")
-    ax.set_title("Exp2 global KL versus local mass ratio")
-    ax.legend()
-    fig.tight_layout()
-    fig.savefig(figures / "global_kl_vs_local_mass_ratio.png", dpi=160)
-    fig.savefig(figures / "global_kl_vs_local_mass_ratio.pdf")
-    plt.close(fig)
-
-    for keys, part in raw.groupby(["dim", "eps", "tau"]):
-        dim, eps, tau = keys
-        fig, ax = plt.subplots(figsize=(7, 5))
-        for family, fam_part in part.groupby("variational_family"):
-            curve = fam_part.groupby("r", as_index=False)["local_mass_ratio"].median()
-            ax.plot(curve["r"], curve["local_mass_ratio"], marker="o", markersize=2, label=family)
-        ax.set_xscale("log")
-        ax.set_yscale("log")
-        ax.set_xlabel("r")
-        ax.set_ylabel("median local mass ratio")
-        ax.set_title(f"Exp2 local mass ratio, d={dim}, eps={eps}, tau={tau}")
-        ax.legend()
-        fig.tight_layout()
-        fig.savefig(figures / f"local_mass_ratio_d{dim}_eps{eps}_tau{tau}.png", dpi=160)
-        fig.savefig(figures / f"local_mass_ratio_d{dim}_eps{eps}_tau{tau}.pdf")
-        plt.close(fig)
-
-        fig, ax = plt.subplots(figsize=(7, 5))
-        for family, fam_part in part.groupby("variational_family"):
-            curve = fam_part.groupby("r", as_index=False)["normalised_local_rekl_q_p"].median()
-            ax.plot(curve["r"], curve["normalised_local_rekl_q_p"], marker="o", markersize=2, label=family)
-        ax.set_xscale("log")
-        ax.set_yscale("symlog", linthresh=1.0e-8)
-        ax.set_xlabel("r")
-        ax.set_ylabel("median normalised local RE-KL q||p")
-        ax.set_title(f"Exp2 normalised local RE-KL, d={dim}, eps={eps}, tau={tau}")
-        ax.legend()
-        fig.tight_layout()
-        fig.savefig(figures / f"normalised_rekl_d{dim}_eps{eps}_tau{tau}.png", dpi=160)
-        fig.savefig(figures / f"normalised_rekl_d{dim}_eps{eps}_tau{tau}.pdf")
-        plt.close(fig)
-
-    if not summary.empty:
-        grouped = summary.groupby("variational_family", as_index=False).agg(
-            final_global_kl_estimate=("final_global_kl_estimate", "median"),
-            min_local_mass_ratio=("min_local_mass_ratio", "median"),
-        )
-        fig, ax = plt.subplots(figsize=(7, 4))
-        x = np.arange(len(grouped))
-        ax.bar(x - 0.2, grouped["final_global_kl_estimate"], width=0.4, label="global KL")
-        ax.bar(x + 0.2, grouped["min_local_mass_ratio"], width=0.4, label="min local ratio")
-        ax.set_xticks(x)
-        ax.set_xticklabels(grouped["variational_family"], rotation=20, ha="right")
-        ax.set_yscale("symlog", linthresh=1.0e-4)
-        ax.set_title("Exp2 variational family comparison")
-        ax.legend()
-        fig.tight_layout()
-        fig.savefig(figures / "family_comparison_bar.png", dpi=160)
-        fig.savefig(figures / "family_comparison_bar.pdf")
-        plt.close(fig)
 
 
 def main():

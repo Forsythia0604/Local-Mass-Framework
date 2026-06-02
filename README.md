@@ -1,7 +1,6 @@
 # Mass Index Diagnostic Experiments
 
 This repository is a clean experiment package for the three diagnostic experiments used in the local mass / Mass Index / variational approximation analysis.
-- `experiment_report_clean.md`: the experiment interpretation report.
 
 ## Repository Layout
 
@@ -17,8 +16,7 @@ scripts/
   run_exp1_bayesian_update.py
   run_exp2_global_vs_local.py
   run_exp3_directional_normalisation.py
-  make_all_plots.py
-  summarise_results.py
+  make_two_column_plots.py
 
 results/
   exp1_small_bayes_regression/20260527_111537/
@@ -32,8 +30,6 @@ docs/
   exp3_directional_normalisation.md
   experiment_package_manifest.md
 
-reports/
-  experiment_report_clean.md
 ```
 
 ## Experiments
@@ -84,9 +80,9 @@ python -m venv .venv
 pip install -r requirements.txt
 ```
 
-The code uses NumPy, SciPy, pandas, matplotlib, PyYAML, tqdm, and PyTorch. EXP2 can use CUDA if available, but CPU execution is supported.
+The experiment runners use NumPy, SciPy, pandas, PyYAML, tqdm, and PyTorch. The standalone plotting script also uses matplotlib. EXP2 can use CUDA if available, but CPU execution is supported.
 
-## Running the Generic Scripts
+## Running Experiments
 
 Run from the repository root:
 
@@ -94,11 +90,19 @@ Run from the repository root:
 python scripts/run_exp1_bayesian_update.py --config configs/exp1_bayesian_update.yaml
 python scripts/run_exp2_global_vs_local.py --config configs/exp2_global_vs_local.yaml
 python scripts/run_exp3_directional_normalisation.py --config configs/exp3_directional_normalisation.yaml
-python scripts/make_all_plots.py
-python scripts/summarise_results.py
 ```
 
-Each run creates a timestamped directory under `results/<experiment_name>/`.
+Each experiment run creates a timestamped directory under `results/<experiment_name>/` and saves data, logs, config snapshots, and metadata only.
+
+## Regenerating Figures
+
+All plotting is centralised in one script:
+
+```bash
+python scripts/make_two_column_plots.py
+```
+
+The plotting script reads saved CSV files from the latest packaged result directories and writes compact two-column PNG figures under each run's `figures/` directory. It does not generate PDF files.
 
 ## Notes on Configurations
 

@@ -7,7 +7,6 @@ import time
 from datetime import datetime
 from pathlib import Path
 
-import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import scipy
@@ -32,7 +31,6 @@ def make_run_dir(config):
         root = PROJECT_ROOT / root
     run_dir = root / datetime.now().strftime("%Y%m%d_%H%M%S")
     run_dir.mkdir(parents=True, exist_ok=False)
-    (run_dir / "figures").mkdir()
     (run_dir / "logs").mkdir()
     return run_dir
 
@@ -49,7 +47,6 @@ def package_versions():
         "numpy": np.__version__,
         "scipy": scipy.__version__,
         "pandas": pd.__version__,
-        "matplotlib": plt.matplotlib.__version__,
         "pyyaml": yaml.__version__,
     }
 
@@ -352,75 +349,7 @@ def run_experiment(config, run_dir):
     raw.to_csv(run_dir / "raw_metrics.csv", index=False)
     summary.to_csv(run_dir / "summary_metrics.csv", index=False)
     failure_df.to_csv(run_dir / "logs" / "failures.csv", index=False)
-    make_figures(raw, summary, run_dir)
     return raw, summary, failures
-
-
-def make_figures(raw, summary, run_dir):
-    if raw.empty:
-        return
-    figures = run_dir / "figures"
-    example_keys = raw[["seed", "dimension", "n_samples", "prior_name", "coordinate_index", "coordinate_type"]].drop_duplicates()
-    for _, key in example_keys.head(12).iterrows():
-        mask = np.ones(len(raw), dtype=bool)
-        for col, value in key.items():
-            mask &= raw[col].to_numpy() == value
-        part = raw.loc[mask].sort_values("r")
-        label = f"s{key.seed}_d{key.dimension}_n{key.n_samples}_{key.prior_name}_j{key.coordinate_index}_{key.coordinate_type}"
-
-        fig, ax = plt.subplots(figsize=(6, 4))
-        ax.plot(np.log(part["r"]), np.log(part["m_prior"]), label="log prior mass")
-        ax.plot(np.log(part["r"]), np.log(part["m_posterior"]), label="log posterior mass")
-        ax.set_xlabel("log r")
-        ax.set_ylabel("log local mass")
-        ax.set_title(label)
-        ax.legend()
-        fig.tight_layout()
-        fig.savefig(figures / f"local_mass_{label}.png", dpi=160)
-        fig.savefig(figures / f"local_mass_{label}.pdf")
-        plt.close(fig)
-
-        fig, ax = plt.subplots(figsize=(6, 4))
-        ax.plot(part["r"], part["ratio_posterior_to_prior"], marker="o", markersize=2)
-        ax.set_xscale("log")
-        ax.set_yscale("log")
-        ax.set_xlabel("r")
-        ax.set_ylabel("posterior mass / prior mass")
-        ax.set_title(label)
-        fig.tight_layout()
-        fig.savefig(figures / f"ratio_{label}.png", dpi=160)
-        fig.savefig(figures / f"ratio_{label}.pdf")
-        plt.close(fig)
-
-    if not summary.empty:
-        grouped = (
-            summary.groupby(["dimension", "n_samples", "prior_name", "coordinate_type"], as_index=False)[
-                ["estimated_prior_slope", "estimated_posterior_slope"]
-            ]
-            .mean()
-            .sort_values(["dimension", "n_samples", "prior_name", "coordinate_type"])
-        )
-        fig, ax = plt.subplots(figsize=(10, 5))
-        positions = np.arange(len(grouped))
-        ax.bar(positions - 0.2, grouped["estimated_prior_slope"], width=0.4, label="prior slope")
-        ax.bar(positions + 0.2, grouped["estimated_posterior_slope"], width=0.4, label="posterior slope")
-        ax.set_xticks(positions)
-        ax.set_xticklabels(
-            [
-                f"d={r.dimension},n={r.n_samples},{r.prior_name},{r.coordinate_type}"
-                for r in grouped.itertuples()
-            ],
-            rotation=75,
-            ha="right",
-            fontsize=7,
-        )
-        ax.set_ylabel("mean estimated slope")
-        ax.set_title("Exp1 slope summary across seeds")
-        ax.legend()
-        fig.tight_layout()
-        fig.savefig(figures / "slope_summary.png", dpi=160)
-        fig.savefig(figures / "slope_summary.pdf")
-        plt.close(fig)
 
 
 def main():

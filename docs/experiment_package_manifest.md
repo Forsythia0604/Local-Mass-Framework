@@ -6,11 +6,10 @@ This repository is a self-contained experiment package for the Mass Index diagno
 
 | Component | Contents |
 |---|---|
-| `scripts/` | Reproducible experiment runners and result summarisation scripts. |
+| `scripts/` | Three experiment runners plus the standalone two-column plotting script. |
 | `configs/` | Run configurations for the package experiments. |
-| `results/` | Saved metrics, figures, logs, and run configuration snapshots. |
+| `results/` | Saved metrics, PNG figures, logs, and run configuration snapshots. |
 | `docs/` | Experiment design notes and per-experiment documentation. |
-| `reports/` | Clean experiment analysis report. |
 
 ## Packaged Result Runs
 
@@ -31,4 +30,3 @@ This repository is a self-contained experiment package for the Mass Index diagno
 | `configs/exp2_global_vs_local.yaml` | Additional generic global-vs-local VI diagnostic configuration. |
 
 Each result run also contains its own run-local configuration file, either `config_used.yaml` or `config.yaml`, so the saved outputs remain reproducible from the exact settings used for that run.
-

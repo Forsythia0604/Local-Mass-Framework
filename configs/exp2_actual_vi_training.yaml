@@ -54,5 +54,3 @@ initialisation:
   mixture_initial_weights:
   - 0.9
   - 0.1
-plotting:
-  plotting_floor: 1.0e-12

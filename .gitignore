@@ -6,6 +6,7 @@ __pycache__/
 .ruff_cache/
 .venv/
 venv/
+.plot_deps/
 
 # Local temporary artifacts
 *.tmp

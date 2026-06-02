@@ -9,7 +9,6 @@ import warnings
 from datetime import datetime
 from pathlib import Path
 
-import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import scipy
@@ -39,7 +38,6 @@ def make_run_dir(config):
         root = PROJECT_ROOT / root
     run_dir = root / datetime.now().strftime("%Y%m%d_%H%M%S")
     run_dir.mkdir(parents=True, exist_ok=False)
-    (run_dir / "figures").mkdir()
     (run_dir / "logs").mkdir()
     return run_dir
 
@@ -51,7 +49,6 @@ def package_versions():
         "numpy": np.__version__,
         "scipy": scipy.__version__,
         "pandas": pd.__version__,
-        "matplotlib": plt.matplotlib.__version__,
         "pyyaml": yaml.__version__,
     }
 
@@ -271,7 +268,6 @@ def run_experiment(config, run_dir):
     summary.to_csv(run_dir / "summary_metrics.csv", index=False)
     failures_df.to_csv(run_dir / "logs" / "failures.csv", index=False)
     mc.to_csv(run_dir / "monte_carlo_metrics.csv", index=False)
-    make_figures(raw, summary, run_dir)
     return raw, summary, failures, mc
 
 
@@ -295,84 +291,6 @@ def summarise(raw):
         )
         .sort_values(["alpha", "a_p", "a_q"])
     )
-
-
-def make_figures(raw, summary, run_dir):
-    if raw.empty:
-        return
-    figures = run_dir / "figures"
-
-    heat = summary[summary["alpha"] == summary["alpha"].median()].pivot(
-        index="a_p", columns="a_q", values="mi_preserved_estimated"
-    )
-    fig, ax = plt.subplots(figsize=(6, 4))
-    image = ax.imshow(heat.astype(float).values, origin="lower", aspect="auto", vmin=0, vmax=1)
-    ax.set_xticks(np.arange(len(heat.columns)))
-    ax.set_xticklabels(heat.columns)
-    ax.set_yticks(np.arange(len(heat.index)))
-    ax.set_yticklabels(heat.index)
-    ax.set_xlabel("a_q")
-    ax.set_ylabel("a_p")
-    ax.set_title("Exp3 estimated MI preservation")
-    fig.colorbar(image, ax=ax, label="preserved")
-    fig.tight_layout()
-    fig.savefig(figures / "mi_preservation_heatmap.png", dpi=160)
-    fig.savefig(figures / "mi_preservation_heatmap.pdf")
-    plt.close(fig)
-
-    for alpha, alpha_part in raw.groupby("alpha"):
-        fig, ax = plt.subplots(figsize=(7, 5))
-        for (a_p, a_q), part in alpha_part.groupby(["a_p", "a_q"]):
-            ax.plot(part["r"], part["local_mass_ratio"], label=f"ap={a_p}, aq={a_q}")
-        ax.set_xscale("log")
-        ax.set_yscale("log")
-        ax.set_xlabel("r")
-        ax.set_ylabel("q(B_r) / p(B_r)")
-        ax.set_title(f"Exp3 local mass ratio, alpha={alpha}")
-        ax.legend(fontsize=7, ncol=2)
-        fig.tight_layout()
-        fig.savefig(figures / f"local_mass_ratio_alpha{alpha}.png", dpi=160)
-        fig.savefig(figures / f"local_mass_ratio_alpha{alpha}.pdf")
-        plt.close(fig)
-
-        for a_p in sorted(alpha_part["a_p"].unique()):
-            part_ap = alpha_part[alpha_part["a_p"] == a_p]
-            fig, ax = plt.subplots(figsize=(7, 5))
-            for a_q, part in part_ap.groupby("a_q"):
-                ax.plot(part["r"], part["normalised_local_rekl_q_p"], label=f"q||p aq={a_q}")
-                ax.plot(part["r"], part["normalised_local_rekl_p_q"], linestyle="--", label=f"p||q aq={a_q}")
-            ax.set_xscale("log")
-            ax.set_yscale("symlog", linthresh=1.0e-10)
-            ax.set_xlabel("r")
-            ax.set_ylabel("normalised local RE-KL")
-            ax.set_title(f"Exp3 normalised local RE-KL, alpha={alpha}, ap={a_p}")
-            ax.legend(fontsize=7, ncol=2)
-            fig.tight_layout()
-            fig.savefig(figures / f"normalised_rekl_alpha{alpha}_ap{a_p}.png", dpi=160)
-            fig.savefig(figures / f"normalised_rekl_alpha{alpha}_ap{a_p}.pdf")
-            plt.close(fig)
-
-    table = summary[
-        [
-            "a_p",
-            "a_q",
-            "alpha",
-            "theoretical_MI_p",
-            "theoretical_MI_q",
-            "estimated_MI_p",
-            "estimated_MI_q",
-            "mi_preserved_theoretical",
-            "mi_preserved_estimated",
-        ]
-    ]
-    fig, ax = plt.subplots(figsize=(10, max(4, 0.25 * len(table))))
-    ax.axis("off")
-    ax.table(cellText=table.round(4).values, colLabels=table.columns, loc="center", cellLoc="center")
-    ax.set_title("Exp3 theoretical and estimated MI values")
-    fig.tight_layout()
-    fig.savefig(figures / "mi_comparison_table.png", dpi=160)
-    fig.savefig(figures / "mi_comparison_table.pdf")
-    plt.close(fig)
 
 
 def main():

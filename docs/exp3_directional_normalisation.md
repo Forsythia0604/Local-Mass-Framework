@@ -35,7 +35,7 @@ Key files:
 - `summary_metrics.csv`: case-level summary and classification.
 - `monte_carlo_metrics.csv`: Monte Carlo validation rows.
 - `logs/failures.csv`: failure log; empty except header when no failures occur.
-- `figures/*.png` and `figures/*.pdf`: generated plots.
+- `figures/*.png`: generated two-column plots.
 
 ## Setup
 
