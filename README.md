@@ -1,4 +1,4 @@
-# MI and Normalised Local Divergence Experiments, V4
+# MI and Normalised Local Divergence Experiments
 
 This directory contains a clean implementation of the three experiments around:
 
