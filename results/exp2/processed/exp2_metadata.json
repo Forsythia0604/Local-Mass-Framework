@@ -1,0 +1,24 @@
+{
+  "adaptive_radii": true,
+  "align_case_centres": true,
+  "alpha_value": 0.5,
+  "centre_types": [
+    "zero",
+    "nonzero"
+  ],
+  "centre_values": [
+    "[0.0, 0.0]",
+    "[0.1380195, -0.05998172]"
+  ],
+  "claim": "Raw local divergence vanishes on shrinking balls; normalised local divergence is scale-free.",
+  "dataset_name": "breast_cancer",
+  "dataset_source": "synthetic_fallback",
+  "device_info": "numpy-cpu",
+  "dimension": 2,
+  "eps_likelihood": 0.05,
+  "experiment_name": "EXP2",
+  "model_type": "Bayesian logistic regression",
+  "normalised_divergence_definition": "log_normalised = log_raw - log_p(B_r); no epsilon denominator is used",
+  "plot_values": "for display only: exp(clip(log_value, -50, 50))",
+  "random_seed": 0
+}

@@ -1,4 +1,0 @@
-prior_name,mean_log_mass_ratio,median_mass_ratio,mean_abs_map,mean_posterior_sd,row_count,device_used,cuda_available,gpu_name,hessian_device,covariance_device,linear_algebra_fallback
-gaussian,1.7071867298452255,7.364459295157646,0.04374663768591807,0.05547409933984905,640,cpu,False,,cpu,see_hessian_diagnostics,see_hessian_diagnostics
-laplace,1.7710866124318003,6.170680463372749,0.03845483393342457,0.0510336911369785,640,cpu,False,,cpu,see_hessian_diagnostics,see_hessian_diagnostics
-student_t,1.7945834405786936,7.910640700090301,0.04363535285172797,0.05537071276580324,640,cpu,False,,cpu,see_hessian_diagnostics,see_hessian_diagnostics

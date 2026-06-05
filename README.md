@@ -1,122 +1,67 @@
-# Mass Index Diagnostic Experiments
+# MI and Normalised Local Divergence Experiments, V4
 
-This repository is a clean experiment package for the three diagnostic experiments used in the local mass / Mass Index / variational approximation analysis.
+This directory contains a clean implementation of the three experiments around:
 
-## Repository Layout
+- local mass exponent `kappa`
+- Mass Index `MI = dimension / kappa`
+- log-domain normalised local divergence
+
+The fitted log-log local mass slope is never reported as MI. Local balls are denoted `B_r`. Zero is only one finite centre and is not described as sparsity detection.
+
+## Structure
 
 ```text
-configs/
-  exp1_bayesian_update.yaml
-  exp2_global_vs_local.yaml
-  exp3_directional_normalisation.yaml
-  exp1_small_bayes_regression.yaml
-  exp2_actual_vi_training.yaml
-
-scripts/
-  run_exp1_bayesian_update.py
-  run_exp2_global_vs_local.py
-  run_exp3_directional_normalisation.py
-  make_two_column_plots.py
-
+experiments/
+  common.py
+  exp1_compute.py
+  exp1_plot.py
+  exp2_compute.py
+  exp2_plot.py
+  exp3_compute.py
+  exp3_plot.py
+  validate_results.py
 results/
-  exp1_small_bayes_regression/20260527_111537/
-  exp2_actual_vi_training/20260527_111628/
-  exp3_directional_normalisation/20260528_094900/
-
-docs/
-  experiment_implementation_instructions.md
-  exp1_small_bayes_regression.md
-  exp2_actual_vi_training.md
-  exp3_directional_normalisation.md
-  experiment_package_manifest.md
-
+  exp1/{raw,processed,figures}
+  exp2/{raw,processed,figures}
+  exp3/{raw,processed,figures}
 ```
 
-## Experiments
-
-### EXP1: Small Bayesian Regression
-
-Question: does Bayesian updating preserve local mass order near zero in inactive sparse coordinates?
-
-Packaged output:
-
-```text
-results/exp1_small_bayes_regression/20260527_111537/
-```
-
-Main finding: inactive-coordinate posterior local mass near zero changes by a constant-scale factor, while the local power order remains close to one.
-
-### EXP2: Actual VI Training
-
-Question: can global KL / ELBO training miss a local spike region?
-
-Packaged output:
-
-```text
-results/exp2_actual_vi_training/20260527_111628/
-```
-
-Main finding: diagonal Gaussian VI can have moderate global KL while assigning almost no mass to the spike region; a two-component mixture recovers local mass coverage.
-
-### EXP3: Directional Normalisation
-
-Question: do directional normalised local RE-KL diagnostics identify local under-coverage?
-
-Packaged output:
-
-```text
-results/exp3_directional_normalisation/20260528_094900/
-```
-
-Main finding: for \(\rho_a(x)\propto |x|^{a-1}\exp(-x^2/2)\), MI preservation is exactly characterised by \(a_q\le a_p\), and all 45 tested cases match the theoretical classification.
-
-## Setup
-
-Create an environment and install dependencies:
+## Run Commands
 
 ```bash
-python -m venv .venv
-.venv\Scripts\activate
-pip install -r requirements.txt
+python experiments/exp1_compute.py --dim 1 --datasets breast_cancer wine diabetes --power-indices 0.7 1.0 1.6 --seed 0 --adaptive-radii --eps-likelihood 0.05
+python experiments/exp1_plot.py
+
+python experiments/exp2_compute.py --dataset breast_cancer --dim 2 --power-index 1.0 --mismatched-power-index 0.35 --seed 0 --adaptive-radii --eps-likelihood 0.05 --align-case-centres
+python experiments/exp2_plot.py
+
+python experiments/exp3_compute.py --digits 0 1 --dim 2 --max-n 2500 --seed 0 --vi-steps 10000 --vi-mc-samples 32 --adaptive-radii --eps-likelihood 0.05 --num-mc-samples-eval 1024 --use-best-elbo-checkpoint
+python experiments/exp3_plot.py
+
+python experiments/exp3_compute.py --digits 3 8 --dim 2 --max-n 2500 --seed 0 --vi-steps 10000 --vi-mc-samples 32 --adaptive-radii --eps-likelihood 0.05 --num-mc-samples-eval 1024 --use-best-elbo-checkpoint
+python experiments/exp3_plot.py
+
+python experiments/validate_results.py
 ```
 
-The experiment runners use NumPy, SciPy, pandas, PyYAML, tqdm, and PyTorch. The standalone plotting script uses matplotlib. EXP2 can use CUDA if available, but CPU execution is supported.
-
-## Running Experiments
-
-Run from the repository root:
-
-```bash
-python scripts/run_exp1_bayesian_update.py --config configs/exp1_bayesian_update.yaml
-python scripts/run_exp2_global_vs_local.py --config configs/exp2_global_vs_local.yaml
-python scripts/run_exp3_directional_normalisation.py --config configs/exp3_directional_normalisation.yaml
-```
-
-Each experiment run creates a timestamped directory under `results/<experiment_name>/` and only saves data, logs, config snapshots, and metadata.
-
-## Making Figures
-
-All plotting is centralised in one script:
-
-```bash
-python scripts/make_two_column_plots.py
-```
-
-The plotting script reads saved CSV files from the latest result runs and writes compact two-column PNG figures under each run's `figures/` directory. It does not generate PDF files.
-
-## Notes on Configurations
-
-The packaged EXP1 and EXP2 result runs use these matching configurations:
+## Main Outputs
 
 ```text
-configs/exp1_small_bayes_regression.yaml
-configs/exp2_actual_vi_training.yaml
+results/exp1/processed/exp1_local_exponent_arrays.npz
+results/exp1/processed/exp1_kappa_mi_table.csv
+results/exp1/processed/exp1_metadata.json
+
+results/exp2/processed/exp2_divergence_arrays.npz
+results/exp2/processed/exp2_kappa_mi_divergence_table.csv
+results/exp2/processed/exp2_metadata.json
+
+results/exp3/raw/exp3_reference_posterior.npz
+results/exp3/raw/exp3_vi_training_traces.npz
+results/exp3/processed/exp3_mnist_arrays.npz
+results/exp3/processed/exp3_vi_family_comparison.csv
+results/exp3/processed/exp3_metadata.json
+
+results/validation_summary.md
 ```
 
-The generic diagnostic configurations are also kept for additional reruns:
-
-```text
-configs/exp1_bayesian_update.yaml
-configs/exp2_global_vs_local.yaml
-configs/exp3_directional_normalisation.yaml
-```
+Plot scripts load saved results only and save `.png` figures only. `EXP3` expects MNIST through `data/mnist/mnist.npz` or `torchvision`; `--allow-synthetic-fallback` is only for smoke tests and is recorded in metadata.

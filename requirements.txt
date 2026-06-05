@@ -2,6 +2,5 @@ numpy
 scipy
 pandas
 matplotlib
-pyyaml
-tqdm
+scikit-learn
 torch

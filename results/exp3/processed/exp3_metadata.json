@@ -1,0 +1,51 @@
+{
+  "VI_training_method": "actual ELBO optimisation; no moment-fitted VI labels",
+  "adaptive_radii": true,
+  "alpha_value": 0.5,
+  "centre_types": [
+    "zero",
+    "nonzero"
+  ],
+  "centre_values": [
+    "[0.0, 0.0]",
+    "[-4.54206874, -1.11707875]"
+  ],
+  "data_source": "synthetic_fallback",
+  "device_info": "numpy-cpu",
+  "eps_likelihood": 0.05,
+  "experiment_name": "EXP3",
+  "feature_dimension": 2,
+  "model_type": "Bayesian logistic regression",
+  "normalised_divergence_definition": "log_N_p = log_raw - log_p(B_r); log_N_q = log_raw - log_q(B_r)",
+  "plot_values": "for display only: exp(clip(log_value, -50, 50))",
+  "q_b_best_candidate": "q_b_b1",
+  "q_b_candidates": [
+    {
+      "ELBO_best": 1.2295429014037143,
+      "ELBO_final": -0.6033263622720524,
+      "b": 1.0,
+      "candidate_name": "q_b_b1"
+    },
+    {
+      "ELBO_best": 0.9899902518255468,
+      "ELBO_final": 0.872074660803978,
+      "b": 2.0,
+      "candidate_name": "q_b_b2"
+    },
+    {
+      "ELBO_best": 0.8072038233767401,
+      "ELBO_final": 0.6964183401676814,
+      "b": 3.0,
+      "candidate_name": "q_b_b3"
+    },
+    {
+      "ELBO_best": -1.734007516741733,
+      "ELBO_final": -1.734007516741733,
+      "b": 4.0,
+      "candidate_name": "q_b_b4"
+    }
+  ],
+  "random_seed": 0,
+  "reference_posterior_method": "dense low-dimensional grid approximation",
+  "task": "MNIST 0 vs 1"
+}
