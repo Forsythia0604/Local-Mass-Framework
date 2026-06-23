@@ -1,67 +1,68 @@
-# MI and Normalised Local Divergence Experiments
+# Local-Mass Experiment Figures
 
-This directory contains a clean implementation of the three experiments around:
+This repository contains a compact, reproducible implementation of the
+experiment plan in `experiment_section_requirements_figure2_uci_aggregate.md`.
+The code generates publication-oriented, single-column figures for finite-radius
+local-mass illustrations.
 
-- local mass exponent `kappa`
-- Mass Index `MI = dimension / kappa`
-- log-domain normalised local divergence
+## What the script generates
 
-The fitted log-log local mass slope is never reported as MI. Local balls are denoted `B_r`. Zero is only one finite centre and is not described as sparsity detection.
+- `figure1_synthetic_small_ball.pdf`: synthetic finite-radius small-ball curves.
+- `figure2_uci_bayes_aggregate.pdf`: aggregated real-data Bayesian reweighting
+  example over Breast Cancer, Iris, and Wine, with 5 seeds each.
+- `figure3_local_rekl_directionality.pdf`: synthetic local RE-KL directionality.
+- CSV and JSON files under `results/data/` containing the Figure 2 run-level
+  curves, slope summaries, and metadata.
 
-## Structure
+PNG previews are also written at 600 dpi unless `--no-png` is passed.
 
-```text
-experiments/
-  common.py
-  exp1_compute.py
-  exp1_plot.py
-  exp2_compute.py
-  exp2_plot.py
-  exp3_compute.py
-  exp3_plot.py
-  validate_results.py
-results/
-  exp1/{raw,processed,figures}
-  exp2/{raw,processed,figures}
-  exp3/{raw,processed,figures}
-```
+## Model choices
 
-## Run Commands
+Figure 2 uses three small UCI datasets from `scikit-learn`:
 
-```bash
-python experiments/exp1_compute.py --dim 1 --datasets breast_cancer wine diabetes --power-indices 0.7 1.0 1.6 --seed 0 --adaptive-radii --eps-likelihood 0.05
-python experiments/exp1_plot.py
+- Breast Cancer, binary classification.
+- Iris, restricted to classes 0 and 1.
+- Wine, restricted to classes 0 and 1.
 
-python experiments/exp2_compute.py --dataset breast_cancer --dim 2 --power-index 1.0 --mismatched-power-index 0.35 --seed 0 --adaptive-radii --eps-likelihood 0.05 --align-case-centres
-python experiments/exp2_plot.py
+For each dataset and seed, covariates are standardized within the training split
+and reduced to four PCA covariates. An intercept is then added, so the Bayesian
+logistic-regression parameter has dimension 5. The Gaussian-prior posterior is
+approximated by a Laplace Gaussian. The center `theta0` is the mean of this
+Laplace posterior, which is the posterior mode under the Gaussian approximation.
+Both prior and posterior small-ball masses are evaluated around this same
+`theta0`.
 
-python experiments/exp3_compute.py --digits 0 1 --dim 2 --max-n 2500 --seed 0 --vi-steps 10000 --vi-mc-samples 32 --adaptive-radii --eps-likelihood 0.05 --num-mc-samples-eval 1024 --use-best-elbo-checkpoint
-python experiments/exp3_plot.py
-
-python experiments/exp3_compute.py --digits 3 8 --dim 2 --max-n 2500 --seed 0 --vi-steps 10000 --vi-mc-samples 32 --adaptive-radii --eps-likelihood 0.05 --num-mc-samples-eval 1024 --use-best-elbo-checkpoint
-python experiments/exp3_plot.py
-
-python experiments/validate_results.py
-```
-
-## Main Outputs
+Small-ball masses are not estimated by rare-event sampling. They are computed by
+Sobol quadrature over the Euclidean ball:
 
 ```text
-results/exp1/processed/exp1_local_exponent_arrays.npz
-results/exp1/processed/exp1_kappa_mi_table.csv
-results/exp1/processed/exp1_metadata.json
-
-results/exp2/processed/exp2_divergence_arrays.npz
-results/exp2/processed/exp2_kappa_mi_divergence_table.csv
-results/exp2/processed/exp2_metadata.json
-
-results/exp3/raw/exp3_reference_posterior.npz
-results/exp3/raw/exp3_vi_training_traces.npz
-results/exp3/processed/exp3_mnist_arrays.npz
-results/exp3/processed/exp3_vi_family_comparison.csv
-results/exp3/processed/exp3_metadata.json
-
-results/validation_summary.md
+mass(B_r(theta0)) = volume(B_r) * average density on B_r(theta0).
 ```
 
-Plot scripts load saved results only and save `.png` figures only. `EXP3` expects MNIST through `data/mnist/mnist.npz` or `torchvision`; `--allow-synthetic-fallback` is only for smoke tests and is recorded in metadata.
+This keeps the experiment in the finite-radius, low-dimensional regime described
+by the MD requirements. It is a finite-radius illustration, not a scalable
+diagnostic procedure and not an asymptotic estimator.
+
+## Run
+
+If the packages are installed globally:
+
+```powershell
+python experiments/local_mass_experiments.py
+```
+
+In this workspace, dependencies were installed into `.codex_deps`. Run with the
+bundled Python from Codex:
+
+```powershell
+C:\Users\JoKannritsu\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe experiments\local_mass_experiments.py
+```
+
+Optional arguments:
+
+```powershell
+python experiments/local_mass_experiments.py --qmc-power 15 --output-dir results
+```
+
+`--qmc-power 15` uses `2^15` Sobol points per run for the Figure 2 ball
+integrals.
