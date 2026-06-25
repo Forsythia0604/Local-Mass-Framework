@@ -3,7 +3,9 @@
 This repository contains a compact, reproducible implementation of the
 experiment plan in `experiment_section_requirements_figure2_uci_aggregate.md`.
 The code generates publication-oriented, single-column figures for finite-radius
-local-mass illustrations.
+local-mass illustrations. More details are in the following paper:
+
+Hanli Xu, Fengxiang He, Sarat Moka, Beyond Global Divergences: A Local-Mass Perspective on Bayesian Inference. 2026. [paper](http://fengxianghe.github.io/paper/LocalMass.pdf)
 
 ## What the script generates
 
