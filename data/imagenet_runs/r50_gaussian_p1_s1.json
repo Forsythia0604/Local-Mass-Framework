@@ -1,0 +1,46 @@
+{
+  "meta": {
+    "arch": "resnet50",
+    "dataset": "imagenet",
+    "qfamily": "gaussian",
+    "slab": "gaussian",
+    "pi": 0.2,
+    "kl_weight": 0.0001,
+    "epochs": 8,
+    "seed": 1,
+    "phase": 1,
+    "vi_scope": "structured",
+    "device": "cuda"
+  },
+  "train": {
+    "final_nll": 0.9023494616719101,
+    "kl_final": 19872.570427299186
+  },
+  "eval": {
+    "test_acc": 75.338,
+    "test_nll": 0.993101489944458
+  },
+  "sparsity": {
+    "threshold_eps": 0.001,
+    "channels_total": 7552,
+    "channels_off": 0,
+    "structural_sparsity": 0.0
+  },
+  "mass_index": {
+    "alpha_hat": NaN,
+    "beta_hat": NaN,
+    "mi1_hat": NaN,
+    "mi2_hat": NaN,
+    "atom_detected": false,
+    "atom_mass_hat": 0.0
+  },
+  "budget": {
+    "alpha": 1.0,
+    "atom_p": 0.8,
+    "atom_q_mean": 0.0,
+    "gamma_forward": null,
+    "gamma_forward_is_inf": true,
+    "q_has_atom": false
+  },
+  "predicted_class": "continuous"
+}

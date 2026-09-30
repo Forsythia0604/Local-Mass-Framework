@@ -600,7 +600,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--output-dir",
         type=Path,
-        default=ROOT / "results",
+        default=ROOT / "results" / "generated" / "exp01_03",
         help="Directory for figures and data.",
     )
     parser.add_argument(

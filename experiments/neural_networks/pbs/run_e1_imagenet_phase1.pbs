@@ -1,0 +1,52 @@
+#!/bin/bash
+#PBS -q gpuvolta
+#PBS -P nu66
+#PBS -l ncpus=12
+#PBS -l ngpus=1
+#PBS -l mem=64GB
+#PBS -l walltime=24:00:00
+#PBS -l storage=scratch/nu66+gdata/wb00
+#PBS -l jobfs=200GB
+#PBS -M s.moka@unsw.edu.au
+#PBS -m ae
+#PBS -j oe
+#PBS -N e1_in_p1
+#PBS -r y
+# =========================================================================
+# Tier C Phase 1: ResNet-50 / ImageNet -- learn group gates on the frozen
+# pretrained base (channel selection).  ResNet-50 V1 weights are pre-cached
+# on Gadi (~/.cache/torch/hub/checkpoints), so --pretrained loads offline.
+#   qsub -v QFAMILY=spikeslab pbs/run_e1_imagenet_phase1.pbs
+#   qsub -v QFAMILY=gaussian  pbs/run_e1_imagenet_phase1.pbs   # continuous control
+# =========================================================================
+cd $PBS_O_WORKDIR
+module load python3/3.10.4
+python3 -c "import torch; assert torch.cuda.is_available(), 'No CUDA'" || exit 1
+
+QFAMILY=${QFAMILY:-spikeslab}
+KLW=${KLW:-1e-4}        # ResNet-50 has ~7.5k gate channels (no /N) -> small beta; sweep {3e-5,1e-4,3e-4} if needed
+PI=${PI:-0.2}           # prior atom mass = 1-pi
+EPOCHS=${EPOCHS:-8}
+SEED=${SEED:-1}
+OUT=${OUT:-/scratch/nu66/sm5828/bayes/e1/results/tierC}
+mkdir -p $OUT
+LOG=$OUT/r50_${QFAMILY}_p1_s${SEED}.log
+exec > "$LOG" 2>&1
+
+# --- stage ImageNet to node-local jobfs (NCI-approved fast path) ---
+DATA_SRC=/g/data/wb00/ImageNet/ILSVRC2012/raw-data
+DATA_DIR=$PBS_JOBFS/imagenet
+mkdir -p $DATA_DIR/train $DATA_DIR/validation
+echo "staging ImageNet to $DATA_DIR ..."
+(cd $DATA_SRC/train      && ls -1 | xargs -I{} -P 16 -n 1 cp -r {} $DATA_DIR/train/)
+(cd $DATA_SRC/validation && ls -1 | xargs -I{} -P 16 -n 1 cp -r {} $DATA_DIR/validation/)
+NTR=$(ls -1 $DATA_DIR/train | wc -l); NVA=$(ls -1 $DATA_DIR/validation | wc -l)
+[ "$NTR" -eq 1000 ] && [ "$NVA" -eq 1000 ] || { echo "incomplete staging ($NTR/$NVA)"; exit 1; }
+
+python3 -u run_e1_structured.py \
+    --arch resnet50 --dataset imagenet --phase 1 --pretrained \
+    --qfamily $QFAMILY --slab gaussian --pi $PI --kl_weight $KLW \
+    --epochs $EPOCHS --warmup_epochs 0 --anneal_epochs 4 --gate_lr 0.05 --batch_size 192 \
+    --seed $SEED --device cuda --data_dir $DATA_DIR \
+    --results_file $OUT/r50_${QFAMILY}_p1_s${SEED}.json
+echo "DONE phase1. gate ckpt: $OUT/r50_${QFAMILY}_p1_s${SEED}_gnet.pt"

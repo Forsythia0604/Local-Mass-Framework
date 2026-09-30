@@ -1,0 +1,7 @@
+staging ImageNet to /jobfs/177191670.gadi-pbs/imagenet ...
+Structured run: arch=resnet50 ds=imagenet q=horseshoe phase=1 gates=32 device=cuda
+/home/561/sm5828/.local/lib/python3.10/site-packages/torch/nn/modules/conv.py:456: UserWarning: Applied workaround for CuDNN issue, install nvrtc.so (Triggered internally at ../aten/src/ATen/native/cudnn/Conv_v8.cpp:80.)
+  return F.conv2d(input, weight, bias, self.stride,
+  -> acc=74.49%  MI1=nan atom=False struct_sparsity=0.000  Gamma(0) = inf
+  saved /scratch/nu66/sm5828/bayes/e1/results/tierC/r50_horseshoe_p1_s2.json
+DONE phase1. gate ckpt: /scratch/nu66/sm5828/bayes/e1/results/tierC/r50_horseshoe_p1_s2_gnet.pt

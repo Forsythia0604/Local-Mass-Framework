@@ -1,0 +1,264 @@
+{
+  "date": "2026-09-30",
+  "passed": true,
+  "scope": "Runtime plotting, checkpoint extraction and synthetic-batch training; not full NN training.",
+  "runtime": {
+    "tests": [
+      {
+        "name": "Exp2 saved numerical data comparison",
+        "passed": true,
+        "file": "figure2_runs_long.csv",
+        "rows": 360,
+        "rtol": 1e-06,
+        "atol": 1e-10,
+        "max_absolute_difference": 1.6553514115003054e-10
+      },
+      {
+        "name": "Exp2 saved numerical data comparison",
+        "passed": true,
+        "file": "figure2_slope_summary.csv",
+        "rows": 23,
+        "rtol": 1e-06,
+        "atol": 1e-10,
+        "max_absolute_difference": 1.2505552149377763e-12
+      },
+      {
+        "name": "Rendered figure comparison",
+        "passed": true,
+        "file": "figure1_synthetic_small_ball.png",
+        "reference_shape": [
+          897,
+          1977,
+          4
+        ],
+        "generated_shape": [
+          897,
+          1977,
+          4
+        ],
+        "pixel_identical": true
+      },
+      {
+        "name": "Rendered figure comparison",
+        "passed": true,
+        "file": "figure2_uci_bayes_aggregate.png",
+        "reference_shape": [
+          897,
+          1977,
+          4
+        ],
+        "generated_shape": [
+          897,
+          1977,
+          4
+        ],
+        "pixel_identical": true
+      },
+      {
+        "name": "Rendered figure comparison",
+        "passed": true,
+        "file": "figure3_local_rekl_directionality.png",
+        "reference_shape": [
+          837,
+          1977,
+          4
+        ],
+        "generated_shape": [
+          837,
+          1977,
+          4
+        ],
+        "pixel_identical": true
+      },
+      {
+        "name": "Rendered figure comparison",
+        "passed": true,
+        "file": "fig_nn_small_ball_imagenet.png",
+        "reference_shape": [
+          987,
+          1977,
+          4
+        ],
+        "generated_shape": [
+          987,
+          1977,
+          4
+        ],
+        "pixel_identical": true
+      },
+      {
+        "name": "Rendered figure comparison",
+        "passed": true,
+        "file": "fig_nn_directional_rekl_imagenet.png",
+        "reference_shape": [
+          897,
+          1977,
+          4
+        ],
+        "generated_shape": [
+          897,
+          1977,
+          4
+        ],
+        "pixel_identical": true
+      },
+      {
+        "name": "Missing trained input produces a CLI error",
+        "passed": true
+      },
+      {
+        "name": "Duplicate seeds rejected",
+        "passed": true
+      },
+      {
+        "name": "Synthetic-batch training, extraction and metadata",
+        "passed": true,
+        "dataset": "mnist",
+        "families": 4,
+        "examples": 2,
+        "epochs": 1,
+        "shapes": {
+          "g_mu": [
+            64
+          ],
+          "g_sg": [
+            64
+          ],
+          "h_mu": [
+            64
+          ],
+          "h_sg": [
+            64
+          ],
+          "h_nu": [],
+          "ss_mu": [
+            64
+          ],
+          "ss_sg": [
+            64
+          ],
+          "ss_gamma": [
+            64
+          ],
+          "hc_theta": [
+            64
+          ],
+          "hc_p0": [
+            64
+          ],
+          "hc_sg": [
+            64
+          ]
+        },
+        "seconds": 0.174,
+        "full_training": false
+      },
+      {
+        "name": "Synthetic-batch training, extraction and metadata",
+        "passed": true,
+        "dataset": "cifar",
+        "families": 4,
+        "examples": 2,
+        "epochs": 1,
+        "shapes": {
+          "g_mu": [
+            1008
+          ],
+          "g_sg": [
+            1008
+          ],
+          "h_mu": [
+            1008
+          ],
+          "h_sg": [
+            1008
+          ],
+          "h_nu": [],
+          "ss_mu": [
+            1008
+          ],
+          "ss_sg": [
+            1008
+          ],
+          "ss_gamma": [
+            1008
+          ],
+          "hc_theta": [
+            1008
+          ],
+          "hc_p0": [
+            1008
+          ],
+          "hc_sg": [
+            1008
+          ]
+        },
+        "seconds": 0.281,
+        "full_training": false
+      },
+      {
+        "name": "Original ImageNet checkpoints reproduce saved arrays exactly",
+        "passed": true,
+        "seed": 1,
+        "families": 4,
+        "arrays": 11
+      },
+      {
+        "name": "Original ImageNet checkpoints reproduce saved arrays exactly",
+        "passed": true,
+        "seed": 2,
+        "families": 4,
+        "arrays": 11
+      },
+      {
+        "name": "Original ImageNet checkpoints reproduce saved arrays exactly",
+        "passed": true,
+        "seed": 3,
+        "families": 4,
+        "arrays": 11
+      },
+      {
+        "name": "Synthetic plotting",
+        "passed": true,
+        "expected_files": 3
+      }
+    ],
+    "structured_driver": {
+      "passed": true,
+      "scope": "One synthetic batch through the structured driver, checkpoint and JSON save",
+      "new_parent_created": true,
+      "checkpoint_readable": true,
+      "full_cli_configuration_recorded": true,
+      "full_training": false
+    },
+    "environment": {
+      "python": "3.11.16",
+      "platform": "macOS arm64",
+      "device": "cpu",
+      "numpy": "2.4.6",
+      "scipy": "1.17.1",
+      "matplotlib": "3.11.1",
+      "scikit-learn": "1.9.0",
+      "torch": "2.13.0",
+      "torchvision": "0.28.0",
+      "fresh_install_verified": false
+    }
+  },
+  "static_and_output_checks": {
+    "source_files_in_manifest": 105,
+    "byte_identical_source_copies": 99,
+    "updated_source_files": 6,
+    "new_metadata_helper": true,
+    "original_source_hashes_unchanged": true,
+    "python_files_parsed": 35,
+    "scientific_functions_and_classes_unchanged": 121,
+    "active_local_markdown_links_checked": 12,
+    "imagenet_table_families": 4,
+    "imagenet_table_seed_rows": 12,
+    "table_atom_values_match_saved_arrays": true,
+    "final_imagenet_pngs_pixel_identical": true,
+    "new_files_trackable": true,
+    "caches_removed": 8,
+    "git_metadata_absent": true
+  }
+}

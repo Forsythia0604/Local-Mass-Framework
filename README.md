@@ -1,70 +1,113 @@
-# Local-Mass Experiment Figures
+# Local-Mass Framework — Experiments 1–5
 
-This repository contains a compact, reproducible implementation of the
-experiment plan in `experiment_section_requirements_figure2_uci_aggregate.md`.
-The code generates publication-oriented, single-column figures for finite-radius
-local-mass illustrations. More details are in the following paper:
+Code and supplied results for **Beyond Global Divergences: A Local-Mass Perspective
+on Bayesian Inference**, Hanli Xu, Fengxiang He and Sarat Moka (2026).
+[Paper link from the original repository](http://fengxianghe.github.io/paper/LocalMass.pdf).
 
-Hanli Xu, Fengxiang He, Sarat Moka. Beyond Global Divergences: A Local-Mass Perspective on Bayesian Inference. 2026. [paper](http://fengxianghe.github.io/paper/LocalMass.pdf)
+This is a lightweight consolidation of the existing Experiments 1–3 repository
+and the supervisor-provided Experiments 4–5 package. Original figures, tables,
+small data files and run records are preserved. Newly generated outputs go into
+`results/generated/`, separately from the supplied results.
 
-## What the script generates
+## Experiment index
 
-- `figure1_synthetic_small_ball.pdf`: synthetic finite-radius small-ball curves.
-- `figure2_uci_bayes_aggregate.pdf`: aggregated real-data Bayesian reweighting
-  example over Breast Cancer, Iris, and Wine, with 5 seeds each.
-- `figure3_local_rekl_directionality.pdf`: synthetic local RE-KL directionality.
-- CSV and JSON files under `results/data/` containing the Figure 2 run-level
-  curves, slope summaries, and metadata.
+| Experiment | Subject | Entry point under `experiments/` | Supplied material |
+|---|---|---|---|
+| 1 | Synthetic small-ball mass | `local_mass_experiments.py` | PDF and PNG |
+| 2 | UCI Bayesian logistic regression | `local_mass_experiments.py` | PDF, PNG, run-level CSV, summaries and metadata |
+| 3 | Synthetic directional local RE-KL | `local_mass_experiments.py` | PDF and PNG |
+| 4 | LeNet-5 / MNIST weight marginals | `neural_networks/experiment_scripts/train_marginals.py` | Code and reference figures; original marginal input is missing |
+| 5 / CIFAR-10 | ResNet-56 channel gates | `neural_networks/experiment_scripts/structured_marginals.py` | Code, reference figures and frozen CIFAR base weights; original marginal input is missing |
+| 5 / ImageNet | ResNet-50 channel gates, three seeds | `neural_networks/experiment_scripts/imagenet_multiseed.py` | Three marginal files, reference figures and training records |
 
-PNG previews are also written at 600 dpi unless `--no-png` is passed.
+Experiments 1–3 intentionally share one script. Experiments 4–5 retain their
+original internal module hierarchy. See the [neural-network guide](experiments/neural_networks/README.md)
+for training and extraction commands.
 
-## Model choices
+## Quick start
 
-Figure 2 uses three small UCI datasets from `scikit-learn`:
+Run commands from this repository's root directory. Use Python 3.11 for the
+verified version set below. Exp1–3 and saved-marginal ImageNet plotting were
+validated on macOS arm64 / CPU; see the [reproduction guide](docs/REPRODUCIBILITY.md)
+for exact versions, data preparation, parameters and verification limits.
 
-- Breast Cancer, binary classification.
-- Iris, restricted to classes 0 and 1.
-- Wine, restricted to classes 0 and 1.
-
-For each dataset and seed, covariates are standardized within the training split
-and reduced to four PCA covariates. An intercept is then added, so the Bayesian
-logistic-regression parameter has dimension 5. The Gaussian-prior posterior is
-approximated by a Laplace Gaussian. The center `theta0` is the mean of this
-Laplace posterior, which is the posterior mode under the Gaussian approximation.
-Both prior and posterior small-ball masses are evaluated around this same
-`theta0`.
-
-Small-ball masses are not estimated by rare-event sampling. They are computed by
-Sobol quadrature over the Euclidean ball:
-
-```text
-mass(B_r(theta0)) = volume(B_r) * average density on B_r(theta0).
+```sh
+python -m venv .venv
+# macOS / Linux:
+source .venv/bin/activate
+# Windows PowerShell instead: .venv\Scripts\Activate.ps1
+python -m pip install -r requirements-verified.txt
 ```
 
-This keeps the experiment in the finite-radius, low-dimensional regime described
-by the MD requirements. It is a finite-radius illustration, not a scalable
-diagnostic procedure and not an asymptotic estimator.
+Generate Experiments 1–3:
 
-## Run
-
-If the packages are installed globally:
-
-```powershell
+```sh
 python experiments/local_mass_experiments.py
 ```
 
-In this workspace, dependencies were installed into `.codex_deps`. Run with the
-bundled Python from Codex:
+This creates `results/generated/exp01_03/figures/` and
+`results/generated/exp01_03/data/`. The default uses 2^15 Sobol points per run.
+Use `--qmc-power` and `--output-dir` for explicit overrides.
 
-```powershell
-C:\Users\JoKannritsu\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe experiments\local_mass_experiments.py
+Regenerate the two ImageNet figures from the included marginals (no training,
+GPU, ImageNet dataset or ImageNet checkpoint is needed):
+
+```sh
+python experiments/neural_networks/experiment_scripts/imagenet_multiseed.py --seeds 1 2 3 --marg_dir data/marginals
 ```
 
-Optional arguments:
+The figures go to `results/generated/exp04_05/figures/`, together with a
+four-family LaTeX table and a 12-row per-seed CSV. The script also prints the
+summary. Supplied reference results are not overwritten.
 
-```powershell
-python experiments/local_mass_experiments.py --qmc-power 15 --output-dir results
+## Layout
+
+```text
+experiments/                  Exp1–3 script and intact Exp4–5 module hierarchy
+data/marginals/               Included ImageNet marginal inputs, three seeds
+data/imagenet_runs/           Original per-run JSON, logs and PBS records
+data/imagenet_checkpoints/    Instructions for optional external checkpoints
+results/figures/              Supplied reference PDF and PNG figures
+results/tables/               Supplied reference LaTeX tables
+results/data/                 Supplied Exp2 CSV and JSON data
+results/generated/            New outputs; ignored by Git
+paper/sections/               Two original LaTeX manuscript fragments
+docs/originals/               Original READMEs and provenance, for historical context
+docs/                        Merge notes, limitations and file checksums
 ```
 
-`--qmc-power 15` uses `2^15` Sobol points per run for the Figure 2 ball
-integrals.
+## Reproduction status
+
+- The original MNIST and CIFAR marginal inputs are missing. Retraining is needed
+  to produce new curves; exact agreement with the supplied figures is not promised.
+- ImageNet has all four families across three saved seeds. The supplied ImageNet
+  `.tex` table contains only two families and is retained as a historical artifact;
+  the current script generates a separate complete table.
+- Several plots and internal keys use `Horseshoe` for the mean-field Student-t
+  representative. This initial merge preserves those names and numbers.
+- Hard-concrete plots use the original effective Gaussian approximation to the
+  active component. Exp1–3 finite-radius illustrations and Exp4–5 pooled marginal
+  diagnostics retain their original computational definitions.
+- Exp1–3 and ImageNet figures were regenerated successfully and matched the
+  supplied PNGs pixel-for-pixel. All ImageNet checkpoint-to-marginal arrays matched
+  exactly. Small synthetic-batch NN training checks passed; full training remains
+  unverified. See [verification details](docs/REPRODUCIBILITY.md).
+
+See [known issues](docs/KNOWN_ISSUES.md) and [merge notes](docs/MERGE_NOTES.md).
+
+## Sources and attribution
+
+Experiments 1–3 come from `Local-Mass-Framework` (Hanli Xu's supplied repository).
+Experiments 4–5 come from the supplied `Experiments4and5` package. This merge
+preserves original comments and does not reassign scientific or code authorship.
+The original repository remote was
+`https://github.com/Forsythia0604/Local-Mass-Framework.git`.
+
+The CIFAR ResNet-56 implementation describes compatibility with the
+Torch-Pruning / DepGraph v1.1.4 checkpoint. Its supplied 3.4 MiB base weight is
+retained at the location expected by the training script. See
+[source and third-party notes](docs/SOURCES.md).
+
+No license file was present in either supplied tree, and no new license is
+assigned by this consolidation. Large ImageNet weights and the delivery ZIP are
+kept outside this lightweight folder. Git metadata is not copied or initialized.

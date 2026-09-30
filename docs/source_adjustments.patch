@@ -1,0 +1,213 @@
+--- source/Local-Mass-Framework/experiments/local_mass_experiments.py
++++ experiments/local_mass_experiments.py
+@@ -600,7 +600,7 @@
+     parser.add_argument(
+         "--output-dir",
+         type=Path,
+-        default=ROOT / "results",
++        default=ROOT / "results" / "generated" / "exp01_03",
+         help="Directory for figures and data.",
+     )
+     parser.add_argument(
+--- source/Experiments4and5/code/experiment_scripts/imagenet_multiseed.py
++++ experiments/neural_networks/experiment_scripts/imagenet_multiseed.py
+@@ -14,6 +14,7 @@
+ from __future__ import annotations
+ 
+ import argparse
++import csv
+ import math
+ from pathlib import Path
+ 
+@@ -40,18 +41,52 @@
+     return a.mean(axis=0), a.std(axis=0, ddof=1) if a.shape[0] > 1 else np.zeros(a.shape[1])
+ 
+ 
++def write_summary(summary, seeds, out, tag):
++    """Export the already-computed per-seed values and four-family summary."""
++    rows = []
++    lines = [r"\begin{tabular}{lcccc}", r"\toprule",
++             r"Family & Atom? & $\mathrm{MI}_{\mathrm{pow}}$ & Atom mean & Atom SD \\",
++             r"\midrule"]
++    for name in ORDER:
++        values = summary[name]
++        for i, seed in enumerate(seeds):
++            rows.append({"family": name, "seed": seed, "has_atom": values["has_atom"],
++                         "mi_pow": values["mi"][i], "finite_radius_slope": values["slope"][i],
++                         "atom_mass": values["atom"][i]})
++        mi = (r"$\infty$" if all(math.isinf(x) for x in values["mi"])
++              else f"{np.mean(values['mi']):.2f}")
++        sd = f"{values['atom'].std(ddof=1):.6f}" if len(seeds) > 1 else "--"
++        atom = "yes" if values["has_atom"] else "no"
++        lines.append(f"{name} & {atom} & {mi} & {values['atom'].mean():.6f} & {sd} " + r"\\")
++    lines.extend([r"\bottomrule", r"\end{tabular}"])
++    (out / f"table_nn_mi{tag}.tex").write_text("\n".join(lines) + "\n", encoding="utf-8")
++    with (out / f"table_nn_mi{tag}_runs.csv").open("w", newline="", encoding="utf-8") as stream:
++        writer = csv.DictWriter(stream, fieldnames=list(rows[0]))
++        writer.writeheader()
++        writer.writerows(rows)
++
++
+ def main():
+     ap = argparse.ArgumentParser(description=__doc__)
+     ap.add_argument("--seeds", type=int, nargs="+", default=[1, 2, 3])
+-    ap.add_argument("--marg_dir", default="marginals")
++    ap.add_argument("--marg_dir", default=str(ROOT / "data" / "marginals"))
+     ap.add_argument("--pi", type=float, default=0.2)
+     ap.add_argument("--slab_loc", type=float, default=1.0)
+     ap.add_argument("--grid_max", type=float, default=1.2)
+     ap.add_argument("--tag", default="_imagenet")
++    ap.add_argument("--output-dir", type=Path,
++                    default=ROOT / "results" / "generated" / "exp04_05" / "figures",
++                    help="Directory for newly generated outputs.")
+     args = ap.parse_args()
++    if len(set(args.seeds)) != len(args.seeds):
++        ap.error("--seeds must not contain duplicates")
++    missing = [str(Path(args.marg_dir) / f"imagenet_marginals_s{s}.npz") for s in args.seeds
++               if not (Path(args.marg_dir) / f"imagenet_marginals_s{s}.npz").is_file()]
++    if missing:
++        ap.error("Missing marginal input(s): " + ", ".join(missing))
+ 
+     configure_matplotlib()
+-    out = ROOT / "results" / "figures"; out.mkdir(parents=True, exist_ok=True)
++    out = args.output_dir; out.mkdir(parents=True, exist_ok=True)
+     prior = SpikeSlabPrior(pi=args.pi, s=1.0, loc=args.slab_loc)
+     radii = np.geomspace(1e-3, args.grid_max, 24)
+     fams_by_seed = load_seeds(args.seeds, args.marg_dir)
+@@ -107,7 +142,8 @@
+         am = "%.5f +- %.5f" % (d["atom"].mean(), d["atom"].std(ddof=1))
+         print("%-16s %-6s %-10s %-22s %.2e" % (name, "yes" if d["has_atom"] else "no",
+                                                mi, am, d["curve_rel_spread"]))
+-    print("figures -> %s" % out)
++    write_summary(summary, args.seeds, out, args.tag)
++    print("figures + table + per-seed CSV -> %s" % out)
+ 
+ 
+ if __name__ == "__main__":
+--- source/Experiments4and5/code/experiment_scripts/local_mass_nn.py
++++ experiments/neural_networks/experiment_scripts/local_mass_nn.py
+@@ -35,7 +35,7 @@
+ from scipy.stats import norm, t as student_t
+ from scipy.integrate import quad
+ 
+-ROOT = Path(__file__).resolve().parent
++ROOT = Path(__file__).resolve().parents[3]
+ os.environ.setdefault("MPLCONFIGDIR", str(ROOT / "results" / ".mplconfig"))
+ (ROOT / "results" / ".mplconfig").mkdir(parents=True, exist_ok=True)
+ import matplotlib
+@@ -311,12 +311,19 @@
+     ap.add_argument("--grid_max", type=float, default=0.3, help="max radius (use ~1.2 for gates)")
+     ap.add_argument("--tag", default="", help="suffix for output filenames (e.g. _cifar)")
+     ap.add_argument("--no-png", action="store_true")
++    ap.add_argument("--output-dir", type=Path,
++                    default=ROOT / "results" / "generated" / "exp04_05" / "figures",
++                    help="Directory for newly generated outputs.")
+     args = ap.parse_args()
++    if args.mode == "trained" and not args.npz:
++        ap.error("--npz is required with --mode trained")
++    if args.mode == "trained" and not Path(args.npz).is_file():
++        ap.error(f"Marginal input does not exist: {args.npz}")
+ 
+     configure_matplotlib()
+     global TAG
+     TAG = args.tag
+-    out = ROOT / "results" / "figures"; out.mkdir(parents=True, exist_ok=True)
++    out = args.output_dir; out.mkdir(parents=True, exist_ok=True)
+     prior = SpikeSlabPrior(pi=args.pi, s=args.slab_scale, loc=args.slab_loc)
+     fams = synthetic_marginals() if args.mode == "synthetic" else trained_marginals(args.npz)
+ 
+--- source/Experiments4and5/code/experiment_scripts/structured_marginals.py
++++ experiments/neural_networks/experiment_scripts/structured_marginals.py
+@@ -32,6 +32,7 @@
+ from structured.engine_structured import train_elbo
+ from qfamilies.hardconcrete_l0 import _CONST as HC_CONST
+ from data import get_dataloaders, set_seed
++from run_metadata import write_metadata
+ 
+ OP_KLW = {"gaussian": 1e-3, "horseshoe": 1e-3, "spikeslab": 1e-2, "hardconcrete": 1e-2}
+ 
+@@ -116,7 +117,7 @@
+     ap.add_argument("--gate_lr", type=float, default=0.05)
+     ap.add_argument("--batch_size", type=int, default=128)
+     ap.add_argument("--seed", type=int, default=1)
+-    ap.add_argument("--data_dir", default="./data")
++    ap.add_argument("--data_dir", default="./data/raw")
+     ap.add_argument("--ckpt_dir", default=os.path.join(HERE, "imagenet_ckpts"),
+                     help="dir of r50_<family>_p1_s<seed>_gnet.pt (for --arch resnet50)")
+     ap.add_argument("--device", default="auto", choices=["auto", "cpu", "mps", "cuda"])
+@@ -147,7 +148,17 @@
+                 else float(np.mean(st["extra"])) if fam == "hardconcrete" else 0.0)
+         print(f"[{fam}] channels={st['mu'].size}  atom mass={atom:.3f}", flush=True)
+ 
++    os.makedirs(os.path.dirname(os.path.abspath(args.out)), exist_ok=True)
+     np.savez_compressed(args.out, **saved)
++    if args.arch == "resnet56":
++        write_metadata(args.out, args, mode="gate_training", device_used=str(device),
++                       kl_weight_by_family=OP_KLW, split_seed=42,
++                       anneal_epochs=max(1, args.epochs // 2),
++                       hardconcrete_active_scale="0.15; effective Gaussian approximation")
++    else:
++        write_metadata(args.out, args, mode="checkpoint_extraction", device_used="cpu",
++                       note="Arguments describe extraction, not the checkpoints' original training configuration.",
++                       hardconcrete_active_scale="0.15; effective Gaussian approximation")
+     print(f"saved structured marginals -> {args.out}  keys={sorted(saved.keys())}")
+ 
+ 
+--- source/Experiments4and5/code/experiment_scripts/train_marginals.py
++++ experiments/neural_networks/experiment_scripts/train_marginals.py
+@@ -32,6 +32,7 @@
+ from layers.bayes_layers import bayes_layers
+ from engine import train_vi
+ from qfamilies.hardconcrete_l0 import _CONST as HC_CONST
++from run_metadata import write_metadata
+ 
+ # per-family KL weight (continuous families and spike-slab calibrated at 1e-3;
+ # hard-concrete's expected-L0 needs a larger weight to engage its gates)
+@@ -92,7 +93,7 @@
+     ap.add_argument("--val_frac", type=float, default=0.1)
+     ap.add_argument("--subsample", type=int, default=50000)
+     ap.add_argument("--seed", type=int, default=1)
+-    ap.add_argument("--data_dir", default="/scratch/nu66/sm5828/pruning/data")
++    ap.add_argument("--data_dir", default="./data/raw")
+     ap.add_argument("--device", default="cuda", choices=["auto", "cpu", "mps", "cuda"])
+     ap.add_argument("--out", default="marginals.npz")
+     ap.add_argument("--verbose", action="store_true")
+@@ -128,7 +129,11 @@
+             saved["hc_sg"] = np.maximum(0.02, 0.5 * np.abs(theta))   # active-part scale
+         print(f"[{family}] done: nll={tr['final_nll']:.4f}  coords saved={st['mu'].size}", flush=True)
+ 
++    os.makedirs(os.path.dirname(os.path.abspath(args.out)), exist_ok=True)
+     np.savez_compressed(args.out, **saved)
++    write_metadata(args.out, args, mode="weight_training", device_used=str(device),
++                   kl_weight_by_family=OP_KLW, split_seed=42,
++                   hardconcrete_active_scale="max(0.02, 0.5 * abs(theta)); effective Gaussian approximation")
+     print(f"saved marginals -> {args.out}  keys={sorted(saved.keys())}")
+ 
+ 
+--- source/Experiments4and5/code/run_e1_structured.py
++++ experiments/neural_networks/run_e1_structured.py
+@@ -82,6 +82,7 @@
+ 
+ def main():
+     args = build_args()
++    os.makedirs(os.path.dirname(os.path.abspath(args.results_file)), exist_ok=True)
+     from data import get_dataloaders, set_seed
+     device = pick_device(args.device)
+     set_seed(args.seed)
+@@ -115,7 +116,7 @@
+         mi, budget, sparsity = gnet.measure(prior, mi_samples=args.mi_samples, threshold=args.threshold)
+         torch.save({"gnet": gnet.state_dict()}, ckpt)
+         result = {
+-            "meta": {"arch": args.arch, "dataset": args.dataset, "qfamily": args.qfamily,
++            "meta": {**vars(args), "arch": args.arch, "dataset": args.dataset, "qfamily": args.qfamily,
+                      "slab": args.slab, "pi": args.pi, "kl_weight": args.kl_weight,
+                      "epochs": args.epochs, "seed": args.seed, "phase": args.phase,
+                      "vi_scope": "structured", "device": str(device)},
+@@ -124,7 +125,6 @@
+             "predicted_class": predicted_class(args.qfamily),
+         }
+ 
+-    os.makedirs(os.path.dirname(os.path.abspath(args.results_file)), exist_ok=True)
+     with open(args.results_file, "w") as f:
+         json.dump(result, f, indent=2, default=str)
+     if "sparsity" in result:

@@ -1,0 +1,38 @@
+#!/bin/bash
+#PBS -q gpuvolta
+#PBS -P nu66
+#PBS -l ncpus=12
+#PBS -l ngpus=1
+#PBS -l mem=32GB
+#PBS -l walltime=02:00:00
+#PBS -l storage=scratch/nu66
+#PBS -l jobfs=10GB
+#PBS -M s.moka@unsw.edu.au
+#PBS -m ae
+#PBS -j oe
+#PBS -N e1_marginals
+#PBS -r y
+# =========================================================================
+# Part 1: train the four small Bayesian NNs (LeNet-5/MNIST) and emit the
+# per-coordinate variational marginal stats (.npz) for the their-style figures.
+# Submit from this directory:  qsub run_marginals.pbs
+# Then build the figures LOCALLY (numpy/scipy/matplotlib):
+#   python local_mass_nn.py --mode trained --npz <scp'd marginals.npz>
+# (MNIST is already in the shared FLOPP data dir; no download needed.)
+# =========================================================================
+cd $PBS_O_WORKDIR
+module load python3/3.10.4
+python3 -c "import torch; assert torch.cuda.is_available(), 'No CUDA'" || exit 1
+
+OUT=${OUT:-/scratch/nu66/sm5828/bayes/e1/results/their_style}
+mkdir -p $OUT
+LOG=$OUT/marginals.log
+exec > "$LOG" 2>&1
+
+python3 -u train_marginals.py \
+    --arch lenet --dataset mnist --pi 0.5 \
+    --epochs 15 --anneal_epochs 5 --subsample 50000 \
+    --seed 1 --device cuda \
+    --data_dir /scratch/nu66/sm5828/pruning/data \
+    --out $OUT/marginals.npz
+echo "DONE. marginals at $OUT/marginals.npz  (log: $LOG)"

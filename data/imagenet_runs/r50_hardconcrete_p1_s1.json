@@ -1,0 +1,46 @@
+{
+  "meta": {
+    "arch": "resnet50",
+    "dataset": "imagenet",
+    "qfamily": "hardconcrete",
+    "slab": "gaussian",
+    "pi": 0.2,
+    "kl_weight": 0.0001,
+    "epochs": 8,
+    "seed": 1,
+    "phase": 1,
+    "vi_scope": "structured",
+    "device": "cuda"
+  },
+  "train": {
+    "final_nll": 0.9820264043527712,
+    "kl_final": 7378.014772392919
+  },
+  "eval": {
+    "test_acc": 67.588,
+    "test_nll": 1.3632133586120605
+  },
+  "sparsity": {
+    "threshold_eps": 0.001,
+    "channels_total": 7552,
+    "channels_off": 0,
+    "structural_sparsity": 0.0
+  },
+  "mass_index": {
+    "alpha_hat": 0.0,
+    "beta_hat": NaN,
+    "mi1_hat": Infinity,
+    "mi2_hat": NaN,
+    "atom_detected": true,
+    "atom_mass_hat": 0.023205773305084745
+  },
+  "budget": {
+    "alpha": 1.0,
+    "atom_p": 0.8,
+    "atom_q_mean": 0.02313915133709088,
+    "gamma_forward": 89.34930333492105,
+    "gamma_forward_is_inf": false,
+    "q_has_atom": true
+  },
+  "predicted_class": "atom-capable"
+}

@@ -1,0 +1,16 @@
+Loading python3/3.10.4
+  Loading requirement: intel-mkl/2021.4.0
+
+======================================================================================
+                  Resource Usage on 2026-08-24 18:32:17:
+   Job Id:             177191673.gadi-pbs
+   Project:            nu66
+   Exit Status:        0
+   Service Units:      135.37
+   NCPUs Requested:    12                  CPU Time Used: 18:35:12        
+   Memory Requested:   64.0GB                Memory Used: 64.0GB          
+   NGPUs Requested:    1                 GPU Utilisation: 89%             
+                                         GPU Memory Used: 15.85GB         
+   Walltime Requested: 10:00:00            Walltime Used: 03:45:37        
+   JobFS Requested:    200.0GB                JobFS Used: 143.19GB        
+======================================================================================
