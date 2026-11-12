@@ -1,0 +1,27 @@
+#!/bin/bash
+#PBS -l ncpus=12
+#PBS -l ngpus=1
+#PBS -l mem=32GB
+#PBS -l walltime=02:00:00
+#PBS -l jobfs=10GB
+#PBS -j oe
+#PBS -N nn_marginals
+#PBS -r y
+# Set site-specific queue, project and storage flags via qsub.
+# Activate a Python environment with PyTorch before submission.
+set -euo pipefail
+# Submit from experiments/neural_networks/experiment_scripts/.
+cd "${PBS_O_WORKDIR:?Submit using PBS from the experiment-scripts directory}"
+python3 -c "import torch; assert torch.cuda.is_available(), 'No CUDA'"
+OUT=${OUT:-../../../results/generated/mnist_training}
+DATA_DIR=${DATA_DIR:-../../../data/raw}
+mkdir -p "$OUT"
+LOG="$OUT/marginals.log"
+exec > "$LOG" 2>&1
+
+python3 -u train_marginals.py \
+    --arch lenet --dataset mnist --pi 0.5 \
+    --epochs 15 --anneal_epochs 5 --subsample 50000 \
+    --seed 1 --device cuda --data_dir "$DATA_DIR" \
+    --out "$OUT/marginals.npz"
+echo "DONE. marginals at $OUT/marginals.npz (log: $LOG)"

@@ -1,4 +1,0 @@
-.codex_deps/
-__pycache__/
-*.pyc
-results/.mplconfig/

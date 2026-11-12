@@ -1,0 +1,33 @@
+# Operating-system files and Python environments/caches
+.DS_Store
+._*
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.codex_deps/
+.pytest_cache/
+.mplconfig/
+.env
+.env.*
+!.env.example
+.ipynb_checkpoints/
+
+# Generated outputs and dataset caches; included marginal inputs remain trackable.
+/results/generated/
+/data/raw/
+/data/generated/
+/experiments/neural_networks/results/
+/experiments/neural_networks/experiment_scripts/results/
+/experiments/neural_networks/data/
+/experiments/neural_networks/experiment_scripts/data/
+
+# Large optional weights and archives
+*.pt
+*.pth
+!experiments/neural_networks/experiment_scripts/flopp/cifar10_resnet56.pth
+*.zip
+*.tar
+*.tar.gz
+/data/imagenet_checkpoints/*
+!/data/imagenet_checkpoints/README.md

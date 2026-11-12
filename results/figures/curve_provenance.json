@@ -1,0 +1,32 @@
+[
+  {
+    "figure": "fig_nn_small_ball",
+    "curves_preserved": 5,
+    "transformation": "affine reflow of supplied vector path coordinates"
+  },
+  {
+    "figure": "fig_nn_directional_rekl",
+    "curves_preserved": 3,
+    "transformation": "affine reflow of supplied vector path coordinates"
+  },
+  {
+    "figure": "fig_nn_small_ball_cifar",
+    "curves_preserved": 5,
+    "transformation": "affine reflow of supplied vector path coordinates"
+  },
+  {
+    "figure": "fig_nn_small_ball_imagenet",
+    "curves_preserved": 5,
+    "transformation": "affine reflow of supplied vector path coordinates"
+  },
+  {
+    "figure": "fig_nn_directional_rekl_cifar",
+    "curves_preserved": 3,
+    "transformation": "affine reflow of supplied vector path coordinates"
+  },
+  {
+    "figure": "fig_nn_directional_rekl_imagenet",
+    "curves_preserved": 3,
+    "transformation": "affine reflow of supplied vector path coordinates"
+  }
+]

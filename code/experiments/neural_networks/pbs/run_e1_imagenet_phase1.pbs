@@ -1,0 +1,44 @@
+#!/bin/bash
+#PBS -l ncpus=12
+#PBS -l ngpus=1
+#PBS -l mem=64GB
+#PBS -l walltime=24:00:00
+#PBS -l jobfs=200GB
+#PBS -j oe
+#PBS -N imagenet_p1
+#PBS -r y
+# Set site-specific queue, project and storage flags via qsub.
+# Activate a Python environment with PyTorch before submission.
+set -euo pipefail
+# Submit from experiments/neural_networks/ with DATA_SRC exported via qsub.
+cd "${PBS_O_WORKDIR:?Submit using PBS from the neural-network directory}"
+: "${DATA_SRC:?Set DATA_SRC to an ImageNet root containing train/ and validation/}"
+: "${PBS_JOBFS:?Node-local scratch is required for staging}"
+python3 -c "import torch; assert torch.cuda.is_available(), 'No CUDA'"
+
+QFAMILY=${QFAMILY:-spikeslab}
+KLW=${KLW:-1e-4}
+PI=${PI:-0.2}
+EPOCHS=${EPOCHS:-8}
+SEED=${SEED:-1}
+OUT=${OUT:-../../results/generated/imagenet_training}
+mkdir -p "$OUT"
+LOG="$OUT/r50_${QFAMILY}_p1_s${SEED}.log"
+exec > "$LOG" 2>&1
+
+DATA_DIR="$PBS_JOBFS/imagenet"
+mkdir -p "$DATA_DIR/train" "$DATA_DIR/validation"
+echo "staging ImageNet to $DATA_DIR ..."
+cp -R "$DATA_SRC/train/." "$DATA_DIR/train/"
+cp -R "$DATA_SRC/validation/." "$DATA_DIR/validation/"
+NTR=$(find "$DATA_DIR/train" -mindepth 1 -maxdepth 1 -type d | wc -l)
+NVA=$(find "$DATA_DIR/validation" -mindepth 1 -maxdepth 1 -type d | wc -l)
+[ "$NTR" -eq 1000 ] && [ "$NVA" -eq 1000 ] || { echo "incomplete staging ($NTR/$NVA)"; exit 1; }
+
+python3 -u run_e1_structured.py \
+    --arch resnet50 --dataset imagenet --phase 1 --pretrained \
+    --qfamily "$QFAMILY" --slab gaussian --pi "$PI" --kl_weight "$KLW" \
+    --epochs "$EPOCHS" --warmup_epochs 0 --anneal_epochs 4 --gate_lr 0.05 --batch_size 192 \
+    --seed "$SEED" --device cuda --data_dir "$DATA_DIR" \
+    --results_file "$OUT/r50_${QFAMILY}_p1_s${SEED}.json"
+echo "DONE phase1. gate ckpt: $OUT/r50_${QFAMILY}_p1_s${SEED}_gnet.pt"
